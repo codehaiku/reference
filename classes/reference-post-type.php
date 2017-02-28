@@ -49,8 +49,9 @@ final class PostType {
 	 * @var      string    $name       The name of the plugin.
 	 * @var      string    $version    The version of this plugin.
 	 */
-	public function __construct( $name, $version, $loader ) {
-		global $dscKnB;
+	public function __construct( $name, $version, $loader )
+    {
+		global $dsc_knb;
 
 		$this->loader = $loader;
 
@@ -58,7 +59,7 @@ final class PostType {
 
 		$this->version = $version;
 
-		$this->opts = $dscKnB;
+		$this->opts = $dsc_knb;
 
 		add_action('init', array( $this, "register_post_type_and_taxonomies" ));
 

@@ -36,24 +36,36 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since    1.0
  */
 
-class ReferenceActivator
+class Activator
 {
 
-	public static function activate()
+    public static function activate()
     {
-		$options = array(
-				'title'				=>	'Knowledgebase',
-				'all_text'			=>	'View all %s articles',
-				'singular'			=>	'Knowledgebase',
-				'plural'			=>	'Knowledgebase',
-				'category'			=>	'Category',
-				'category_plural'	=>	'Categories',
-				'slug'				=>	'knowledgebase',
-				'cat_slug'			=>	'dsc-knb-categories',
-				'override_category'	=>	'1',
-				'override_single'	=>	'1',
-				'override_search'	=>	'1',
-			);
-	}
+        $get_opts = get_option('dsc_knb_settings');
+
+        $options = array(
+            'dsc_knb_slug'	                =>	'dsc-knowledgebase',
+            'dsc_knb_category_slug'         =>	'dsc-knb-categories',
+            'dsc_knb_tag_slug'              =>	'dsc-knb-tags',
+
+            'dsc_knb_singular'              =>	'Knowledgebase',
+            'dsc_knb_plural'                =>	'Knowledgebase',
+            'dsc_knb_category_singular'     =>	'Knowledgebase Category',
+            'dsc_knb_category_plural'       =>	'Knowledgebase Categories',
+            'dsc_knb_tag_singular'          =>	'Knowledgebase Tag',
+            'dsc_knb_tag_plural'            =>	'Knowledgebase Tags',
+
+            'dsc_knb_archive_column'        =>	'3',
+            'dsc_knb_syntax_highlighting'   =>	true,
+            'dsc_knb_comment_feedback'      =>	true,
+            'dsc_knb_toc'                   =>	true,
+            'dsc_knb_breadcrumbs'           =>	true,
+        );
+
+        if(empty($get_opts)){
+            add_option('dsc_knb_settings', serialize($options));
+        }
+        // delete_option( 'dsc_knb_settings' );
+    }
 
 }
