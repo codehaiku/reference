@@ -23,6 +23,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     return;
 }
+define( 'REFERENCE_DIR_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 /**
  * The code that runs during plugin activation.
@@ -42,19 +43,8 @@ register_activation_hook( __FILE__, array( 'Activator', 'activate' ) );
 /**
  *This action is documented in classes/reference-deactivator.php
  */
-register_activation_hook( __FILE__, array( 'ReferenceDeactivator', 'deactivate' ) );
+register_activation_hook( __FILE__, array( 'Deactivator', 'deactivate' ) );
 
-/*
- * Create Global Variable
- */
-global $dsc_knb;
-
-$dsc_knb = get_option('dsc_knb_settings');
-
-echo gettype(unserialize($dsc_knb));
-if(!empty($dsc_knb)){
-	$dsc_knb = unserialize($dsc_knb);
-}
 
 require_once plugin_dir_path( __FILE__ ) . 'classes/reference-loader.php';
 

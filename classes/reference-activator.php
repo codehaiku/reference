@@ -41,31 +41,30 @@ class Activator
 
     public static function activate()
     {
-        $get_opts = get_option('dsc_knb_settings');
 
         $options = array(
-            'dsc_knb_slug'	                =>	'dsc-knowledgebase',
-            'dsc_knb_category_slug'         =>	'dsc-knb-categories',
-            'dsc_knb_tag_slug'              =>	'dsc-knb-tags',
+            'reference_knb_slug'	                 =>	'dsc-knowledgebase',
+            'reference_knb_category_slug'         =>	'dsc-knb-categories',
+            'reference_knb_tag_slug'              =>	'dsc-knb-tags',
 
-            'dsc_knb_singular'              =>	'Knowledgebase',
-            'dsc_knb_plural'                =>	'Knowledgebase',
-            'dsc_knb_category_singular'     =>	'Knowledgebase Category',
-            'dsc_knb_category_plural'       =>	'Knowledgebase Categories',
-            'dsc_knb_tag_singular'          =>	'Knowledgebase Tag',
-            'dsc_knb_tag_plural'            =>	'Knowledgebase Tags',
+            'reference_knb_singular'              =>	'Knowledgebase',
+            'reference_knb_plural'                =>	'Knowledgebase',
+            'reference_knb_category_singular'     =>	'Knowledgebase Category',
+            'reference_knb_category_plural'       =>	'Knowledgebase Categories',
+            'reference_knb_tag_singular'          =>	'Knowledgebase Tag',
+            'reference_knb_tag_plural'            =>	'Knowledgebase Tags',
 
-            'dsc_knb_archive_column'        =>	'3',
-            'dsc_knb_syntax_highlighting'   =>	true,
-            'dsc_knb_comment_feedback'      =>	true,
-            'dsc_knb_toc'                   =>	true,
-            'dsc_knb_breadcrumbs'           =>	true,
+            'reference_knb_archive_column'        =>	'3',
+            'reference_knb_syntax_highlighting'   =>	true,
+            'reference_knb_comment_feedback'      =>	true,
+            'reference_knb_toc'                   =>	true,
+            'reference_knb_breadcrumbs'           =>	true,
         );
 
-        if(empty($get_opts)){
-            add_option('dsc_knb_settings', serialize($options));
+        foreach ($options as $key => $value) {
+            update_option( $key, $value );
         }
-        // delete_option( 'dsc_knb_settings' );
+
     }
 
 }

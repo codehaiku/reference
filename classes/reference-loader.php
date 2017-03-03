@@ -77,7 +77,7 @@ class Loader
 		/**
          * This class handles all the defined actions in the frontend.
 		 */
-		// require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-dscKnB-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-public.php';
 
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-post-type.php';
@@ -94,14 +94,16 @@ class Loader
 
         $functions = new \DSC\Reference\PostType( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
 
-        $plugin_admin = new \DSC\Reference\ReferenceAdmin( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
+        $plugin_admin = new \DSC\Reference\Admin( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
 
-        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
 
     }
     private function define_public_hooks()
     {
-		// $functions = new \DSC\Reference\PostType( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
+        $plugin_public = new \DSC\Reference\PublicPages( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
+
+        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
     }
 
     /**

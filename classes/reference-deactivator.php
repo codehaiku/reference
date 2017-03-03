@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage reference-wordpress-knowledgebase/classes
  * @author     Dunhakdis
  */
-class ReferenceDeactivator {
+class Deactivator {
 
 	public static function deactivate() {
 

@@ -51,15 +51,12 @@ final class PostType {
 	 */
 	public function __construct( $name, $version, $loader )
     {
-		global $dsc_knb;
 
 		$this->loader = $loader;
 
 		$this->name = $name;
 
 		$this->version = $version;
-
-		$this->opts = $dsc_knb;
 
 		add_action('init', array( $this, "register_post_type_and_taxonomies" ));
 
