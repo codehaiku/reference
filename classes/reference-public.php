@@ -9,7 +9,7 @@
  *
  * PHP Version 5.4
  *
- * @category Reference\Public\ReferencePublic
+ * @category Reference\Reference\PublicPages
  * @package  Reference WordPress Knowledgebase
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
@@ -79,6 +79,9 @@ class PublicPages
         $this->version = $version;
 
         add_filter( 'body_class', array($this,'body_class') );
+        add_filter( 'template_include', array($this,'display') );
+        add_filter( 'get_the_archive_title', array($this,'get_the_archive_categories_title') );
+
     }
 
     /**
@@ -97,13 +100,45 @@ class PublicPages
      *
      * @since    1.0.0
      */
-     public function enqueue_scripts() {
+     public function enqueue_scripts()
+     {
 
      }
 
-    public function body_class( $classes ){
-    	$classes[] = 'Duddubdub';
+    public function body_class($classes)
+    {
+    	$classes[] = 'knowledgebase';
 
         return $classes;
     }
+
+    public function display($template)
+    {
+        if ( is_tax('categories') ) {
+
+            $template = REFERENCE_DIR_PATH . '/templates/archive-categories.php';
+
+            if ( $theme_template = locate_template( array( 'knowledgebase/templates/archive-categories.php' ) ) ) {
+
+                $template = $theme_template;
+
+            }
+
+        }
+        if( is_singular( 'knowledgebase' ) ) {
+        }
+        if ( is_tax('categories') ) {
+        }
+
+        return $template;
+	}
+
+    public function get_the_archive_categories_title($title)
+    {
+        if ( is_tax( 'categories' ) ) {
+            $title = single_cat_title( '', false );
+        }
+        return $title;
+    }
+
 }

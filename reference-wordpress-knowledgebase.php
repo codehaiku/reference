@@ -2,7 +2,7 @@
 
 /**
  *
- * Plugin Name:       Reference WordPress Knowledgebase Plugin
+ * Plugin Name:       Reference Knowledgebase and Docs
  * Plugin URI:        https://wordpress.org/plugins/reference-wordpress-knowledgebase/
  * Description:       A lightweight knowledgebase plugin for your WordPress website. Works with any theme.
  * Version:           1.0.0
@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 define( 'REFERENCE_DIR_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
+define( 'REFERENCE_PATH', plugin_dir_path( __FILE__ ) );
+
 /**
  * The code that runs during plugin activation.
  */
@@ -35,6 +37,10 @@ require_once plugin_dir_path( __FILE__ ) . 'classes/reference-activator.php';
  */
 require_once plugin_dir_path( __FILE__ ) . 'classes/reference-deactivator.php';
 
+/**
+ * The helper class.
+ */
+require_once plugin_dir_path( __FILE__ ) . 'classes/reference-helper.php';
 /**
  *This action is documented in classes/reference-activator.php
  */

@@ -65,6 +65,8 @@ class Activator
             update_option( $key, $value );
         }
 
+        add_image_size( 'reference-knowledgebase-thumbnail', 550, 550, true );
+
     }
 
 }
