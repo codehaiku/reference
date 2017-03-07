@@ -1,0 +1,8 @@
+@media screen and (min-width: 38.75em) {
+    .reference-knowledgebase-search-field {
+        margin-left: -7px;
+    }
+}
+body {
+    background: yellow;
+}

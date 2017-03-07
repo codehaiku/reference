@@ -1,0 +1,27 @@
+/**
+ * Search Fields
+ */
+.reference-knowledgebase-search-field {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+input#reference_knowledgebase_search_submit {
+    display: none;
+}
+/**
+ * Category Listings
+ */
+#content .reference-knowledgebase .categoriy-listing {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+}
+#content .reference-knowledgebase.columns-1 .categoriy-listing {
+    width: 100%;
+}
+#content .reference-knowledgebase.columns-2 .categoriy-listing {
+    width: 50%;
+}
+#content .reference-knowledgebase.columns-3 .categoriy-listing {
+    width: 33.33%;
+}

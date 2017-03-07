@@ -91,8 +91,21 @@ class PublicPages
      */
      public function enqueue_styles() {
 
+        $theme = wp_get_theme(); // gets the current theme
+
         wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference.css', array(), $this->version, 'all' );
 
+        if ('twentyseventeen' == $theme->template) {
+            wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyseventeen.css', array(), $this->version, 'all' );
+        }
+        if ('twentysixteen' == $theme->template) {
+            wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentysixteen.css', array(), $this->version, 'all' );
+        }
+        if ('twentyfifteen' == $theme->template) {
+            wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyfifteen.css', array(), $this->version, 'all' );
+        }
+
+        return;
     }
 
     /**
@@ -114,6 +127,8 @@ class PublicPages
 
     public function display($template)
     {
+        // global $wp_query;
+
         if ( is_tax('categories') ) {
 
             $template = REFERENCE_DIR_PATH . '/templates/archive-categories.php';
@@ -129,6 +144,18 @@ class PublicPages
         }
         if ( is_tax('categories') ) {
         }
+
+        // $post_type = get_query_var('post_type');
+        // if( $wp_query->is_search && $post_type == 'knowledgebase' ) {
+        //
+        //     $template = REFERENCE_DIR_PATH . '/templates/archive-search.php';
+        //
+        //     if ( $theme_template = locate_template( array( 'knowledgebase/templates/archive-search.php' ) ) ) {
+        //
+        //         $template = $theme_template;
+        //
+        //     }
+        // }
 
         return $template;
 	}

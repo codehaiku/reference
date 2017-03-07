@@ -1,27 +1,50 @@
-<?php get_header(); ?>
-
 <?php
-$reference_knb_archive_column = get_option('reference_knb_archive_column');
+/**
+ * Reference shortcode Template
+ *
+ * @since  1.0.0
+ * @package reference\shortcodes
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+extract( $atts );
+
+
+// Filter allowed columns.
+$allowed_columns = array( "1", "2", "3" );
+
+
+if ( ! in_array( $columns, $allowed_columns, true ) ) {
+	$columns = 3;
+}
+
+$categories = explode(",", $categories);
 
 $args = array(
 	'post_type' => 'knowledgebase',
-	'posts_per_page' => 10,
-    'taxonomy'=>'categories',
-    'term' => $term,
-
+	'posts_per_page' => $posts_per_page,
+    'tax_query' => array(
+		array(
+			'taxonomy' => 'categories',
+			'field'    => 'slug',
+			'terms'    => $categories,
+		),
+	),
 );
-$category_listing = new \DSC\Reference\Helper;
 
-$knowledgebase = new WP_Query( $args );
+// var_dump($categories);
 ?>
+
+<?php $knowledgebase = new WP_Query( $args ); ?>
 
 <?php if ( $knowledgebase->have_posts() ) : ?>
 
-    <header class="page-header">
-        <?php
-            the_archive_title( '<h1 class="page-title">', '</h1>' );
-            the_archive_description( '<div class="taxonomy-description">', '</div>' );
-        ?>
+    <header class="reference-header">
+        <h1 class="reference-title"><?php esc_html_e($title); ?></h1>
+
         <div class="reference-knowledgebase-search-field">
             <form role="search" class="reference-knowledgebase-search-form" action="<?php echo site_url('/'); ?>" method="get" id="searchform">
                 <input type="text" name="s" placeholder="<?php esc_attr_e('Search Knowledgebase', 'reference'); ?>"/>
@@ -31,10 +54,11 @@ $knowledgebase = new WP_Query( $args );
         </div>
     </header><!-- .page-header -->
 
-    <div class="reference-knowledgebase columns-<?php esc_attr_e($reference_knb_archive_column); ?>">
-
-        <?php echo $category_listing->reference_display_knowledgebase_category_list(); ?>
-
+    <div class="reference-knowledgebase columns-<?php esc_attr_e($columns); ?>">
+        <?php
+            $category_listing = new \DSC\Reference\KnowledgebaseShortcodes;
+            echo $category_listing->reference_shortcode_display_knowledgebase_category_list($categories);
+        ?>
         <?php while ( $knowledgebase->have_posts() ) : ?>
 
             <?php $knowledgebase->the_post(); ?>
@@ -54,7 +78,9 @@ $knowledgebase = new WP_Query( $args );
                         <?php } ?>
 
                     </div>
+<?php
 
+?>
                     <div class="reference-knowledgebase-details">
 
                         <div class="reference-knowledgebase-details-title-wrapper">
@@ -100,6 +126,3 @@ $knowledgebase = new WP_Query( $args );
 <div class="clearfix"></div>
 
 <?php endif; ?>
-
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
