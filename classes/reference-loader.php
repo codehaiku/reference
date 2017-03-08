@@ -48,7 +48,7 @@ class Loader
 
     function __construct()
     {
-        $this->dsc_knb = 'dsc_knb';
+        $this->dsc_knb = 'reference';
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();

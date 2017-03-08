@@ -56,8 +56,7 @@ $args = array(
 
     <div class="reference-knowledgebase columns-<?php esc_attr_e($columns); ?>">
         <?php
-            $category_listing = new \DSC\Reference\KnowledgebaseShortcodes;
-            echo $category_listing->reference_shortcode_display_knowledgebase_category_list($categories);
+            echo \DSC\Reference\KnowledgebaseShortcodes::reference_shortcode_display_knowledgebase_category_list($categories, $columns);
         ?>
         <?php while ( $knowledgebase->have_posts() ) : ?>
 
@@ -78,9 +77,6 @@ $args = array(
                         <?php } ?>
 
                     </div>
-<?php
-
-?>
                     <div class="reference-knowledgebase-details">
 
                         <div class="reference-knowledgebase-details-title-wrapper">

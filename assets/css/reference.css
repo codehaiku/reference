@@ -3,7 +3,7 @@
  */
 .reference-knowledgebase-search-field {
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 }
 input#reference_knowledgebase_search_submit {
     display: none;
@@ -11,10 +11,18 @@ input#reference_knowledgebase_search_submit {
 /**
  * Category Listings
  */
+#content .reference-knowledgebase .categoriy-listings {
+    margin-bottom: 35px;
+}
 #content .reference-knowledgebase .categoriy-listing {
     display: inline-block;
     vertical-align: top;
     margin: 0;
+    padding: 45px 0;
+    border-bottom: 1px solid #dfdfdf;
+}
+#content .reference-knowledgebase.columns-1 article {
+
 }
 #content .reference-knowledgebase.columns-1 .categoriy-listing {
     width: 100%;
@@ -24,4 +32,64 @@ input#reference_knowledgebase_search_submit {
 }
 #content .reference-knowledgebase.columns-3 .categoriy-listing {
     width: 33.33%;
+}
+#content .reference-knowledgebase.columns-3 .categoriy-listing:nth-child(3n-1) {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#content .reference-knowledgebase.columns-3 .categoriy-listing:nth-child(3n-5) {
+    padding-right: 10px;
+    border-right: 1px solid #dfdfdf;
+}
+#content .reference-knowledgebase.columns-3 .categoriy-listing:nth-child(3n) {
+    padding-left: 10px;
+    border-left: 1px solid #dfdfdf;
+}
+
+#content .reference-knowledgebase.columns-3 .categoriy-listing:nth-child(even):nth-last-child(1) {
+    /*background: yellow;*/
+}
+
+#content .reference-knowledgebase.columns-3 .categoriy-listing:nth-child(even):nth-last-child(2)+:nth-last-child(1) {
+    /*background:blue*/
+}
+#content .reference-knowledgebase.columns-3 .categoriy-listing:nth-child(3n):nth-last-child(1) {
+    /*background: red;*/
+}
+
+
+.reference-knowledgebase .reference-cat-image,
+.reference-knowledgebase .reference-cat-info {
+    display: inline-block;
+    vertical-align: middle;
+}
+.reference-knowledgebase .reference-cat-image {
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    max-width: 35%;
+    margin-right: 5%;
+}
+.reference-knowledgebase .reference-cat-info {
+    max-width: 60%;
+}
+.reference-knowledgebase .reference-cat-image img {
+    width: 100%;
+    height: auto;
+}
+
+.reference-knowledgebase .letter-thumbnail {
+    background: #d7d7d7;
+    border: 1px solid #969696;
+    height: 80px;
+    text-align: center;
+}
+
+.reference-knowledgebase .reference-cat-info h5 {
+    margin: 0 0 15px;
+}
+.reference-knowledgebase .reference-cat-info p {
+    color: #888585;
+    font-size: 16px;
+    margin-bottom: 0;
 }

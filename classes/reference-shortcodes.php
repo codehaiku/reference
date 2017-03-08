@@ -83,17 +83,17 @@ class KnowledgebaseShortcodes
 
     }
 
-    public static function reference_shortcode_display_knowledgebase_category_list($categories)
+    public static function reference_shortcode_display_knowledgebase_category_list($categories, $columns)
     {
         global $post;
 
         $terms = '';
         $term = '';
+        $taxonomy = 'categories';
         $image_id = '';
         $thumbnail = '';
         $thumbnail_letter = '';
         $displayed_thumbnail = '';
-        $helper_class = new \DSC\Reference\Helper;
 
         $categories_list = array();
 
@@ -105,7 +105,7 @@ class KnowledgebaseShortcodes
 
         $args = array( 'hide_empty' => 0 );
 
-        $terms = get_terms( 'categories', $args );
+        $terms = get_terms( $taxonomy, $args );
 
         $child_categories = array();
 
@@ -117,40 +117,40 @@ class KnowledgebaseShortcodes
             }
         }
 
-        $get_child_term_categories = get_terms( 'categories', array(
+        $get_child_term_categories = get_terms( $taxonomy, array(
             'hide_empty' => 0,
             'name' => $child_categories
         ) );
 
-        // echo '<pre>';
-        //     var_dump($get_child_term_categories);
-        // echo '</pre>';
+        $categories_list[] = '<div class="categoriy-listings">';
 
         foreach ( $get_child_term_categories as $term ) {
-
 
             if( $term->parent) {
                 $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
                 $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
-                $thumbnail_letter = $helper_class->reference_thumbnail_letter($term->name);
+                $thumbnail_letter = \DSC\Reference\Helper::fallback_thumbnail($term->name);
                 $displayed_thumbnail = $thumbnail;
 
                 if ( empty($thumbnail)) {
-                    $displayed_thumbnail = $thumbnail_letter;
+                    $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
                 }
 
+
     			$categories_list[] = sprintf(
-    				'<article class="hentry categoriy-listing %1$s"><div class="reference-cat-image">%2$s</div><a href="%3$s">%4$s</a><div class="description">%5$s</div></article>',
-                    esc_attr( strtolower( $term->name ) ),
+                    '<div class="categoriy-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p></div></div>',
+                    esc_attr( strtolower( str_replace(" ", "-", $term->name ) ) ),
                     $displayed_thumbnail,
-    				// esc_url( get_term_link( $term->slug, $term->slug->taxonomy ) ),
-                    'a',
-    				esc_html( $term->name . $term->parent ),
-    				esc_html( $helper_class->reference_excerpt_description($term->description, 55) )
-    			);
+                    esc_url( get_term_link( $term->slug, $taxonomy) ),
+                    esc_html( $term->name ),
+                    esc_html( \DSC\Reference\Helper::string_trailing($term->description, 15) )
+                );
 
             }
+
         }
+
+        $categories_list[] = '</div>';
 
 		return implode( '', $categories_list );
 	}

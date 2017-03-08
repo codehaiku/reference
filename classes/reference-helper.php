@@ -59,7 +59,7 @@ FInal class Helper
 		return false;
 
 	}
-    public function get_categories_image ( $term, $taxonomy )
+    public static function get_categories_image ( $term, $taxonomy )
     {
         global $term;
 
@@ -103,43 +103,47 @@ FInal class Helper
 
 			if ( $terms ) {
 
-				foreach ( $terms as $term ) {
+                $categories[] = '<div class="categoriy-listings">';
+
+                foreach ( $terms as $term ) {
 
                     $term = array_shift( $terms );
 
                     if($get_current_term === $term->parent || $term->parent === $get_current_term_parent) {
                         $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
                         $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
-                        $thumbnail_letter = self::reference_thumbnail_letter($term->name);
+                        $thumbnail_letter = self::fallback_thumbnail($term->name);
                         $displayed_thumbnail = $thumbnail;
 
                         if ( empty($thumbnail)) {
-                            $displayed_thumbnail = $thumbnail_letter;
+                            $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
                         }
 
     					$categories[] = sprintf(
-    						'<article class="hentry categoriy-listing %1$s"><div class="reference-cat-image">%2$s</div><a href="%3$s">%4$s</a><div class="description">%5$s</div></article>',
-                            esc_attr( strtolower( $term->name ) ),
+    						'<div class="categoriy-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p></div></div>',
+                            esc_attr( strtolower( str_replace(" ", "-", $term->name ) ) ),
                             $displayed_thumbnail,
     						esc_url( get_term_link( $term->slug, $taxonomy_slug ) ),
     						esc_html( $term->name ),
-    						esc_html( self::reference_excerpt_description($term->description, 55) )
+    						esc_html( self::string_trailing($term->description, 15) )
     					);
+
 
 	                }
 				}
+                $categories[] = '</div>';
 			}
 
 			return implode( '', $categories );
 
 		}
 	}
-    public static function reference_thumbnail_letter($title)
+    public static function fallback_thumbnail($title)
     {
         return substr($title, 0, 1);
     }
 
-    public static function reference_excerpt_description($text, $lenght) {
+    public static function string_trailing($text, $lenght) {
 
         if( strlen( $text ) > $lenght ) {
             $text = substr( $text, 0, $lenght ) . '...';

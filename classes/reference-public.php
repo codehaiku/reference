@@ -95,14 +95,14 @@ class PublicPages
 
         wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference.css', array(), $this->version, 'all' );
 
-        if ('twentyseventeen' == $theme->template) {
+        if ('twentyseventeen' === $theme->template) {
             wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyseventeen.css', array(), $this->version, 'all' );
         }
-        if ('twentysixteen' == $theme->template) {
+        if ('twentysixteen' === $theme->template) {
             wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentysixteen.css', array(), $this->version, 'all' );
         }
-        if ('twentyfifteen' == $theme->template) {
-            wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyfifteen.css', array(), $this->version, 'all' );
+        if ('twentyfifteen' === $theme->template) {
+            wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyfifteen.css', array('twentyfifteen-style'), $this->version, 'all' );
         }
 
         return;
