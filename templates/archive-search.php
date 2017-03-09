@@ -1,11 +1,4 @@
 <?php
-/* Template Name: Custom Search */
-/**
- * Search
- *
- * @package Reference
- * @subpackage Theme
- */
 
 get_header(); ?>
 

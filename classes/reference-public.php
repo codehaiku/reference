@@ -78,9 +78,10 @@ class PublicPages
         $this->name = $name;
         $this->version = $version;
 
-        add_filter( 'body_class', array($this,'body_class') );
-        add_filter( 'template_include', array($this,'display') );
-        add_filter( 'get_the_archive_title', array($this,'get_the_archive_categories_title') );
+        add_filter( 'body_class', array($this, 'body_class') );
+        add_filter( 'template_include', array($this, 'display') );
+        add_filter( 'get_the_archive_title', array($this, 'get_the_archive_categories_title') );
+        add_action( 'pre_get_posts', array($this,'search_filter'));
 
     }
 
@@ -125,24 +126,40 @@ class PublicPages
         return $classes;
     }
 
+    public function search_filter( $query ) {
+        if (!is_admin() && $query->is_main_query()) {
+            if ($query->is_search) {
+                if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax('categories')) {
+                    $query->set( 'post_type', array( 'knowledgebase') );
+                }
+            }
+        }
+    }
+
     public function display($template)
     {
         // global $wp_query;
 
-        if ( is_tax('categories') ) {
+        if (is_tax('categories')) {
 
             $template = REFERENCE_DIR_PATH . '/templates/archive-categories.php';
 
-            if ( $theme_template = locate_template( array( 'knowledgebase/templates/archive-categories.php' ) ) ) {
+            if ($theme_template = locate_template(array('knowledgebase/templates/archive-categories.php'))) {
 
                 $template = $theme_template;
 
             }
 
         }
-        if( is_singular( 'knowledgebase' ) ) {
-        }
-        if ( is_tax('categories') ) {
+        if (is_singular( 'knowledgebase' )) {
+
+            $template = REFERENCE_DIR_PATH . '/templates/single-knowledgebase.php';
+
+            if ($theme_template = locate_template(array('knowledgebase/templates/single-knowledgebase.php'))) {
+
+                $template = $theme_template;
+
+            }
         }
 
         // $post_type = get_query_var('post_type');
@@ -162,8 +179,8 @@ class PublicPages
 
     public function get_the_archive_categories_title($title)
     {
-        if ( is_tax( 'categories' ) ) {
-            $title = single_cat_title( '', false );
+        if (is_tax('categories')) {
+            $title = single_cat_title('', false);
         }
         return $title;
     }

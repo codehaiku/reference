@@ -38,8 +38,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Activator
 {
+    public static function activate() {
 
-    public static function activate()
+        register_activation_hook(__FILE__, array('Activator','settings'));
+    }
+
+    public static function settings()
     {
 
         $options = array(

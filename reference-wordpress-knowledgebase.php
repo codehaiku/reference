@@ -35,7 +35,7 @@ require_once plugin_dir_path( __FILE__ ) . 'classes/reference-activator.php';
 /**
  * The code that runs during plugin deactivation.
  */
-require_once plugin_dir_path( __FILE__ ) . 'classes/reference-deactivator.php';
+// require_once plugin_dir_path( __FILE__ ) . 'classes/reference-deactivator.php';
 
 /**
  * The helper class.
@@ -44,12 +44,12 @@ require_once plugin_dir_path( __FILE__ ) . 'classes/reference-helper.php';
 /**
  *This action is documented in classes/reference-activator.php
  */
-register_activation_hook( __FILE__, array( 'Activator', 'activate' ) );
+// register_activation_hook( __FILE__, array( 'Activator', 'activate' ) );
 
 /**
  *This action is documented in classes/reference-deactivator.php
  */
-register_activation_hook( __FILE__, array( 'Deactivator', 'deactivate' ) );
+// register_activation_hook( __FILE__, array( 'Deactivator', 'deactivate' ) );
 
 
 require_once plugin_dir_path( __FILE__ ) . 'classes/reference-loader.php';

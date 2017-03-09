@@ -36,7 +36,7 @@ namespace DSC\Reference;
  * @link     github.com/codehaiku/reference-wordpress-knowledgebase  The Plugin Repository
  * @since    1.0
  */
-FInal class Helper
+final class Helper
 {
 
     public static function reference_get_knowledgebase_category()
@@ -143,11 +143,52 @@ FInal class Helper
         return substr($title, 0, 1);
     }
 
-    public static function string_trailing($text, $lenght) {
+    public static function string_trailing($text, $lenght)
+    {
 
         if( strlen( $text ) > $lenght ) {
             $text = substr( $text, 0, $lenght ) . '...';
         }
         return $text;
+    }
+
+    public static function get_nav_menu()
+    {
+
+        $menu = get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+
+        return $menu;
+    }
+
+    public static function table_of_content()
+    {
+        $reference_menu = get_post_meta(get_the_ID(), '_knowledgebase_toc_menu_meta_key', true);
+
+        $menu = wp_nav_menu(
+            array(
+                'menu' => $reference_menu,
+                'menu_id' => 'reference-menu',
+                'echo' => false,
+                'fallback_cb' => ''
+            )
+        );
+        if ( !empty( $menu ) ) {
+            echo self::handle_empty_var( $menu );
+        }
+    }
+
+    public static function handle_empty_var( $var = '' )
+    {
+
+    	$output = '';
+
+    	if ( !empty( $var ) ) {
+
+    		return $var;
+
+    	}
+
+    	return $output;
+
     }
 }

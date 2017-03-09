@@ -81,11 +81,15 @@ class Loader
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-post-type.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-metabox.php';
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-shortcodes.php';
 
 		$this->loader = new \DSC\Reference\AddFiltersActions();
 
         new \DSC\Reference\KnowledgebaseShortcodes();
+
+        new \DSC\Reference\Metabox();
 
     }
     private function set_locale()

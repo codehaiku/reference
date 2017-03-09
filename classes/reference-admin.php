@@ -9,7 +9,7 @@
  *
  * PHP Version 5.4
  *
- * @category Reference\ReferenceAdmin
+ * @category Reference\Admin
  * @package  Reference WordPress Knowledgebase
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
