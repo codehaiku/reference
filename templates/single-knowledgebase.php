@@ -14,35 +14,24 @@
  */
  get_header(); ?>
 
+
     <div id="primary" class="content-area">
         <main id="main" class="site-main" role="main">
 
-            <?php if ((bool)get_option('reference_knb_toc') === true) {?>
-                <?php \DSC\Reference\Helper::table_of_content(); ?>
+            <header class="entry-header">
+                <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+            </header><!-- .entry-header -->
 
-            <?php } ?>
+            <?php do_action('reference_has_table_of_content_before'); ?>
+
+            <?php do_action('reference_single_content_before'); ?>
+
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-                <header class="entry-header">
-                    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-                </header><!-- .entry-header -->
 
                 <div class="entry-content">
                     <?php
                         /* translators: %s: Name of current post */
-                        the_content( sprintf(
-                            __( 'Continue reading %s', 'twentyfifteen' ),
-                            the_title( '<span class="screen-reader-text">', '</span>', false )
-                            ) );
-
-                        wp_link_pages( array(
-                            'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentyfifteen' ) . '</span>',
-                            'after'       => '</div>',
-                            'link_before' => '<span>',
-                            'link_after'  => '</span>',
-                            'pagelink'    => '<span class="screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>%',
-                            'separator'   => '<span class="screen-reader-text">, </span>',
-                            ) );
+                        the_content();
                     ?>
                 </div><!-- .entry-content -->
 
@@ -53,17 +42,36 @@
             if ( comments_open() || get_comments_number() ) :
                 comments_template();
             endif;
-
-            // Previous/next post navigation.
-            the_post_navigation( array(
-                'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Next', 'twentyfifteen' ) . '</span> ' .
-                    '<span class="screen-reader-text">' . __( 'Next post:', 'twentyfifteen' ) . '</span> ' .
-                    '<span class="post-title">%title</span>',
-                'prev_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'twentyfifteen' ) . '</span> ' .
-                    '<span class="screen-reader-text">' . __( 'Previous post:', 'twentyfifteen' ) . '</span> ' .
-                    '<span class="post-title">%title</span>',
-            ) );
         ?>
+
+<?php
+$reference_menu = \DSC\Reference\Helper::get_table_of_content_setting();
+
+$menu = wp_nav_menu(
+    array(
+        'menu' => $reference_menu,
+        'menu_id' => 'reference-menu',
+        'container_class' => 'reference-menu-wrap',
+        'echo' => false,
+        'fallback_cb' => ''
+    )
+);
+$nav_menu = \DSC\Reference\Helper::get_nav_menu_array(\DSC\Reference\Helper::get_table_of_content_setting());
+
+
+$current_page = get_the_ID();
+
+echo $current_page;
+
+
+echo '<pre>';
+var_dump($nav_menu);
+echo '</pre>';
+?>
+
+        <?php do_action('reference_single_content_after'); ?>
+
+        <?php do_action('reference_has_table_of_content_after'); ?>
 
         </main><!-- .site-main -->
     </div><!-- .content-area -->

@@ -87,7 +87,7 @@ final class Metabox
 
     public function knowledgebase_save_postdata($post_id)
     {
-        $sanitized_knowledgebase_toc_menu_nonce = filter_input(INPUT_POST, 'knowledgebase_toc_menu_nonce', FILTER_SANITIZE_NUMBER_INT);
+        $sanitized_knowledgebase_toc_menu_nonce = filter_input(INPUT_POST, 'knowledgebase_toc_menu_nonce', FILTER_SANITIZE_STRING);
         $sanitized_knowledgebase_toc_menu = filter_input(INPUT_POST, 'knowledgebase_toc_menu', FILTER_SANITIZE_STRING);
 
         // verify taxonomies meta box nonce
@@ -99,5 +99,4 @@ final class Metabox
             update_post_meta($post_id, '_knowledgebase_toc_menu_meta_key', $sanitized_knowledgebase_toc_menu);
         }
     }
-
 }

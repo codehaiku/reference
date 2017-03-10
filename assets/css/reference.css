@@ -93,3 +93,247 @@ input#reference_knowledgebase_search_submit {
     font-size: 16px;
     margin-bottom: 0;
 }
+
+/**
+ * Single Knowledgebase
+ */
+
+.single-knowledgebase #primary {
+    float: left;
+}
+.single-knowledgebase .entry-header {
+    background: #fff;
+    margin: 0 15px 15px;
+    padding: 15px;
+}
+.single-knowledgebase .entry-header .entry-title {
+    margin-bottom: 0;
+}
+.reference-has-table-of-content .reference-menu-container,
+.reference-has-table-of-content .reference-single-content {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+@media (min-width: 992px) {
+    .reference-has-table-of-content .reference-menu-container {
+        width: 33.33333333%;
+    }
+    .reference-has-table-of-content .reference-single-content {
+        width: 65.66666667%;
+        padding-left: 0;
+        padding-right: 15px;
+    }
+}
+.reference-menu-wrap {
+    background: #d7d7d7;
+    padding: 15px;
+    border: 1px solid #969696;
+    border-radius: 6px;
+}
+.reference-single-content .single-knowledgebase,
+.reference-single-content .comments-area {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+/**
+ * Table of Contents
+ */
+.reference-menu-container ol {
+    padding-left: 0;
+    margin-bottom: 0;
+    counter-reset: section;
+}
+.reference-menu-container ol li {
+    list-style: none;
+}
+.reference-menu-container ol > li:before {
+    counter-increment: section;
+    content: counter(section);
+    color: rgba(0, 0, 0, 0.5);
+    padding-right: 5px;
+    font-size: 12px;
+}
+.reference-menu-container ol li a {
+    font-size: 14px;
+}
+.reference-menu-container > ol {
+    padding-left: 0;
+}
+
+.reference-menu-container > ol > li {
+    list-style: none;
+}
+
+.reference-menu-container ol li.menu-item-has-children a {
+    color: #000;
+}
+
+.reference-menu-container ol li.menu-item-has-children > a {
+    font-weight: bold;
+}
+
+.reference-menu-container ol.sub-menu {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+}
+
+.reference-menu-container ol.sub-menu {
+    padding-left: 12px;
+}
+
+.reference-menu-container ol.sub-menu:first-of-type {
+    padding-top: 2.5px;
+}
+
+
+.reference-menu-container li ol.sub-menu {
+    padding-left: 30px;
+    position: relative;
+}
+    .reference-menu-container li ol.sub-menu li ol {
+        padding-left: 30px;
+    }
+        .reference-menu-container li ol.sub-menu li ol li ol {
+            padding-left: 40px;
+        }
+            .reference-menu-container li ol.sub-menu li ol li ol li ol {
+                padding-left: 50px;
+            }
+                .reference-menu-container li ol.sub-menu li ol li ol li ol li ol {
+                    padding-left: 0px;
+                }
+
+.reference-menu-container li ol.sub-menu > li:before {
+    position: absolute;
+    top: 12px;
+    left: -20px;
+}
+    .reference-menu-container li ol.sub-menu li ol > li:before {
+        left: -30px;
+    }
+        .reference-menu-container li ol.sub-menu li ol li ol > li:before {
+            left: -40px;
+        }
+            .reference-menu-container li ol.sub-menu li ol li ol li ol > li:before {
+                left: -50px;
+            }
+                .reference-menu-container li ol.sub-menu li ol li ol li ol li ol > li:before {
+                    left: -50px;
+                }
+
+
+.reference-menu-container ol.sub-menu > li {
+    counter-increment: item;
+    margin-bottom: 0.6em;
+    list-style: none;
+}
+.reference-menu-container ol.sub-menu > li:before {
+    content: counters(item, ".") ". ";
+}
+
+.reference-menu-container li ol.sub-menu > li:before {
+    content: counters(item, ".") " ";
+}
+
+.reference-menu-container li ol.sub-menu > li {
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    position: relative;
+}
+
+.reference-menu-container li ol > li:last-of-type {
+    padding-bottom: 0;
+}
+
+.reference-menu-container ol.sub-menu li > ol.children {
+    overflow: hidden;
+    max-height: 1000px;
+}
+
+.reference-menu-container ol.sub-menu li.active > ol.children {
+    overflow: hidden;
+    max-height: 5px;
+}
+
+.reference-menu-container ol.sub-menu > li > a:hover,
+
+.reference-menu-container ol.sub-menu > li.current_page_item > a {
+    color: #0288d1;
+}
+
+.reference-menu-container ol li ol.sub-menu li.menu-item-has-children a {
+    width: 100%;
+    padding-right: 25px;
+    display: inline-block;
+}
+
+.reference-menu-container ol li ol.sub-menu li.menu-item-has-children .pages-menu-toggle {
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.87);
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 1.5px;
+    font-size: 18px;
+    text-align: center;
+
+    line-height: 8.5px;
+
+    user-select: none;
+    -moz-user-select: none;
+
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+}
+.reference-menu-container ol li ol.sub-menu li.menu-item-has-children .pages-menu-toggle:before,
+.reference-menu-container ol li ol.sub-menu li.menu-item-has-children .pages-menu-toggle:after {
+    content: '';
+    width: 10px;
+    height: 2px;
+    display: inline-block;
+    background: #fff;
+}
+.reference-menu-container ol li ol.sub-menu li.menu-item-has-children .pages-menu-toggle:after {
+    height: 10px;
+    width: 2px;
+    position: absolute;
+    top: 5px;
+    left: 9px;
+    opacity: 0;
+}
+.reference-menu-container ol li ol.sub-menu li.menu-item-has-children.active >  .pages-menu-toggle:after {
+    opacity: 1;
+}
+
+.reference-menu-container ol.sub-menu li.menu-item-has-children .pages-menu-toggle {
+    -webkit-transition: transform 0.25s ease-in-out;
+       -moz-transition: transform 0.25s ease-in-out;
+            transition: transform 0.25s ease-in-out;
+}
+
+.reference-menu-container ol.sub-menu li.active > .pages-menu-toggle {
+    -webkit-transform: rotateZ(90deg);
+       -moz-transform: rotateZ(90deg);
+            transform: rotateZ(90deg);
+}
+
+.reference-menu-container  ol.sub-menu li > ol.sub-menu {
+    overflow: hidden;
+    max-height: 1000px;
+}
+
+.reference-menu-container ol.sub-menu li.active > ol.sub-menu {
+    overflow: hidden;
+    max-height: 5px;
+}

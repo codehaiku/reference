@@ -162,19 +162,62 @@ final class Helper
 
     public static function table_of_content()
     {
-        $reference_menu = get_post_meta(get_the_ID(), '_knowledgebase_toc_menu_meta_key', true);
+        $reference_menu = self::get_table_of_content_setting();
 
         $menu = wp_nav_menu(
             array(
                 'menu' => $reference_menu,
                 'menu_id' => 'reference-menu',
+                'container_class' => 'reference-menu-wrap',
                 'echo' => false,
                 'fallback_cb' => ''
             )
         );
-        if ( !empty( $menu ) ) {
-            echo self::handle_empty_var( $menu );
+
+        $ordered_list = str_replace("<ul", "<ol", $menu);
+
+        if (!empty($menu) && !empty($reference_menu)) {
+            echo self::handle_empty_var( $ordered_list );
         }
+    }
+    public static function get_table_of_content_setting()
+    {
+        $table_of_content_setting = get_post_meta(get_the_ID(), '_knowledgebase_toc_menu_meta_key', true);
+
+        return $table_of_content_setting;
+    }
+
+
+    public static function get_nav_menu_array($current_menu)
+    {
+
+        $queried_menu = wp_get_nav_menu_items($current_menu);
+
+        $processed_menu = array();
+        $submenu = array();
+
+        foreach ($queried_menu as $menu) {
+            if (empty($menu->menu_item_parent)) {
+                $processed_menu[$menu->ID]                =   array();
+                $processed_menu[$menu->ID]['ID']          =   $menu->ID;
+                $processed_menu[$menu->ID]['title']       =   $menu->title;
+                $processed_menu[$menu->ID]['url']         =   $menu->url;
+                $processed_menu[$menu->ID]['children']    =   array();
+            }
+        }
+
+
+        foreach ($queried_menu as $menu) {
+            if ($menu->menu_item_parent) {
+                $submenu[$menu->ID]             = array();
+                $submenu[$menu->ID]['ID']       =   $menu->ID;
+                $submenu[$menu->ID]['title']    =   $menu->title;
+                $submenu[$menu->ID]['url']      =   $menu->url;
+                $processed_menu[$menu->menu_item_parent]['children'][$menu->ID] = $submenu[$menu->ID];
+            }
+        }
+
+        return $processed_menu;
     }
 
     public static function handle_empty_var( $var = '' )

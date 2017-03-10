@@ -78,7 +78,7 @@ class Admin
         add_action('admin_init', array( $this, 'referenceRegisterSettings' ));
 	}
 
-    public function enqueueScripts()
+    public function enqueue_scripts()
     {
 		wp_enqueue_script( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference-admin.js', array( 'jquery' ), $this->version, FALSE );
 	}

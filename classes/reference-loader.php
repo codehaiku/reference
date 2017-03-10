@@ -85,11 +85,15 @@ class Loader
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-shortcodes.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-action-hooks.php';
+
 		$this->loader = new \DSC\Reference\AddFiltersActions();
 
         new \DSC\Reference\KnowledgebaseShortcodes();
 
         new \DSC\Reference\Metabox();
+
+        new \DSC\Reference\ActionHooks();
 
     }
     private function set_locale()
@@ -103,7 +107,7 @@ class Loader
 
         $plugin_admin = new \DSC\Reference\Admin( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
 
-        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
+        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
     }
     private function define_public_hooks()
@@ -111,6 +115,8 @@ class Loader
         $plugin_public = new \DSC\Reference\PublicPages( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
 
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+
+        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
     }
 
     /**

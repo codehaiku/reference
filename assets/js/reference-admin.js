@@ -1,4 +1,6 @@
 jQuery(document).ready( function($) {
+    "use strict";
+
     function reference_media_upload(button_class) {
 
         var _custom_media = true,
