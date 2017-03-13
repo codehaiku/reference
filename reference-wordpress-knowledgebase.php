@@ -54,6 +54,9 @@ require_once plugin_dir_path( __FILE__ ) . 'classes/reference-helper.php';
 
 require_once plugin_dir_path( __FILE__ ) . 'classes/reference-loader.php';
 
+
+require_once plugin_dir_path( __FILE__ ) . 'template-tags/template-tags.php';
+
 /**
  * This functions executes the plugin
  *

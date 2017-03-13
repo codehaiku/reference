@@ -2,7 +2,7 @@
 /**
  * This class is executes during plugin activation.
  *
- * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -38,7 +38,8 @@ final class ActionHooks
     }
     public function reference_has_table_of_content_before_callback() {
 
-        if (!empty(\DSC\Reference\Helper::get_table_of_content_setting()) && (bool)get_option('reference_knb_toc') === true) {
+        $table_of_content_setting = Helper::get_table_of_content_setting();
+        if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
 
             echo '<div class="reference-has-table-of-content">';
                 echo '<div class="reference-menu-container">';
@@ -49,14 +50,16 @@ final class ActionHooks
     }
     public function reference_has_table_of_content_after_callback() {
 
-        if (!empty(\DSC\Reference\Helper::get_table_of_content_setting()) && (bool)get_option('reference_knb_toc') === true) {
+        $table_of_content_setting = Helper::get_table_of_content_setting();
+        if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
             echo '</div>';
         }
 
     }
     public function reference_single_content_before_callback() {
 
-        if (!empty(\DSC\Reference\Helper::get_table_of_content_setting()) && (bool)get_option('reference_knb_toc') === true) {
+        $table_of_content_setting = Helper::get_table_of_content_setting();
+        if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
 
             echo '<div class="reference-single-content">';
         }
@@ -64,7 +67,8 @@ final class ActionHooks
     }
     public function reference_single_content_after_callback() {
 
-        if (!empty(\DSC\Reference\Helper::get_table_of_content_setting()) && (bool)get_option('reference_knb_toc') === true) {
+        $table_of_content_setting = Helper::get_table_of_content_setting();
+        if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
 
             echo '</div>';
         }

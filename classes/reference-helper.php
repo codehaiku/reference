@@ -2,8 +2,7 @@
 /**
  * This class is executes the reference shortcode.
  *
- * (c) Joseph Gabito <joseph@useissuestabinstead.com>
- * (c) Jasper jardin <jasper@useissuestabinstead.com>
+ * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -78,14 +77,17 @@ final class Helper
         $thumbnail = '';
         $thumbnail_letter = '';
         $displayed_thumbnail = '';
+        $columns = intval(get_option('reference_knb_archive_column'));
+        $count_categories = 0;
+
 
 		$taxonomies = self::reference_get_knowledgebase_category();
 
         $get_current_term = get_queried_object()->term_id;
 
-        $get_current_term_id = get_term($get_current_term, 'categories');
+        $get_current_term_id = get_term($get_current_term, 'knb-categories');
 
-        $get_current_term_parent = ($get_current_term_id->parent == 0) ? $get_current_term_id : get_term($get_current_term_id->parent, 'categories');
+        $get_current_term_parent = ($get_current_term_id->parent == 0) ? $get_current_term_id : get_term($get_current_term_id->parent, 'knb-categories');
 
 		$categories = array();
 
@@ -99,17 +101,29 @@ final class Helper
 
             $args = array( 'hide_empty' => 0 );
 
-            $terms = get_terms( 'categories', $args );
+            $terms = get_terms( 'knb-categories', $args );
 
 			if ( $terms ) {
 
-                $categories[] = '<div class="categoriy-listings">';
+                $categories[] = '<div class="category-listings columns-'.$columns.'">';
 
                 foreach ( $terms as $term ) {
 
                     $term = array_shift( $terms );
 
                     if($get_current_term === $term->parent || $term->parent === $get_current_term_parent) {
+
+                        if (3 === $columns) {
+                            if ($count_categories % 3 === 0) {
+                                $categories[] = '<div class="category-column">';
+                            }
+                        }
+                        if (2 === $columns) {
+                            if ($count_categories % 2 === 0) {
+                                $categories[] = '<div class="category-column">';
+                            }
+                        }
+
                         $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
                         $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
                         $thumbnail_letter = self::fallback_thumbnail($term->name);
@@ -120,24 +134,66 @@ final class Helper
                         }
 
     					$categories[] = sprintf(
-    						'<div class="categoriy-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p></div></div>',
+    						'<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p></div></div>',
                             esc_attr( strtolower( str_replace(" ", "-", $term->name ) ) ),
                             $displayed_thumbnail,
     						esc_url( get_term_link( $term->slug, $taxonomy_slug ) ),
     						esc_html( $term->name ),
-    						esc_html( self::string_trailing($term->description, 15) )
+    						esc_html( self::string_trailing($term->description, 55) )
     					);
 
+                        $count_categories++;
 
+                        if (3 === $columns) {
+                            if ($count_categories % 3 === 0) {
+                                $categories[] = '</div>';
+                            }
+                        }
+                        if (2 === $columns) {
+                            if ($count_categories % 2 === 0) {
+                                $categories[] = '</div>';
+                            }
+                        }
 	                }
 				}
-                $categories[] = '</div>';
+                $categories[] = '</div> </div>';
 			}
 
 			return implode( '', $categories );
 
 		}
 	}
+
+    public static function the_category_thumbnail()
+    {
+        $get_current_term = self::current_term_id();
+        $term_title = single_term_title("", false);
+        $image_id = get_term_meta( $get_current_term, 'categories-image-id', true );
+        $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
+        $thumbnail_letter = self::fallback_thumbnail($term_title);
+        $displayed_thumbnail = $thumbnail;
+
+        if ( empty($thumbnail)) {
+            $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
+        }
+
+        return $displayed_thumbnail;
+    }
+    public static function current_term_id()
+    {
+        $term_id = '';
+        $taxonomy = 'knb-categories';
+        $get_current_term = get_queried_object()->term_id;
+
+        $get_current_term_id = get_term($get_current_term, $taxonomy);
+
+        foreach ($get_current_term_id as $key => $value) {
+            $$key = $value;
+        }
+
+        return $term_id;
+    }
+
     public static function fallback_thumbnail($title)
     {
         return substr($title, 0, 1);
@@ -177,7 +233,7 @@ final class Helper
         $ordered_list = str_replace("<ul", "<ol", $menu);
 
         if (!empty($menu) && !empty($reference_menu)) {
-            echo self::handle_empty_var( $ordered_list );
+            echo $ordered_list;
         }
     }
     public static function get_table_of_content_setting()
@@ -218,20 +274,5 @@ final class Helper
         }
 
         return $processed_menu;
-    }
-
-    public static function handle_empty_var( $var = '' )
-    {
-
-    	$output = '';
-
-    	if ( !empty( $var ) ) {
-
-    		return $var;
-
-    	}
-
-    	return $output;
-
     }
 }

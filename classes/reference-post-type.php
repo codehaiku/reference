@@ -1,9 +1,22 @@
 <?php
 /**
- * Reference General Functions
+ * This class is executes during plugin activation.
  *
- * Contains all the general functions used by the plugin.
+ * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * PHP Version 5.4
+ *
+ * @category Reference\Metabox
+ * @package  Reference WordPress Knowledgebase
+ * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
+ * @author   Jasper J. <emailnotdisplayed@domain.tld>
+ * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @version  GIT:github.com/codehaiku/reference-wordpress-knowledgebase
+ * @link     github.com/codehaiku/reference-wordpress-knowledgebase  The Plugin Repository
+ * @since    1.0
  */
 
  namespace DSC\Reference;
@@ -60,13 +73,13 @@ final class PostType {
 
 		add_action('init', array( $this, "register_post_type_and_taxonomies" ));
 
-        add_action( 'categories_add_form_fields', array( $this, 'add_categories_image' ), 10, 2 );
+        add_action( 'knb-categories_add_form_fields', array( $this, 'add_knb_categories_image' ), 10, 2 );
 
-        add_action( 'created_categories', array( $this, 'save_categories_image' ), 10, 2 );
+        add_action( 'created_knb-categories', array( $this, 'save_knb_categories_image' ), 10, 2 );
 
-        add_action( 'categories_edit_form_fields', array( $this, 'update_categories_image' ), 10, 2 );
+        add_action( 'knb-categories_edit_form_fields', array( $this, 'update_knb_categories_image' ), 10, 2 );
 
-        add_action( 'edited_categories', array( $this, 'updated_categories_image' ), 10, 2 );
+        add_action( 'edited_knb-categories', array( $this, 'updated_knb_categories_image' ), 10, 2 );
 
         add_action( 'admin_enqueue_scripts', array( $this, 'add_wp_enqueue_media' ));
 
@@ -125,7 +138,7 @@ final class PostType {
     		'update_item'       => __( 'Update Category', 'reference' ),
     		'add_new_item'      => __( 'Add New Category', 'reference' ),
     		'new_item_name'     => __( 'New Category Name', 'reference' ),
-    		'menu_name'         => __( 'Category', 'reference' ),
+    		'menu_name'         => __( 'Categories', 'reference' ),
     	);
 
     	$category_args = array(
@@ -134,10 +147,10 @@ final class PostType {
     		'show_ui'           => true,
     		'show_admin_column' => true,
     		'query_var'         => true,
-    		'rewrite'           => array( 'slug' => 'categories' ),
+    		'rewrite'           => array( 'slug' => 'knb-categories' ),
     	);
 
-    	register_taxonomy( 'categories', array( 'knowledgebase' ), $category_args );
+    	register_taxonomy( 'knb-categories', array( 'knowledgebase' ), $category_args );
 
         $tag_labels = array(
     		'name'                       => _x( 'Tags', 'taxonomy general name', 'reference' ),
@@ -168,10 +181,10 @@ final class PostType {
     		'rewrite'               => array( 'slug' => 'tag' ),
     	);
 
-    	register_taxonomy( 'tag', 'knowledgebase', $tag_args );
+    	register_taxonomy( 'knb-tags', 'knowledgebase', $tag_args );
     }
 
-    public function add_categories_image ( $taxonomy )
+    public function add_knb_categories_image ( $taxonomy )
     { ?>
         <div class="form-field term-group">
             <label for="categories-image-id"><?php esc_html_e('Image', 'reference'); ?></label>
@@ -185,7 +198,7 @@ final class PostType {
         </div>
     <?php }
 
-    public function save_categories_image($term_id, $tt_id)
+    public function save_knb_categories_image($term_id, $tt_id)
     {
         $image = filter_input(INPUT_POST, 'categories-image-id', FILTER_SANITIZE_NUMBER_INT);
 
@@ -194,7 +207,7 @@ final class PostType {
         }
     }
 
-    public function update_categories_image ( $term, $taxonomy )
+    public function update_knb_categories_image ( $term, $taxonomy )
     { ?>
         <tr class="form-field term-group-wrap">
             <th scope="row">
@@ -216,7 +229,7 @@ final class PostType {
         </tr>
     <?php }
 
-    public function updated_categories_image($term_id, $tt_id)
+    public function updated_knb_categories_image($term_id, $tt_id)
     {
 
         $image = filter_input(INPUT_POST, 'categories-image-id', FILTER_SANITIZE_NUMBER_INT);

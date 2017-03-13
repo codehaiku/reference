@@ -1,14 +1,22 @@
 <?php
 /**
- * The file that defines the core plugin class
+ * This class is executes during plugin activation.
  *
- * This class includes all the attributes nad methods used throughout the plugins dashboard and frontend.
+ * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
- * @link       https://wordpress.org/plugins/reference-wordpress-knowledgebase/
- * @since      1.0.0
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * @package    reference-wordpress-knowledgebase
- * @subpackage reference-wordpress-knowledgebase/classes
+ * PHP Version 5.4
+ *
+ * @category Reference\Metabox
+ * @package  Reference WordPress Knowledgebase
+ * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
+ * @author   Jasper J. <emailnotdisplayed@domain.tld>
+ * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @version  GIT:github.com/codehaiku/reference-wordpress-knowledgebase
+ * @link     github.com/codehaiku/reference-wordpress-knowledgebase  The Plugin Repository
+ * @since    1.0
  */
 
 namespace DSC\Reference;

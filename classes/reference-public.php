@@ -2,7 +2,7 @@
 /**
  * This class is executes during plugin activation.
  *
- * (c) Joseph Gabito <joseph@useissuestabinstead.com>
+ * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -80,7 +80,6 @@ class PublicPages
 
         add_filter( 'body_class', array($this, 'body_class') );
         add_filter( 'post_class', array($this, 'post_class_callback') );
-        add_filter( 'template_include', array($this, 'display') );
         add_filter( 'get_the_archive_title', array($this, 'get_the_archive_categories_title') );
         add_action( 'pre_get_posts', array($this,'search_filter'));
 
@@ -139,7 +138,7 @@ class PublicPages
     public function search_filter( $query ) {
         if (!is_admin() && $query->is_main_query()) {
             if ($query->is_search) {
-                if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax('categories')) {
+                if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax('knb-categories')) {
                     $query->set( 'post_type', array( 'knowledgebase') );
                 }
             }
@@ -148,48 +147,11 @@ class PublicPages
 
     public function display($template)
     {
-        // global $wp_query;
-
-        if (is_tax('categories')) {
-
-            $template = REFERENCE_DIR_PATH . '/templates/archive-categories.php';
-
-            if ($theme_template = locate_template(array('knowledgebase/templates/archive-categories.php'))) {
-
-                $template = $theme_template;
-
-            }
-
-        }
-        if (is_singular( 'knowledgebase' )) {
-
-            $template = REFERENCE_DIR_PATH . '/templates/single-knowledgebase.php';
-
-            if ($theme_template = locate_template(array('knowledgebase/templates/single-knowledgebase.php'))) {
-
-                $template = $theme_template;
-
-            }
-        }
-
-        // $post_type = get_query_var('post_type');
-        // if( $wp_query->is_search && $post_type == 'knowledgebase' ) {
-        //
-        //     $template = REFERENCE_DIR_PATH . '/templates/archive-search.php';
-        //
-        //     if ( $theme_template = locate_template( array( 'knowledgebase/templates/archive-search.php' ) ) ) {
-        //
-        //         $template = $theme_template;
-        //
-        //     }
-        // }
-
-        return $template;
 	}
 
     public function get_the_archive_categories_title($title)
     {
-        if (is_tax('categories')) {
+        if (is_tax('knb-categories')) {
             $title = single_cat_title('', false);
         }
         return $title;

@@ -2,8 +2,7 @@
 /**
  * This class is executes the reference shortcode.
  *
- * (c) Joseph Gabito <joseph@useissuestabinstead.com>
- * (c) Jasper jardin <jasper@useissuestabinstead.com>
+ * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -89,7 +88,7 @@ class KnowledgebaseShortcodes
 
         $terms = '';
         $term = '';
-        $taxonomy = 'categories';
+        $taxonomy = 'knb-categories';
         $image_id = '';
         $thumbnail = '';
         $thumbnail_letter = '';
@@ -97,7 +96,7 @@ class KnowledgebaseShortcodes
 
         $categories_list = array();
 
-        $get_term_categories = get_terms( 'categories', array(
+        $get_term_categories = get_terms( $taxonomy, array(
             'orderby'    => 'count',
             'hide_empty' => 0,
             'name' => $categories

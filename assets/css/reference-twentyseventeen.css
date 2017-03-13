@@ -1,0 +1,10 @@
+/**
+ * archive category
+ */
+body.archive.tax-knb-categories.knowledgebase .page-header {
+    width: 100%;
+    float: none;
+}
+body.archive.tax-knb-categories.knowledgebase #primary article.knowledgebase {
+    width: 100%;
+}
