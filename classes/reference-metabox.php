@@ -55,6 +55,15 @@ final class Metabox
             'side',
             'low'
         );
+
+        add_meta_box(
+            'knowledgebase_feedback',
+            __('Comment Feedback', 'reference'),
+            array( $this, 'knowledgebase_feedback_panel'),
+            $post_type,
+            'side',
+            'low'
+        );
     }
 
     public function knowledgebase_toc_menu_metabox_panel($post)
@@ -82,6 +91,11 @@ final class Metabox
         <p class="howto"><?php esc_html_e('Select menu for knowledgebase', 'reference'); ?></p>
 
         <?php
+
+    }
+
+    public function knowledgebase_feedback_panel($post)
+    {
 
     }
 

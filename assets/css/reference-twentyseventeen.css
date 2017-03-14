@@ -8,3 +8,7 @@ body.archive.tax-knb-categories.knowledgebase .page-header {
 body.archive.tax-knb-categories.knowledgebase #primary article.knowledgebase {
     width: 100%;
 }
+
+body.knowledgebase .pagination {
+    border-top-width: 0;
+}

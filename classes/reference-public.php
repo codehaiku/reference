@@ -78,6 +78,7 @@ class PublicPages
         $this->name = $name;
         $this->version = $version;
 
+        add_action( 'init', array($this, 'reference_feedback_ajax_init') );
         add_filter( 'body_class', array($this, 'body_class') );
         add_filter( 'post_class', array($this, 'post_class_callback') );
         add_filter( 'get_the_archive_title', array($this, 'get_the_archive_categories_title') );
@@ -92,18 +93,22 @@ class PublicPages
      */
      public function enqueue_styles() {
 
+        global $post;
         $theme = wp_get_theme(); // gets the current theme
 
-        wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference.css', array(), $this->version, 'all' );
+        if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax( 'knb-categories' ) || has_shortcode( $post->post_content, 'dsc_knb')) {
 
-        if ('twentyseventeen' === $theme->template) {
-            wp_enqueue_style( 'reference-twentyseventeen', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyseventeen.css', array(), $this->version, 'all' );
-        }
-        if ('twentysixteen' === $theme->template) {
-            wp_enqueue_style( 'reference-twentysixteen', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentysixteen.css', array(), $this->version, 'all' );
-        }
-        if ('twentyfifteen' === $theme->template) {
-            wp_enqueue_style( 'reference-twentyfifteen', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyfifteen.css', array(), $this->version, 'all' );
+            wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference.css', array(), $this->version, 'all' );
+
+            if ('twentyseventeen' === $theme->template) {
+                wp_enqueue_style( 'reference-twentyseventeen', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyseventeen.css', array(), $this->version, 'all' );
+            }
+            if ('twentysixteen' === $theme->template) {
+                wp_enqueue_style( 'reference-twentysixteen', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentysixteen.css', array(), $this->version, 'all' );
+            }
+            if ('twentyfifteen' === $theme->template) {
+                wp_enqueue_style( 'reference-twentyfifteen', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-twentyfifteen.css', array(), $this->version, 'all' );
+            }
         }
 
         return;
@@ -114,11 +119,60 @@ class PublicPages
      *
      * @since    1.0.0
      */
-     public function enqueue_scripts()
-     {
-         wp_enqueue_script( 'sticky-kit', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/sticky-kit.js', array('jquery'), $this->version, FALSE );
-         wp_enqueue_script( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
-     }
+    public function enqueue_scripts()
+    {
+        if (is_singular('knowledgebase')){
+            wp_enqueue_script( 'reference-sticky-kit', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/sticky-kit.js', array('jquery'), $this->version, FALSE );
+            wp_enqueue_script( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
+        }
+    }
+    public function reference_feedback_ajax_init()
+    {
+        wp_register_script('reference-feedback-ajax-script', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
+
+        wp_enqueue_script('reference-feedback-ajax-script');
+
+        wp_localize_script('reference-feedback-ajax-script', 'reference_feedback_object', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'redirecturl' => home_url(),
+            'loadingmessage' => __('Verifying login credentials', 'reference'),
+        ));
+
+        // Enable the user with no privileges to run klein_ajax_login() in AJAX
+        add_action('wp_ajax_reference_feedback_ajax', array($this, 'reference_feedback_ajax'));
+        add_action('wp_ajax_nopriv_reference_feedback_ajax', array($this, 'reference_feedback_ajax'));
+    }
+
+    public function reference_feedback_ajax(){
+
+        // First check the nonce, if it fails the function will break
+        // check_ajax_referer('reference-feedback-ajax-nonce', 'reference-feedback-security');
+        //
+        // // // Nonce is checked, get the POST data and sign user on
+        // $information = array();
+        // $information[ 'yes' ] = $_POST[ 'reference-confirm' ];
+        //
+        // $information[ 'no' ] = $_POST[ 'reference-decline' ];
+        //
+        // $user_signin = wp_signon( $information, false );
+        //
+        // if ( is_wp_error( $user_signin ) ) {
+        //
+        //     echo json_encode( array( 'login' => false, 'message' => __( 'Wrong username or password.' ) ) );
+        //
+        // } else {
+        //
+        //     echo json_encode( array( 'login' => true, 'message' => __( 'Login successful, redirecting' ) ) );
+        //
+        // }
+        //
+        // die();
+        global $wpdb;
+    	$whatever = intval( $_POST['whatever'] );
+    	$whatever += 10;
+            echo $whatever;
+    	wp_die();
+    }
 
     public function body_class($classes)
     {

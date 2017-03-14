@@ -39,11 +39,12 @@ final class ActionHooks
     public function reference_has_table_of_content_before_callback() {
 
         $table_of_content_setting = Helper::get_table_of_content_setting();
+
         if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
 
             echo '<div class="reference-has-table-of-content">';
                 echo '<div class="reference-menu-container">';
-                \DSC\Reference\Helper::table_of_content();
+                Helper::table_of_content();
                 echo '</div>';
         }
 
@@ -51,6 +52,7 @@ final class ActionHooks
     public function reference_has_table_of_content_after_callback() {
 
         $table_of_content_setting = Helper::get_table_of_content_setting();
+
         if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
             echo '</div>';
         }
@@ -59,6 +61,7 @@ final class ActionHooks
     public function reference_single_content_before_callback() {
 
         $table_of_content_setting = Helper::get_table_of_content_setting();
+
         if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
 
             echo '<div class="reference-single-content">';
@@ -68,6 +71,7 @@ final class ActionHooks
     public function reference_single_content_after_callback() {
 
         $table_of_content_setting = Helper::get_table_of_content_setting();
+        
         if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
 
             echo '</div>';

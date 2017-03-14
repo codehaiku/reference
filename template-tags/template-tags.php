@@ -35,3 +35,14 @@ function knb_child_categories()
 
     echo $child_category->reference_display_knowledgebase_category_list();
 }
+function knb_knowledgebase_count()
+{
+    $knowledgebase_count = new \DSC\Reference\Helper;
+    $count = $knowledgebase_count->get_post_count();
+    $name = single_term_title("", false);
+    $output = '';
+
+
+    $output = '<p class="knowledgebase-count">' . sprintf(esc_html__('There are %d knowledgebase found under "%s"', 'reference'), $count, $name) . '</p>';
+    echo $output;
+}

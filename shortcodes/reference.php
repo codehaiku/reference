@@ -28,7 +28,7 @@ $args = array(
 	'posts_per_page' => $posts_per_page,
     'tax_query' => array(
 		array(
-			'taxonomy' => 'categories',
+			'taxonomy' => 'knb-categories',
 			'field'    => 'slug',
 			'terms'    => $categories,
 		),
@@ -93,7 +93,7 @@ $args = array(
 
                                 </h5>
 
-                                <?php the_content();?>
+                                <?php the_excerpt();?>
 
                             </div>
 

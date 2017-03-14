@@ -14,6 +14,7 @@ input#reference_knowledgebase_search_submit {
 .knowledgebase .page-header {
     position: relative;
 }
+.letter-thumbnail,
 .knowledgebase .page-header .letter-thumbnail {
     width: 10%;
     font-size: 35px;
@@ -47,19 +48,35 @@ input#reference_knowledgebase_search_submit {
 .category-listings .category-listing {
     display: inline-block;
     vertical-align: top;
+    padding: 45px 0;
+    border-bottom: 1px solid #dfdfdf;
+}
+.category-listings.columns-1 .category-listing:last-of-type,
+.category-listings .category-column:last-of-type .category-listing {
+    border-bottom-width: 0;
 }
 .category-column {
     display: table;
+    width: 100%;
 }
 .category-listings.columns-1 .category-listing {
     width: 100%;
 }
 .category-listings.columns-2 .category-listing {
     width: 50%;
+    display: table-cell;
+    vertical-align: middle;
 }
 .category-listings.columns-2 .category-listing:nth-child(even) {
+    padding-left: 25px;
 }
 .category-listings.columns-2 .category-listing:nth-child(odd) {
+    border-right: 1px solid #dfdfdf;
+    padding-right: 25px;
+}
+.category-listings.columns-2 .category-listing:first-child:nth-last-child(1) {
+    display: inline-block;
+    width: 50%;
 }
 
 .category-listings.columns-3 .category-listing {
@@ -67,7 +84,6 @@ input#reference_knowledgebase_search_submit {
     display: table-cell;
     vertical-align: middle;
     position: relative;
-    border-bottom: 1px solid #dfdfdf;
 }
 .category-listings.columns-3 .category-listing:nth-child(3n-1) {
     padding-left: 10px;
@@ -100,27 +116,18 @@ input#reference_knowledgebase_search_submit {
 }
 .category-listings.columns-3 .category-listing:first-child:nth-last-child(1) {
     display: inline-block;
-    width: 58.75%;
-}
-
-
-.category-listings.columns-3 .category-listing:nth-child(even):nth-last-child(1) {
-    /*background: yellow;*/
-}
-
-.category-listings.columns-3 .category-listing:nth-child(even):nth-last-child(2)+:nth-last-child(1) {
-    /*background:blue*/
-}
-.category-listings.columns-3 .category-listing:nth-child(3n):nth-last-child(1) {
-    /*background: red;*/
+    width: 33.33%;
 }
 
 /**
  * Category Archive knowledgebase
  */
-body.archive.tax-knb-categories.knowledgebase #primary article.knowledgebase {
+article.knowledgebase {
     padding: 35px 0;
     border-bottom: 1px solid #969696;
+}
+article.knowledgebase:last-of-type {
+    border-bottom-width: 0;
 }
 article.knowledgebase .link-more {
     margin-bottom: 0;
@@ -129,7 +136,7 @@ article.knowledgebase .link-more {
 .category-listings .reference-cat-image,
 .category-listings .reference-cat-info {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
 }
 .category-listings .reference-cat-image {
     width: 80px;
@@ -137,9 +144,22 @@ article.knowledgebase .link-more {
     line-height: 80px;
     max-width: 35%;
     margin-right: 5%;
+    position: relative;
+}
+.category-listings .reference-cat-image .letter-thumbnail {
+    width: 100%;
 }
 .category-listings .reference-cat-info {
     max-width: 60%;
+}
+.category-listings .count {
+    color: #fff;
+    background: #444;
+    font-size: 10px;
+    padding: 2.5px 5px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    display: inline-block;
 }
 .category-listings .reference-cat-image img {
     width: 100%;
@@ -151,7 +171,6 @@ article.knowledgebase .link-more {
  */
 
 .single-knowledgebase #primary {
-    float: left;
 }
 .reference-has-table-of-content .reference-menu-container,
 .reference-has-table-of-content .reference-single-content {
@@ -296,17 +315,6 @@ article.knowledgebase .link-more {
 .reference-menu-container li ol > li:last-of-type {
     padding-bottom: 0;
 }
-
-.reference-menu-container ol.sub-menu li > ol.children {
-    overflow: hidden;
-    max-height: 1000px;
-}
-
-.reference-menu-container ol.sub-menu li.active > ol.children {
-    overflow: hidden;
-    max-height: 5px;
-}
-
 .reference-menu-container ol.sub-menu > li > a:hover,
 
 .reference-menu-container ol.sub-menu > li.current_page_item > a {
@@ -380,4 +388,19 @@ article.knowledgebase .link-more {
 .reference-menu-container ol.sub-menu li.active > ol.sub-menu {
     overflow: hidden;
     max-height: 5px;
+}
+
+/**
+ * Reference Feedback
+ */
+.reference-feedback-container {
+    background: #d7d7d7;
+    padding: 15px;
+    border: 1px solid #969696;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.feedback-response-link {
+    margin-bottom: 15px;
 }

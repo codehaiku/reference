@@ -20,6 +20,8 @@
 
 namespace DSC\Reference;
 
+use \WP_Query;
+
  if ( ! defined( 'ABSPATH' ) ) {
      return;
  }
@@ -134,12 +136,13 @@ final class Helper
                         }
 
     					$categories[] = sprintf(
-    						'<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p></div></div>',
+    						'<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p><span class="count">%6$s</span></div></div>',
                             esc_attr( strtolower( str_replace(" ", "-", $term->name ) ) ),
                             $displayed_thumbnail,
     						esc_url( get_term_link( $term->slug, $taxonomy_slug ) ),
     						esc_html( $term->name ),
-    						esc_html( self::string_trailing($term->description, 55) )
+    						esc_html( self::string_trailing($term->description, 55) ),
+                            esc_html( self::get_post_count($term->term_id) . ' - Knowledgebase')
     					);
 
                         $count_categories++;
@@ -163,6 +166,31 @@ final class Helper
 
 		}
 	}
+    public static function get_post_count($id = '') {
+
+        if (empty($id)) {
+            $id = self::current_term_id();
+        }
+
+        $args = array(
+          'post_type'     => 'knowledgebase', //post type, I used 'product'
+          'post_status'   => 'publish', // just tried to find all published post
+          'posts_per_page' => -1,  //show all
+          'tax_query' => array(
+            'relation' => 'AND',
+            array(
+              'taxonomy' => 'knb-categories',  //taxonomy name  here, I used 'product_cat'
+              'field' => 'id',
+              'terms' => array( $id )
+            )
+          )
+        );
+
+        $query = new WP_Query( $args);
+
+        return (int)$query->post_count;
+
+    }
 
     public static function the_category_thumbnail()
     {
@@ -243,7 +271,37 @@ final class Helper
         return $table_of_content_setting;
     }
 
+    public static function get_ip() {
+        $ip = $_SERVER['SERVER_ADDR'];
 
+        if ('WINNT' == PHP_OS) {
+            $ip = getHostByName(getHostName());
+        }
+
+        if ('Linux' == PHP_OS) {
+            $ip = array();
+            $command = "/sbin/ifconfig";
+            $pattern = '/inet addr:?([^ ]+)/';
+
+            exec($command, $output);
+
+            foreach ($output as $key => $subject) {
+                $result = preg_match_all($pattern, $subject, $subpattern);
+                if ($result == 1) {
+                    if ($subpattern[1][0] != "127.0.0.1")
+                    $ip = $subpattern[1][0];
+                }
+            }
+        }
+        return $ip;
+    }
+
+
+
+
+    /**
+     * For Menu (Unfinished)
+     */
     public static function get_nav_menu_array($current_menu)
     {
 

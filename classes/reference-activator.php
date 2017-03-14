@@ -47,7 +47,7 @@ class Activator
     {
 
         $options = array(
-            'reference_knb_slug'	                 =>	'dsc-knowledgebase',
+            'reference_knb_slug'	              =>	'dsc-knowledgebase',
             'reference_knb_category_slug'         =>	'dsc-knb-categories',
             'reference_knb_tag_slug'              =>	'dsc-knb-tags',
 

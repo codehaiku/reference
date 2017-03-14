@@ -19,4 +19,42 @@ jQuery(document).ready( function($) {
 
     });
 
+    $('#reference-confirm, #reference-decline').click(function() {
+
+        // $.ajax({
+        //     type: 'POST',
+        //
+        //     dataType: 'json',
+        //
+        //     url: reference_feedback_object.ajaxurl,
+        //
+        //     data: {
+        //         'action': 'reference_feedback_ajax', //calls wp_ajax_nopriv_ajaxlogin
+        //
+        //         'yes': $('#reference-confirm').data('value'),
+        //
+        //         'no': $('#reference-decline').data('value'),
+        //
+        //         'reference-feedback-security': $( '#reference-feedback-security' ).val()
+        //
+        //     },
+        //
+        //     success: function( response ) {
+        //
+        //         if (response.type == "success") {
+        //
+        //             alert("success");
+        //
+        //         } else {
+        //
+        //             alert('fail');
+        //
+        //         }
+        //
+        //
+        //     }
+        //
+        // });
+    });
+
 });
