@@ -40,7 +40,7 @@ class Activator
 {
     public static function activate() {
 
-        // register_activation_hook(__FILE__, array('Activator','settings'));
+        register_activation_hook(__FILE__, array('Activator','settings'));
     }
 
     public static function settings()
@@ -71,7 +71,7 @@ class Activator
 
         add_image_size( 'reference-knowledgebase-thumbnail', 550, 550, true );
 
-        // flush_rewrite_rules();
+        flush_rewrite_rules();
     }
 
 }

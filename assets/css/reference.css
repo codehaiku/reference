@@ -176,7 +176,6 @@ article.knowledgebase .link-more {
 .reference-has-table-of-content .reference-single-content {
     display: inline-block;
     vertical-align: top;
-    padding-left: 15px;
     padding-right: 15px;
 }
 @media (min-width: 992px) {

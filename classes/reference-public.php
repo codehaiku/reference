@@ -128,50 +128,83 @@ class PublicPages
     }
     public function reference_feedback_ajax_init()
     {
-        wp_register_script('reference-feedback-ajax-script', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
+        wp_register_script('reference-feedback-ajax-script', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference-ajax.js', array('jquery'), $this->version, FALSE );
 
         wp_enqueue_script('reference-feedback-ajax-script');
 
         wp_localize_script('reference-feedback-ajax-script', 'reference_feedback_object', array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
-            'redirecturl' => home_url(),
-            'loadingmessage' => __('Verifying login credentials', 'reference'),
+            'yes' => 'yes',
+            'no' => 'no',
         ));
 
-        // Enable the user with no privileges to run klein_ajax_login() in AJAX
         add_action('wp_ajax_reference_feedback_ajax', array($this, 'reference_feedback_ajax'));
         add_action('wp_ajax_nopriv_reference_feedback_ajax', array($this, 'reference_feedback_ajax'));
     }
 
-    public function reference_feedback_ajax(){
+    public function reference_feedback_ajax()
+    {
 
-        // First check the nonce, if it fails the function will break
-        // check_ajax_referer('reference-feedback-ajax-nonce', 'reference-feedback-security');
-        //
-        // // // Nonce is checked, get the POST data and sign user on
-        // $information = array();
-        // $information[ 'yes' ] = $_POST[ 'reference-confirm' ];
-        //
-        // $information[ 'no' ] = $_POST[ 'reference-decline' ];
-        //
-        // $user_signin = wp_signon( $information, false );
-        //
-        // if ( is_wp_error( $user_signin ) ) {
-        //
-        //     echo json_encode( array( 'login' => false, 'message' => __( 'Wrong username or password.' ) ) );
-        //
-        // } else {
-        //
-        //     echo json_encode( array( 'login' => true, 'message' => __( 'Login successful, redirecting' ) ) );
-        //
-        // }
-        //
-        // die();
-        global $wpdb;
-    	$whatever = intval( $_POST['whatever'] );
-    	$whatever += 10;
-            echo $whatever;
-    	wp_die();
+        header('Content-Type: application/json');
+
+        check_ajax_referer('reference-feedback-ajax-nonce', 'reference-feedback-security');
+
+        $reference_id = filter_input(INPUT_POST, 'reference-id', FILTER_SANITIZE_NUMBER_INT);
+        $reference_confirmed = filter_input(INPUT_POST, 'reference-confirm', FILTER_SANITIZE_STRING);
+        $reference_declined = filter_input(INPUT_POST, 'reference-decline', FILTER_SANITIZE_STRING);
+
+        $ip = Helper::get_ip();
+        $ip_addresses = (array) get_post_meta($reference_id, '_knowledgebase_feedback_ip_meta_key', true);
+        $ip_array = array();
+
+        $confirmed_value = get_post_meta($reference_id, '_knowledgebase_feedback_confirm_meta_key', true);
+        $declined_value = get_post_meta($reference_id, '_knowledgebase_feedback_decline_meta_key', true);
+
+        $confirmed_amount = $confirmed_value;
+        $declined_amount = $declined_value;
+
+        if ('yes' === $reference_confirmed && !in_array($ip, $ip_addresses)) {
+            $confirmed_amount++;
+        }
+
+        if ('no' === $reference_declined && !in_array($ip, $ip_addresses)) {
+            $declined_amount++;
+        }
+
+        if (!in_array($ip, $ip_array)) {
+            $ip_array[] = $ip;
+        }
+
+        foreach ($ip_addresses as $ip_address) {
+            if (!in_array($ip_address, $ip_array) && !empty($ip_address)) {
+                $ip_array[] = $ip_address;
+            }
+        }
+
+        if ($reference_confirmed) {
+            update_post_meta($reference_id, '_knowledgebase_feedback_confirm_meta_key', $confirmed_amount);
+        }
+
+        if ($reference_declined) {
+            update_post_meta($reference_id, '_knowledgebase_feedback_decline_meta_key', $declined_amount);
+        }
+
+        if (!in_array($ip, $ip_addresses)) {
+            update_post_meta($reference_id, '_knowledgebase_feedback_ip_meta_key', $ip_array);
+        }
+
+        if ('yes' === $reference_confirmed || 'no' === $reference_declined && !in_array($ip, $ip_addresses)) {
+            echo wp_json_encode(
+                array(
+                    'status' => 202,
+                    'confirmed_amount' => $confirmed_amount,
+                    'declined_amount' => $declined_amount,
+                    'message' => __($confirmed_amount . ' said "Yes" while ' . $declined_amount . ' said "No" ' . implode("||", $ip_array)),
+                )
+            );
+        }
+
+        die();
     }
 
     public function body_class($classes)

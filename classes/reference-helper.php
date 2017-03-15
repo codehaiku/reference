@@ -247,6 +247,7 @@ final class Helper
     public static function table_of_content()
     {
         $reference_menu = self::get_table_of_content_setting();
+        $nav_menu = self::get_nav_menu();
 
         $menu = wp_nav_menu(
             array(
@@ -260,9 +261,10 @@ final class Helper
 
         $ordered_list = str_replace("<ul", "<ol", $menu);
 
-        if (!empty($menu) && !empty($reference_menu)) {
+        if (!empty($menu) && !empty($reference_menu) && is_nav_menu($reference_menu)) {
             echo $ordered_list;
         }
+
     }
     public static function get_table_of_content_setting()
     {

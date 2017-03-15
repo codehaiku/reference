@@ -46,3 +46,52 @@ function knb_knowledgebase_count()
     $output = '<p class="knowledgebase-count">' . sprintf(esc_html__('There are %d knowledgebase found under "%s"', 'reference'), $count, $name) . '</p>';
     echo $output;
 }
+
+function knb_display_feedback()
+{ ?>
+    <?php if (is_ip_listed()) {?>
+        <div class="reference-feedback-container" id="reference-feedback" data-value="<?php echo get_the_ID(); ?>">
+            <p lass="feedback-header"><?php esc_html_e('Was this article helpful?', 'reference'); ?></p>
+            <div class="feedback-response-link">
+                <a href="" id="reference-confirm-feedback"><?php esc_html_e('Yes', 'reference'); ?></a>/<a href="" id="reference-decline-feedback"><?php esc_html_e('No', 'reference'); ?></a>
+            </div>
+            <small class="feedback-results">
+                <span id="confirmed_amount"><?php get_feedback_confirm_amount(); ?></span><?php esc_html_e(' said "Yes" while ', 'reference'); ?><span id="declined_amount"><?php get_feedback_decline_amount(); ?></span><?php esc_html_e(' said "No"', 'reference'); ?>
+            </small>
+            <?php wp_nonce_field( 'reference-feedback-ajax-nonce', 'reference-feedback-security' ); ?>
+        </div>
+    <?php } ?>
+    <?php display_ips(); ?>
+<?php }
+
+function get_feedback_confirm_amount()
+{
+    $confirm_value = get_post_meta(get_the_ID(), '_knowledgebase_feedback_confirm_meta_key', true);
+
+    echo $confirm_value;
+}
+function get_feedback_decline_amount()
+{
+    $decline_value = get_post_meta(get_the_ID(), '_knowledgebase_feedback_decline_meta_key', true);
+
+    echo $decline_value;
+}
+function is_ip_listed()
+{
+    $ip = new \DSC\Reference\Helper;
+    $the_ip = $ip->get_ip();
+    $ip_addresses = (array) get_post_meta(get_the_ID(), '_knowledgebase_feedback_ip_meta_key', true);
+
+    if (!in_array($the_ip, $ip_addresses)) {
+        return true;
+    }
+}
+function display_ips()
+{
+    $ip_addresses = (array) get_post_meta(get_the_ID(), '_knowledgebase_feedback_ip_meta_key', true);
+
+    echo '<pre>';
+        var_dump($ip_addresses);
+    echo '</pre>';
+}
+// delete_post_meta_by_key('_knowledgebase_feedback_ip_meta_key');
