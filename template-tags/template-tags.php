@@ -19,6 +19,21 @@
  * @since    1.0
  */
 
+function knb_breadcrumb()
+{
+    $breadcrumb = new \DSC\Reference\Breadcrumbs();
+
+	$args = array(
+        'post_type'           => 'knowledgebase',
+        'taxonomy'            => 'knb-categories',
+        'separator_icon'      => '/',
+        'breadcrumbs_id'      => 'breadcrumbs-wrap',
+        'breadcrumbs_classes' => 'breadcrumb-trail breadcrumbs',
+        'home_title'          => esc_html__( 'Knowledgebase', 'reference' )
+	);
+
+    echo $breadcrumb->render( $args );
+}
 function knb_category_thumbnail()
 {
      $archive_thumbnail = new \DSC\Reference\Helper;
@@ -49,30 +64,39 @@ function knb_knowledgebase_count()
 
 function knb_display_feedback()
 { ?>
-    <?php if (is_ip_listed()) {?>
+
         <div class="reference-feedback-container" id="reference-feedback" data-value="<?php echo get_the_ID(); ?>">
             <p lass="feedback-header"><?php esc_html_e('Was this article helpful?', 'reference'); ?></p>
             <div class="feedback-response-link">
-                <a href="" id="reference-confirm-feedback"><?php esc_html_e('Yes', 'reference'); ?></a>/<a href="" id="reference-decline-feedback"><?php esc_html_e('No', 'reference'); ?></a>
+                <?php if (is_ip_listed()) {?>
+                    <a href="" id="reference-confirm-feedback"><?php esc_html_e('Yes', 'reference'); ?></a>/<a href="" id="reference-decline-feedback"><?php esc_html_e('No', 'reference'); ?></a>
+                <?php } else { ?>
+                    <?php esc_html_e('You have already Voted.', 'reference'); ?>
+                <?php } ?>
             </div>
             <small class="feedback-results">
                 <span id="confirmed_amount"><?php get_feedback_confirm_amount(); ?></span><?php esc_html_e(' said "Yes" while ', 'reference'); ?><span id="declined_amount"><?php get_feedback_decline_amount(); ?></span><?php esc_html_e(' said "No"', 'reference'); ?>
             </small>
             <?php wp_nonce_field( 'reference-feedback-ajax-nonce', 'reference-feedback-security' ); ?>
         </div>
-    <?php } ?>
-    <?php display_ips(); ?>
 <?php }
 
 function get_feedback_confirm_amount()
 {
     $confirm_value = get_post_meta(get_the_ID(), '_knowledgebase_feedback_confirm_meta_key', true);
 
+    if(empty($confirm_value)) {
+        $confirm_value = 0;
+    }
     echo $confirm_value;
 }
 function get_feedback_decline_amount()
 {
     $decline_value = get_post_meta(get_the_ID(), '_knowledgebase_feedback_decline_meta_key', true);
+
+    if(empty($decline_value)) {
+        $decline_value = 0;
+    }
 
     echo $decline_value;
 }
@@ -86,6 +110,15 @@ function is_ip_listed()
         return true;
     }
 }
+
+
+
+
+
+
+/**
+ * For Development Purposes (Remove after Finished)
+ */
 function display_ips()
 {
     $ip_addresses = (array) get_post_meta(get_the_ID(), '_knowledgebase_feedback_ip_meta_key', true);

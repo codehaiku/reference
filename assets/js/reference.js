@@ -19,4 +19,48 @@ jQuery(document).ready( function($) {
 
     });
 
+    // reference single breadcrumb
+    var $ancestors = $('.current-menu-item').parentsUntil( '#reference-menu > li').toArray().reverse();
+    var count  = 0;
+    var $separator = reference_breadcrumb_separator_object.separator;
+
+    var root_menu_name = $( '#reference-menu > li:first-child > a:first-child').text();
+    var root_menu_link = $( '#reference-menu > li:first-child > a:first-child').attr('href');
+    var root_breadcrumb = '<a href="'+root_menu_link+'" title="'+root_menu_name+'">'+root_menu_name+$separator+'</a>';
+
+    var current_menu_name = $( '#reference-menu .current-menu-item >a:first-child').text();
+    var current_menu_link = $( '#reference-menu .current-menu-item >a:first-child').attr('href');
+    var current_breadcrumb = '<a href="'+current_menu_link+'" title="'+current_menu_name+'">'+$separator+current_menu_name+'</a>';
+
+    if ( $ancestors.length >= 1 ) {
+
+        $('#breadcrumbs-wrap').html('');
+
+        $.each( $ancestors, function( key, node ){
+
+            count++;
+
+            if ( $(this).hasClass('menu-item') ) {
+
+
+                var text = $(' > a', $(this)).html();
+                var link = $(' > a', $(this)).attr('href');
+
+                var trail = '<a href="'+link+'" title="'+text+'">'+text+'</a>';
+
+                //console.log( count + 1 + ' is eq? ' + $ancestors.length )
+                if ( count + 1 < $ancestors.length ) {
+                    trail += $separator;
+                }
+
+                $('#breadcrumbs-wrap').append( trail );
+            }
+
+        });
+
+        $( root_breadcrumb ).insertBefore( "#breadcrumbs-wrap > a:first-child" );
+        $( current_breadcrumb ).insertAfter( "#breadcrumbs-wrap > a:last-child" );
+
+    }
+
 });

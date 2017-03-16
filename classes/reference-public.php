@@ -91,9 +91,11 @@ class PublicPages
      *
      * @since    1.0.0
      */
-     public function enqueue_styles() {
+     public function enqueue_styles()
+     {
 
-        global $post;
+        $post = Helper::global_post();
+
         $theme = wp_get_theme(); // gets the current theme
 
         if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax( 'knb-categories' ) || has_shortcode( $post->post_content, 'dsc_knb')) {
@@ -123,7 +125,14 @@ class PublicPages
     {
         if (is_singular('knowledgebase')){
             wp_enqueue_script( 'reference-sticky-kit', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/sticky-kit.js', array('jquery'), $this->version, FALSE );
-            wp_enqueue_script( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
+
+            wp_register_script($this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
+
+            wp_enqueue_script($this->name);
+
+            wp_localize_script($this->name, 'reference_breadcrumb_separator_object', array(
+                'separator' => ' / ',
+            ));
         }
     }
     public function reference_feedback_ajax_init()
@@ -181,11 +190,11 @@ class PublicPages
             }
         }
 
-        if ($reference_confirmed) {
+        if ('yes' === $reference_confirmed && !in_array($ip, $ip_addresses)) {
             update_post_meta($reference_id, '_knowledgebase_feedback_confirm_meta_key', $confirmed_amount);
         }
 
-        if ($reference_declined) {
+        if ('no' === $reference_declined && !in_array($ip, $ip_addresses)) {
             update_post_meta($reference_id, '_knowledgebase_feedback_decline_meta_key', $declined_amount);
         }
 
@@ -199,7 +208,7 @@ class PublicPages
                     'status' => 202,
                     'confirmed_amount' => $confirmed_amount,
                     'declined_amount' => $declined_amount,
-                    'message' => __($confirmed_amount . ' said "Yes" while ' . $declined_amount . ' said "No" ' . implode("||", $ip_array)),
+                    'message' => __('Thank you for voting.', 'reference'),
                 )
             );
         }

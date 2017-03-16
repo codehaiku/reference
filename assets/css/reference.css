@@ -153,13 +153,7 @@ article.knowledgebase .link-more {
     max-width: 60%;
 }
 .category-listings .count {
-    color: #fff;
-    background: #444;
-    font-size: 10px;
-    padding: 2.5px 5px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    display: inline-block;
+    margin-left: 5px;
 }
 .category-listings .reference-cat-image img {
     width: 100%;

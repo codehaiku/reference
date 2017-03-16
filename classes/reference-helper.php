@@ -39,10 +39,22 @@ use \WP_Query;
  */
 final class Helper
 {
+    public static function global_post()
+    {
+        global $post;
+
+        return $post;
+    }
+    public static function global_term()
+    {
+        global $term;
+
+        return $term;
+    }
 
     public static function reference_get_knowledgebase_category()
     {
-        global $post;
+        $post = self::global_post();
 
 		if ( ! empty( $post->ID ) ) {
 
@@ -62,7 +74,7 @@ final class Helper
 	}
     public static function get_categories_image ( $term, $taxonomy )
     {
-        global $term;
+        $term = self::global_term();
 
         $image_id = get_term_meta ( $term->term_id, 'categories-image-id', true );
 
@@ -71,7 +83,7 @@ final class Helper
 
     public static function reference_display_knowledgebase_category_list()
     {
-        global $post;
+        $post = self::global_post();
 
         $terms = '';
         $term = '';
@@ -136,13 +148,13 @@ final class Helper
                         }
 
     					$categories[] = sprintf(
-    						'<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p><span class="count">%6$s</span></div></div>',
-                            esc_attr( strtolower( str_replace(" ", "-", $term->name ) ) ),
+    						'<div class="category-listing %1$s"><div class="reference-cat-image"><a href="%3$s">%2$s</a></div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a><span class="count">%6$s</span></h5><p class="description">%5$s</p></div></div>',
+                            esc_attr(strtolower(str_replace(" ", "-", $term->name))),
                             $displayed_thumbnail,
-    						esc_url( get_term_link( $term->slug, $taxonomy_slug ) ),
-    						esc_html( $term->name ),
-    						esc_html( self::string_trailing($term->description, 55) ),
-                            esc_html( self::get_post_count($term->term_id) . ' - Knowledgebase')
+    						esc_url(get_term_link($term->slug, $taxonomy_slug)),
+    						esc_html($term->name),
+    						esc_html(self::string_trailing($term->description, 55)),
+                            esc_html('(' . self::get_post_count($term->term_id) . ')')
     					);
 
                         $count_categories++;
@@ -194,15 +206,16 @@ final class Helper
 
     public static function the_category_thumbnail()
     {
-        $get_current_term = self::current_term_id();
+        $get_current_term_id = self::current_term_id();
         $term_title = single_term_title("", false);
-        $image_id = get_term_meta( $get_current_term, 'categories-image-id', true );
+        $term_link = get_term_link( $get_current_term_id );
+        $image_id = get_term_meta( $get_current_term_id, 'categories-image-id', true );
         $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
         $thumbnail_letter = self::fallback_thumbnail($term_title);
-        $displayed_thumbnail = $thumbnail;
+        $displayed_thumbnail = '<a href=' . esc_url($term_link) .'title="' . esc_attr($term_title) . '">'. $thumbnail . '</a>';;
 
         if ( empty($thumbnail)) {
-            $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
+            $displayed_thumbnail = '<div class="letter-thumbnail"><a href=' . esc_url($term_link) .'title="' . esc_attr($term_title) . '">'. $thumbnail_letter . '</a></div>';
         }
 
         return $displayed_thumbnail;

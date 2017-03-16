@@ -91,6 +91,8 @@ class Loader
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-metabox.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-breadcrumb.php';
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-shortcodes.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-action-hooks.php';

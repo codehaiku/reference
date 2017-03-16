@@ -84,7 +84,7 @@ class KnowledgebaseShortcodes
 
     public static function reference_shortcode_display_knowledgebase_category_list($categories, $columns)
     {
-        global $post;
+        $post = Helper::global_post();
 
         $terms = '';
         $term = '';
@@ -128,7 +128,7 @@ class KnowledgebaseShortcodes
             if( $term->parent) {
                 $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
                 $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
-                $thumbnail_letter = \DSC\Reference\Helper::fallback_thumbnail($term->name);
+                $thumbnail_letter = Helper::fallback_thumbnail($term->name);
                 $displayed_thumbnail = $thumbnail;
 
                 if ( empty($thumbnail)) {
@@ -138,11 +138,11 @@ class KnowledgebaseShortcodes
 
     			$categories_list[] = sprintf(
                     '<div class="categoriy-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p></div></div>',
-                    esc_attr( strtolower( str_replace(" ", "-", $term->name ) ) ),
+                    esc_attr(strtolower(str_replace(" ", "-", $term->name))),
                     $displayed_thumbnail,
-                    esc_url( get_term_link( $term->slug, $taxonomy) ),
-                    esc_html( $term->name ),
-                    esc_html( \DSC\Reference\Helper::string_trailing($term->description, 15) )
+                    esc_url(get_term_link( $term->slug, $taxonomy)),
+                    esc_html($term->name),
+                    esc_html(Helper::string_trailing($term->description, 15))
                 );
 
             }
