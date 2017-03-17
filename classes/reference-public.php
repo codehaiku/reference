@@ -96,9 +96,13 @@ class PublicPages
 
         $post = Helper::global_post();
 
+        if ( !isset( $post ) ) {
+            return;
+        }
+
         $theme = wp_get_theme(); // gets the current theme
 
-        if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax( 'knb-categories' ) || has_shortcode( $post->post_content, 'dsc_knb')) {
+        if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax( 'knb-categories' ) || has_shortcode( $post->post_content, 'reference_loop')) {
 
             wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference.css', array(), $this->version, 'all' );
 
@@ -133,6 +137,10 @@ class PublicPages
             wp_localize_script($this->name, 'reference_breadcrumb_separator_object', array(
                 'separator' => ' / ',
             ));
+
+            if (has_shortcode( $post->post_content, 'reference_highlighter')) {
+                wp_enqueue_script( 'reference-highlight', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/highlight.js', array('jquery'), $this->version, FALSE );
+            }
         }
     }
     public function reference_feedback_ajax_init()
@@ -145,6 +153,7 @@ class PublicPages
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'yes' => 'yes',
             'no' => 'no',
+            'loading' => '<span class="loading"></span>',
         ));
 
         add_action('wp_ajax_reference_feedback_ajax', array($this, 'reference_feedback_ajax'));

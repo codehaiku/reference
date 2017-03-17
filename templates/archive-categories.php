@@ -33,7 +33,7 @@ $knowledgebase = new WP_Query( $args );
 
     <div class="reference-knowledgebase columns-<?php esc_attr_e($reference_knb_archive_column); ?>">
 
-        <?php echo $category_listing->reference_display_knowledgebase_category_list(); ?>
+        <?php echo $category_listing->reference_display_child_category_list(); ?>
 
         <?php while ( $knowledgebase->have_posts() ) : ?>
 

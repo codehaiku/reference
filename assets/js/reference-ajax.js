@@ -21,6 +21,10 @@ jQuery(document).ready( function($) {
 
             },
 
+            beforeSend: function(){
+                $('.feedback-response-link').html(reference_feedback_object.loading);
+            },
+
             success: function(response) {
 
                 if (response.status == 202) {
@@ -62,6 +66,10 @@ jQuery(document).ready( function($) {
 
                 'reference-feedback-security': $( '#reference-feedback-security' ).val()
 
+            },
+            
+            beforeSend: function(){
+                $('.feedback-response-link').html(reference_feedback_object.loading);
             },
 
             success: function(response) {

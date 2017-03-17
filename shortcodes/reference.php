@@ -21,15 +21,16 @@ if ( ! in_array( $columns, $allowed_columns, true ) ) {
 	$columns = 3;
 }
 
-$categories = explode(",", $categories);
+$categories = explode(", ", $categories);
 
 $args = array(
 	'post_type' => 'knowledgebase',
 	'posts_per_page' => $posts_per_page,
+    'order' => 'desc',
     'tax_query' => array(
 		array(
 			'taxonomy' => 'knb-categories',
-			'field'    => 'slug',
+			'field'    => 'name',
 			'terms'    => $categories,
 		),
 	),
@@ -43,8 +44,6 @@ $args = array(
 <?php if ( $knowledgebase->have_posts() ) : ?>
 
     <header class="reference-header">
-        <h1 class="reference-title"><?php esc_html_e($title); ?></h1>
-
         <div class="reference-knowledgebase-search-field">
             <form role="search" class="reference-knowledgebase-search-form" action="<?php echo site_url('/'); ?>" method="get" id="searchform">
                 <input type="text" name="s" placeholder="<?php esc_attr_e('Search Knowledgebase', 'reference'); ?>"/>
@@ -55,9 +54,9 @@ $args = array(
     </header><!-- .page-header -->
 
     <div class="reference-knowledgebase columns-<?php esc_attr_e($columns); ?>">
-        <?php
-            echo \DSC\Reference\KnowledgebaseShortcodes::reference_shortcode_display_knowledgebase_category_list($categories, $columns);
-        ?>
+        
+        <?php reference_loop_category($categories, $columns, $show_category); ?>
+
         <?php while ( $knowledgebase->have_posts() ) : ?>
 
             <?php $knowledgebase->the_post(); ?>

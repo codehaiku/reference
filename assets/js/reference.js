@@ -20,13 +20,9 @@ jQuery(document).ready( function($) {
     });
 
     // reference single breadcrumb
-    var $ancestors = $('.current-menu-item').parentsUntil( '#reference-menu > li').toArray().reverse();
+    var $ancestors = $('.current-menu-item').parentsUntil( '#reference-menu').toArray().reverse();
     var count  = 0;
     var $separator = reference_breadcrumb_separator_object.separator;
-
-    var root_menu_name = $( '#reference-menu > li:first-child > a:first-child').text();
-    var root_menu_link = $( '#reference-menu > li:first-child > a:first-child').attr('href');
-    var root_breadcrumb = '<a href="'+root_menu_link+'" title="'+root_menu_name+'">'+root_menu_name+$separator+'</a>';
 
     var current_menu_name = $( '#reference-menu .current-menu-item >a:first-child').text();
     var current_menu_link = $( '#reference-menu .current-menu-item >a:first-child').attr('href');
@@ -58,7 +54,6 @@ jQuery(document).ready( function($) {
 
         });
 
-        $( root_breadcrumb ).insertBefore( "#breadcrumbs-wrap > a:first-child" );
         $( current_breadcrumb ).insertAfter( "#breadcrumbs-wrap > a:last-child" );
 
     }
