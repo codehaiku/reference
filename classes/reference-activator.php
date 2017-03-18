@@ -47,22 +47,24 @@ class Activator
     {
 
         $options = array(
-            'reference_knb_slug'	              =>	'dsc-knowledgebase',
-            'reference_knb_category_slug'         =>	'dsc-knb-categories',
-            'reference_knb_tag_slug'              =>	'dsc-knb-tags',
+            'reference_knb_slug'	                    =>	'dsc-knowledgebase',
+            'reference_knb_category_slug'               =>	'dsc-knb-categories',
+            'reference_knb_tag_slug'                    =>	'dsc-knb-tags',
 
-            'reference_knb_singular'              =>	'Knowledgebase',
-            'reference_knb_plural'                =>	'Knowledgebase',
-            'reference_knb_category_singular'     =>	'Knowledgebase Category',
-            'reference_knb_category_plural'       =>	'Knowledgebase Categories',
-            'reference_knb_tag_singular'          =>	'Knowledgebase Tag',
-            'reference_knb_tag_plural'            =>	'Knowledgebase Tags',
+            'reference_knb_singular'                    =>	'Knowledgebase',
+            'reference_knb_plural'                      =>	'Knowledgebase',
+            'reference_knb_category_singular'           =>	'Knowledgebase Category',
+            'reference_knb_category_plural'             =>	'Knowledgebase Categories',
+            'reference_knb_tag_singular'                =>	'Knowledgebase Tag',
+            'reference_knb_tag_plural'                  =>	'Knowledgebase Tags',
 
-            'reference_knb_archive_column'        =>	'3',
-            'reference_knb_syntax_highlighting'   =>	true,
-            'reference_knb_comment_feedback'      =>	true,
-            'reference_knb_toc'                   =>	true,
-            'reference_knb_breadcrumbs'           =>	true,
+            'reference_knb_archive_column'              =>	'3',
+            'reference_knb_syntax_highlighting'         =>	true,
+            'reference_knb_syntax_highlighting_style'   =>	'dark',
+            'reference_knb_comment_feedback'            =>	true,
+            'reference_knb_toc'                         =>	true,
+            'reference_knb_breadcrumbs'                 =>	true,
+            'reference_knb_breadcrumbs_separator'       =>	'/',
         );
 
         foreach ($options as $key => $value) {

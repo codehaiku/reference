@@ -26,10 +26,10 @@ function knb_breadcrumb()
 	$args = array(
         'post_type'           => 'knowledgebase',
         'taxonomy'            => 'knb-categories',
-        'separator_icon'      => '/',
+        'separator_icon'      => ' ' . get_option('reference_knb_breadcrumbs_separator') . ' ',
         'breadcrumbs_id'      => 'breadcrumbs-wrap',
         'breadcrumbs_classes' => 'breadcrumb-trail breadcrumbs',
-        'home_title'          => esc_html__( 'Knowledgebase', 'reference' )
+        'home_title'          => get_option('reference_knb_plural'),
 	);
 
     if ((bool)get_option('reference_knb_breadcrumbs') === true) {
@@ -128,7 +128,12 @@ function reference_loop_category($categories, $columns, $show_category)
     }
 }
 
+function reference_highlighting_style()
+{
+    $styles = new \DSC\Reference\Helper;
+    return $styles->get_highlighting_style();
 
+}
 
 
 
@@ -143,4 +148,3 @@ function display_ips()
         var_dump($ip_addresses);
     echo '</pre>';
 }
-// delete_post_meta_by_key('_knowledgebase_feedback_ip_meta_key');

@@ -49,7 +49,7 @@ final class Metabox
 
         add_meta_box(
             'knowledgebase_menu',
-            __('Table of Content Menu', 'reference'),
+            esc_html__('Table of Content Menu', 'reference'),
             array( $this, 'knowledgebase_toc_menu_metabox_panel'),
             $post_type,
             'side',

@@ -95,6 +95,7 @@ class PublicPages
      {
 
         $post = Helper::global_post();
+        $highlighting_style = Helper::get_highlighting_style_file();
 
         if ( !isset( $post ) ) {
             return;
@@ -117,6 +118,9 @@ class PublicPages
             }
         }
 
+        if (has_shortcode( $post->post_content, 'reference_highlighter') && (bool)get_option('reference_knb_syntax_highlighting') === true) {
+            wp_enqueue_style( 'highlighter-style', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/styles/' . $highlighting_style . '.css', array(), $this->version, 'all' );
+        }
         return;
     }
 
@@ -127,20 +131,28 @@ class PublicPages
      */
     public function enqueue_scripts()
     {
+        $post = Helper::global_post();
+
+        if ( !isset( $post ) ) {
+            return;
+        }
+
+        wp_register_script($this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
+
         if (is_singular('knowledgebase')){
             wp_enqueue_script( 'reference-sticky-kit', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/sticky-kit.js', array('jquery'), $this->version, FALSE );
-
-            wp_register_script($this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
 
             wp_enqueue_script($this->name);
 
             wp_localize_script($this->name, 'reference_breadcrumb_separator_object', array(
-                'separator' => ' / ',
+                'separator' => ' ' . get_option('reference_knb_breadcrumbs_separator') . ' ',
             ));
 
-            if (has_shortcode( $post->post_content, 'reference_highlighter')) {
-                wp_enqueue_script( 'reference-highlight', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/highlight.js', array('jquery'), $this->version, FALSE );
-            }
+        }
+
+        if (has_shortcode( $post->post_content, 'reference_highlighter') && (bool)get_option('reference_knb_syntax_highlighting') === true) {
+            wp_enqueue_script($this->name);
+            wp_enqueue_script( 'reference-highlight', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/highlight.js', array('jquery'), $this->version, FALSE );
         }
     }
     public function reference_feedback_ajax_init()
@@ -217,7 +229,7 @@ class PublicPages
                     'status' => 202,
                     'confirmed_amount' => $confirmed_amount,
                     'declined_amount' => $declined_amount,
-                    'message' => __('Thank you for voting.', 'reference'),
+                    'message' => esc_html__('Thank you for voting.', 'reference'),
                 )
             );
         }

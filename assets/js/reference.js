@@ -1,6 +1,12 @@
 jQuery(document).ready( function($) {
     "use strict";
 
+    $('pre code').each(function(i, block) {
+        if($(this).parent().hasClass('reference-highlighter')) {
+            hljs.highlightBlock(block);
+        }
+    });
+
     $( '.reference-menu-container ol li ol.sub-menu li.menu-item-has-children > a' ).after( '<span id="thrive_nav_btn" class="pages-menu-toggle"></span>' );
 
     $('.pages-menu-toggle').on('click', function(e) {
@@ -22,7 +28,12 @@ jQuery(document).ready( function($) {
     // reference single breadcrumb
     var $ancestors = $('.current-menu-item').parentsUntil( '#reference-menu').toArray().reverse();
     var count  = 0;
-    var $separator = reference_breadcrumb_separator_object.separator;
+    var $separator = '';
+    // if (reference_breadcrumb_separator_object != null) {
+    // if (reference_breadcrumb_separator_object  && typeof reference_breadcrumb_separator_object !== 'undefined') {
+    if (typeof reference_breadcrumb_separator_object !== 'undefined' && reference_breadcrumb_separator_object !== null) {
+        $separator = reference_breadcrumb_separator_object.separator;
+    }
 
     var current_menu_name = $( '#reference-menu .current-menu-item >a:first-child').text();
     var current_menu_link = $( '#reference-menu .current-menu-item >a:first-child').attr('href');

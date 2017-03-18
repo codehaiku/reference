@@ -358,7 +358,8 @@ final class Helper
         return $table_of_content_setting;
     }
 
-    public static function get_ip() {
+    public static function get_ip()
+    {
         $ip = $_SERVER['SERVER_ADDR'];
 
         if ('WINNT' == PHP_OS) {
@@ -383,8 +384,31 @@ final class Helper
         return $ip;
     }
 
+    public static function get_highlighting_style()
+    {
+        $styles = glob(__DIR__."\..\assets\css\styles\*.css");
+        $remove = array( '-', '.css');
+        $replace = array( ' ', '');
 
+        $get_styles = array();
+        $formated_styles = '';
 
+        foreach ($styles as $style) {
+            $get_styles[] = basename($style);
+        }
+
+        $formated_styles = str_replace($remove, $replace, $get_styles);
+
+        return $formated_styles;
+    }
+    public static function get_highlighting_style_file()
+    {
+        $style = get_option( 'reference_knb_syntax_highlighting_style' );
+
+        $formated_styles = str_replace(' ', '-', $style);
+
+        return $formated_styles;
+    }
 
     /**
      * For Menu (Unfinished)

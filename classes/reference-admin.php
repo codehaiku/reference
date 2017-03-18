@@ -92,8 +92,8 @@ class Admin
     {
 
         add_options_page(
-            __( 'Reference Settings', 'reference' ),
-            __( 'Reference', 'reference' ),
+            esc_html__( 'Reference Settings', 'reference' ),
+            esc_html__( 'Reference', 'reference' ),
 			'manage_options', 'reference_settings',
 			array($this, 'referenceSettingsPage')
 		);
@@ -111,19 +111,19 @@ class Admin
 
         // Register archive slug section.
         add_settings_section(
-            'reference-archive-slug-section', __('Archive Slug', 'reference'),
+            'reference-archive-slug-section', esc_html__('Knowledgebase Archive Slug', 'reference'),
             array( $this, 'archiveSlugCallback' ), 'reference-settings-section'
         );
 
         // Register archive name section.
         add_settings_section(
-            'reference-archive-name-section', __('Archive Name', 'reference'),
+            'reference-archive-name-section', esc_html__('Knowledgebase Archive Name', 'reference'),
             array( $this, 'archiveNameCallback' ), 'reference-settings-section'
         );
 
         // Register content option section.
         add_settings_section(
-            'reference-content-option-section', __('Content Option', 'reference'),
+            'reference-content-option-section', esc_html__('Knowledgebase Content Option', 'reference'),
             array( $this, 'contentOptiontCallback' ), 'reference-settings-section'
         );
 
@@ -132,21 +132,21 @@ class Admin
         $fields = array(
             array(
                 'id' => 'reference_knb_slug',
-                'label' => __('Knowledgebase Slug', 'reference'),
+                'label' => esc_html__('Slug', 'reference'),
                 'callback' => 'reference_knb_slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
             ),
             array(
                 'id' => 'reference_knb_category_slug',
-                'label' => __('Knowledgebase Category Slug', 'reference'),
+                'label' => esc_html__('Category Slug', 'reference'),
                 'callback' => 'reference_knb_category_slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
             ),
             array(
                 'id' => 'reference_knb_tag_slug',
-                'label' => __('Knowledgebase Tag Slug', 'reference'),
+                'label' => esc_html__('Tag Slug', 'reference'),
                 'callback' => 'reference_knb_tag_slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
@@ -154,42 +154,42 @@ class Admin
 
             array(
                 'id' => 'reference_knb_singular',
-                'label' => __('Knowledgebase Singular', 'reference'),
+                'label' => esc_html__('Singular', 'reference'),
                 'callback' => 'reference_knb_singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_plural',
-                'label' => __('Knowledgebase Plural', 'reference'),
+                'label' => esc_html__('Plural', 'reference'),
                 'callback' => 'reference_knb_plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_category_singular',
-                'label' => __('Knowledgebase Category Singular', 'reference'),
+                'label' => esc_html__('Category Singular', 'reference'),
                 'callback' => 'reference_knb_category_singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_category_plural',
-                'label' => __('Knowledgebase Category Plural', 'reference'),
+                'label' => esc_html__('Category Plural', 'reference'),
                 'callback' => 'reference_knb_category_plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_tag_singular',
-                'label' => __('Knowledgebase Tag Singular', 'reference'),
+                'label' => esc_html__('Tag Singular', 'reference'),
                 'callback' => 'reference_knb_tag_singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_tag_plural',
-                'label' => __('Knowledgebase Tag Plural', 'reference'),
+                'label' => esc_html__('Tag Plural', 'reference'),
                 'callback' => 'reference_knb_tag_plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
@@ -197,36 +197,50 @@ class Admin
 
             array(
                 'id' => 'reference_knb_archive_column',
-                'label' => __('Knowledgebase Columns', 'reference'),
+                'label' => esc_html__('Columns', 'reference'),
                 'callback' => 'reference_knb_archive_column_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_syntax_highlighting',
-                'label' => __('Knowledgebase Syntax Highlighting', 'reference'),
+                'label' => esc_html__('Syntax Highlighting', 'reference'),
                 'callback' => 'reference_knb_syntax_highlighting_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
+                'id' => 'reference_knb_syntax_highlighting_style',
+                'label' => esc_html__('Syntax Highlighting Style', 'reference'),
+                'callback' => 'reference_knb_syntax_highlighting_style_form',
+                'section' => 'reference-settings-section',
+                'group' => 'reference-content-option-section',
+            ),
+            array(
                 'id' => 'reference_knb_comment_feedback',
-                'label' => __('Knowledgebase Comment Feedback', 'reference'),
+                'label' => esc_html__('Comment Feedback', 'reference'),
                 'callback' => 'reference_knb_comment_feedback_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_toc',
-                'label' => __('Knowledgebase Table of Contents', 'reference'),
+                'label' => esc_html__('Table of Contents', 'reference'),
                 'callback' => 'reference_knb_toc_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_breadcrumbs',
-                'label' => __('Knowledgebase BreadCrumbs', 'reference'),
+                'label' => esc_html__('BreadCrumbs', 'reference'),
                 'callback' => 'reference_knb_breadcrumbs_form',
+                'section' => 'reference-settings-section',
+                'group' => 'reference-content-option-section',
+            ),
+            array(
+                'id' => 'reference_knb_breadcrumbs_separator',
+                'label' => esc_html__('BreadCrumbs Separator', 'reference'),
+                'callback' => 'reference_knb_breadcrumbs_separator_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),

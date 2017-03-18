@@ -75,7 +75,7 @@ class KnowledgebaseShortcodes
 			), $atts, 'reference_highlighter'
 		);
 
-		return '<span class="reference-highlighter">' . $content . '</span>';
+		return '<pre class="reference-highlighter"><code>' . $content . '</code></pre>';
 
 	}
 
