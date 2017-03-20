@@ -135,6 +135,64 @@ function reference_highlighting_style()
 
 }
 
+function reference_single_navigation()
+{
+    $nav = new \DSC\Reference\Helper;
+    $menus = $nav->get_nav_menu_array();
+
+    $menu_order = '';
+    $prev_menu_order = '';
+    $next_menu_order = '';
+    $prev_menu = '';
+    $next_menu = '';
+    $prev_menu_url = '';
+    $next_menu_url = '';
+
+    foreach ($menus as $key => $menu) {
+        if ($menu['object_id'] === get_the_ID()) {
+
+            $menu_order = intval($menu['menu_order']);
+
+        }
+
+        $prev_menu_order = $menu_order - 1;
+        $next_menu_order = $menu_order + 1;
+
+        if ($menu['menu_order'] == (string)$prev_menu_order) {
+            $prev_menu_url = $menu['url'];
+        }
+        if (intval($menu['menu_order']) === intval($next_menu_order)) {
+            $next_menu_url = $menu['url'];
+        }
+
+    }
+    var_dump($prev_menu_order);
+    echo '<br>';
+    var_dump($menu_order);
+    echo '<br>';
+    var_dump($next_menu_order);
+    echo '<br>';
+    // echo $prev_menu_order . '<br>';
+    echo $prev_menu_order . ' ' . $next_menu_order . '<br>';
+    echo 'prev: '. $prev_menu . ' next:' . $next_menu;
+    echo '<pre>';
+    // var_dump($nav->get_nav_menu_array());
+    // var_dump($menus[1318]['object_id']);
+    $current_menu = $nav->get_table_of_content_setting();
+    $queried_menu = wp_get_nav_menu_items($current_menu);
+    // var_dump($menus);
+    // var_dump($queried_menu);
+    echo '</pre>';
+?>
+
+<nav class="reference-navigation" role="navigation">
+    <span class="reference-prev"><a href="<?php esc_attr_e($prev_menu_url); ?>"><?php esc_html_e('&lt;&lt;Prev', 'reference'); ?></a></span>
+    <span class="reference-navigation-separator"><?php esc_html_e('/', 'reference'); ?></span>
+    <span class="reference-next"><a href="<?php esc_attr_e($next_menu_url); ?>"><?php esc_html_e('Next&gt;&gt;', 'reference'); ?></a></span>
+</nav>
+
+<?php
+}
 
 
 /**

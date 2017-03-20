@@ -180,12 +180,13 @@ class KnowledgebaseShortcodes
                     }
 
         			$categories_list[] = sprintf(
-                        '<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p></div></div>',
+                        '<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a><span class="count">%6$s</span></h5><p class="description">%5$s</p></div></div>',
                         esc_attr(strtolower(str_replace(" ", "-", $term->name))),
                         $displayed_thumbnail,
                         esc_url(get_term_link( $term->slug, $taxonomy)),
                         esc_html($term->name),
-                        esc_html(Helper::string_trailing($term->description, 15))
+                        esc_html(Helper::string_trailing($term->description, 15)),
+                        esc_html('(' . Helper::get_post_count($term->term_id) . ')')
                     );
                 }
 

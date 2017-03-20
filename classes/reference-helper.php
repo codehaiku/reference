@@ -118,7 +118,7 @@ final class Helper
                 }
                 $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
                 $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
-                $thumbnail_letter = Helper::fallback_thumbnail($term->name);
+                $thumbnail_letter = self::fallback_thumbnail($term->name);
                 $displayed_thumbnail = $thumbnail;
 
                 if ( empty($thumbnail)) {
@@ -126,12 +126,13 @@ final class Helper
                 }
 
                 $categories_list[] = sprintf(
-                    '<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a></h5><p class="description">%5$s</p></div></div>',
+                    '<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a><span class="count">%6$s</span></h5><p class="description">%5$s</p></div></div>',
                     esc_attr(strtolower(str_replace(" ", "-", $term->name))),
                     $displayed_thumbnail,
                     esc_url(get_term_link( $term->slug, $taxonomy)),
                     esc_html($term->name),
-                    esc_html(Helper::string_trailing($term->description, 15))
+                    esc_html(self::string_trailing($term->description, 15)),
+                    esc_html('(' . self::get_post_count($term->term_id) . ')')
                 );
 
                 $count_categories++;
@@ -413,8 +414,11 @@ final class Helper
     /**
      * For Menu (Unfinished)
      */
-    public static function get_nav_menu_array($current_menu)
+    public static function get_nav_menu_array($current_menu = '')
     {
+        if (empty($current_menu)) {
+            $current_menu = self::get_table_of_content_setting();
+        }
 
         $queried_menu = wp_get_nav_menu_items($current_menu);
 
@@ -422,25 +426,26 @@ final class Helper
         $submenu = array();
 
         foreach ($queried_menu as $menu) {
-            if (empty($menu->menu_item_parent)) {
-                $processed_menu[$menu->ID]                =   array();
-                $processed_menu[$menu->ID]['ID']          =   $menu->ID;
-                $processed_menu[$menu->ID]['title']       =   $menu->title;
-                $processed_menu[$menu->ID]['url']         =   $menu->url;
-                $processed_menu[$menu->ID]['children']    =   array();
-            }
+                $processed_menu[$menu->ID]                      =   array();
+                $processed_menu[$menu->ID]['object_id']         =   intval($menu->object_id);
+                $processed_menu[$menu->ID]['ID']                =   $menu->ID;
+                $processed_menu[$menu->ID]['title']             =   $menu->title;
+                $processed_menu[$menu->ID]['url']               =   $menu->url;
+                $processed_menu[$menu->ID]['menu_order']        =   intval($menu->menu_order);
         }
 
 
-        foreach ($queried_menu as $menu) {
-            if ($menu->menu_item_parent) {
-                $submenu[$menu->ID]             = array();
-                $submenu[$menu->ID]['ID']       =   $menu->ID;
-                $submenu[$menu->ID]['title']    =   $menu->title;
-                $submenu[$menu->ID]['url']      =   $menu->url;
-                $processed_menu[$menu->menu_item_parent]['children'][$menu->ID] = $submenu[$menu->ID];
-            }
-        }
+        // foreach ($queried_menu as $menu) {
+        //     if ($menu->menu_item_parent) {
+        //         $submenu[$menu->ID]             =   array();
+        //         $submenu[$menu->ID]['object_id']=   (int)$menu->object_id;
+        //         $submenu[$menu->ID]['ID']       =   $menu->ID;
+        //         $submenu[$menu->ID]['title']    =   $menu->title;
+        //         $submenu[$menu->ID]['url']      =   $menu->url;
+        //         $submenu[$menu->ID]['menu_item_parent']      =   (int)$menu->menu_item_parent;
+        //         $processed_menu[$menu->menu_item_parent]['children'] = $submenu[$menu->ID];
+        //     }
+        // }
 
         return $processed_menu;
     }
