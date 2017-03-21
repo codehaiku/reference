@@ -110,6 +110,7 @@ class KnowledgebaseShortcodes
         $thumbnail = '';
         $thumbnail_letter = '';
         $displayed_thumbnail = '';
+        $excerpt = intval(get_option('reference_knb_category_excerpt'));
         $count_categories = 0;
 
         $categories_list = array();
@@ -119,6 +120,10 @@ class KnowledgebaseShortcodes
             'hide_empty' => 0,
             'name' => $categories
         ) );
+
+        if (empty($excerpt)) {
+            $excerpt = 15;
+        }
 
         $args = array( 'hide_empty' => 0 );
 
@@ -185,7 +190,7 @@ class KnowledgebaseShortcodes
                         $displayed_thumbnail,
                         esc_url(get_term_link( $term->slug, $taxonomy)),
                         esc_html($term->name),
-                        esc_html(Helper::string_trailing($term->description, 15)),
+                        esc_html(Helper::string_trailing($term->description, $excerpt)),
                         esc_html('(' . Helper::get_post_count($term->term_id) . ')')
                     );
                 }
@@ -194,18 +199,18 @@ class KnowledgebaseShortcodes
 
                 if (3 === $columns) {
                     if ($count_categories % 3 === 0) {
-                        $categories_list[] = '</div>' ;
+                        $categories_list[] = '<div class="category-listing allowance"></div></div>' ;
                     }
                 }
                 if (2 === $columns) {
                     if ($count_categories % 2 === 0) {
-                        $categories_list[] = '</div>';
+                        $categories_list[] = '<div class="category-listing allowance"></div></div>';
                     }
                 }
             }
         }
 
-        $categories_list[] = '</div> </div>';
+        $categories_list[] = '<div class="category-listing allowance"></div></div> </div>';
 
 		return implode( '', $categories_list );
 	}

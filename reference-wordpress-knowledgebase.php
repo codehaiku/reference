@@ -27,6 +27,16 @@ define( 'REFERENCE_DIR_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 define( 'REFERENCE_PATH', plugin_dir_path( __FILE__ ) );
 
+
+function run_activator() {
+
+	$plugin = new \DSC\Reference\Activator();
+	$plugin->activate();
+
+}
+
+register_activation_hook(__FILE__, 'run_activator');
+
 /**
  * The code that runs during plugin activation.
  */
@@ -74,12 +84,3 @@ function run_loader() {
 }
 
 run_loader();
-
-function run_activator() {
-
-	$plugin = new \DSC\Reference\Activator();
-	$plugin->activate();
-
-}
-
-run_activator();

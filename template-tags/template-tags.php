@@ -21,7 +21,10 @@
 
 function knb_breadcrumb()
 {
+
     $breadcrumb = new \DSC\Reference\Breadcrumbs();
+
+    $breadcrumb_option = get_post_meta(get_the_ID(), '_knowledgebase_breadcrumbs_meta_key', true);
 
 	$args = array(
         'post_type'           => 'knowledgebase',
@@ -33,7 +36,12 @@ function knb_breadcrumb()
 	);
 
     if ((bool)get_option('reference_knb_breadcrumbs') === true) {
-        echo $breadcrumb->render( $args );
+
+        if (is_option_enabled($breadcrumb_option)) {
+
+            echo $breadcrumb->render( $args );
+
+        }
     }
 }
 function knb_category_thumbnail()
@@ -72,22 +80,31 @@ function knb_knowledgebase_count()
 
 function knb_display_feedback()
 { ?>
-    <?php if ((bool)get_option('reference_knb_comment_feedback') === true) {?>
-        <div class="reference-feedback-container" id="reference-feedback" data-value="<?php echo get_the_ID(); ?>">
-            <p lass="feedback-header"><?php esc_html_e('Was this article helpful?', 'reference'); ?></p>
-            <div class="feedback-response-link">
-                <?php if (is_ip_listed()) {?>
-                    <a href="" id="reference-confirm-feedback"><?php esc_html_e('Yes', 'reference'); ?></a>/<a href="" id="reference-decline-feedback"><?php esc_html_e('No', 'reference'); ?></a>
-                <?php } else { ?>
-                    <?php esc_html_e('You have already voted.', 'reference'); ?>
-                <?php } ?>
+    <?php $comment_feedback_option = get_post_meta(get_the_ID(), '_knowledgebase_comment_feedback_meta_key', true); ?>
+
+    <?php if ((bool)get_option('reference_knb_comment_feedback') === true) { ?>
+
+        <?php if (is_option_enabled($comment_feedback_option)) { ?>
+
+            <div class="reference-feedback-container" id="reference-feedback" data-value="<?php echo get_the_ID(); ?>">
+                <p lass="feedback-header"><?php esc_html_e('Was this article helpful?', 'reference'); ?></p>
+                <div class="feedback-response-link">
+                    <?php if (is_ip_listed()) {?>
+                        <a href="" id="reference-confirm-feedback"><?php esc_html_e('Yes', 'reference'); ?></a>/<a href="" id="reference-decline-feedback"><?php esc_html_e('No', 'reference'); ?></a>
+                    <?php } else { ?>
+                        <?php esc_html_e('You have already voted.', 'reference'); ?>
+                    <?php } ?>
+                </div>
+                <small class="feedback-results">
+                    <span id="confirmed_amount"><?php get_feedback_confirm_amount(); ?></span><?php esc_html_e(' said "Yes" while ', 'reference'); ?><span id="declined_amount"><?php get_feedback_decline_amount(); ?></span><?php esc_html_e(' said "No"', 'reference'); ?>
+                </small>
+                <?php wp_nonce_field( 'reference-feedback-ajax-nonce', 'reference-feedback-security' ); ?>
             </div>
-            <small class="feedback-results">
-                <span id="confirmed_amount"><?php get_feedback_confirm_amount(); ?></span><?php esc_html_e(' said "Yes" while ', 'reference'); ?><span id="declined_amount"><?php get_feedback_decline_amount(); ?></span><?php esc_html_e(' said "No"', 'reference'); ?>
-            </small>
-            <?php wp_nonce_field( 'reference-feedback-ajax-nonce', 'reference-feedback-security' ); ?>
-        </div>
+
+        <?php } ?>
+
     <?php } ?>
+
 <?php }
 
 function get_feedback_confirm_amount()
@@ -119,6 +136,14 @@ function is_ip_listed()
         return true;
     }
 }
+function is_option_enabled($option = '')
+{
+    if ($option === 'enable') {
+        return true;
+    } elseif ($option === 'disable') {
+        return false;
+    }
+}
 function reference_loop_category($categories, $columns, $show_category)
 {
     $category = new \DSC\Reference\KnowledgebaseShortcodes;
@@ -134,66 +159,6 @@ function reference_highlighting_style()
     return $styles->get_highlighting_style();
 
 }
-
-function reference_single_navigation()
-{
-    $nav = new \DSC\Reference\Helper;
-    $menus = $nav->get_nav_menu_array();
-
-    $menu_order = '';
-    $prev_menu_order = '';
-    $next_menu_order = '';
-    $prev_menu = '';
-    $next_menu = '';
-    $prev_menu_url = '';
-    $next_menu_url = '';
-
-    foreach ($menus as $key => $menu) {
-        if ($menu['object_id'] === get_the_ID()) {
-
-            $menu_order = intval($menu['menu_order']);
-
-        }
-
-        $prev_menu_order = $menu_order - 1;
-        $next_menu_order = $menu_order + 1;
-
-        if ($menu['menu_order'] == (string)$prev_menu_order) {
-            $prev_menu_url = $menu['url'];
-        }
-        if (intval($menu['menu_order']) === intval($next_menu_order)) {
-            $next_menu_url = $menu['url'];
-        }
-
-    }
-    var_dump($prev_menu_order);
-    echo '<br>';
-    var_dump($menu_order);
-    echo '<br>';
-    var_dump($next_menu_order);
-    echo '<br>';
-    // echo $prev_menu_order . '<br>';
-    echo $prev_menu_order . ' ' . $next_menu_order . '<br>';
-    echo 'prev: '. $prev_menu . ' next:' . $next_menu;
-    echo '<pre>';
-    // var_dump($nav->get_nav_menu_array());
-    // var_dump($menus[1318]['object_id']);
-    $current_menu = $nav->get_table_of_content_setting();
-    $queried_menu = wp_get_nav_menu_items($current_menu);
-    // var_dump($menus);
-    // var_dump($queried_menu);
-    echo '</pre>';
-?>
-
-<nav class="reference-navigation" role="navigation">
-    <span class="reference-prev"><a href="<?php esc_attr_e($prev_menu_url); ?>"><?php esc_html_e('&lt;&lt;Prev', 'reference'); ?></a></span>
-    <span class="reference-navigation-separator"><?php esc_html_e('/', 'reference'); ?></span>
-    <span class="reference-next"><a href="<?php esc_attr_e($next_menu_url); ?>"><?php esc_html_e('Next&gt;&gt;', 'reference'); ?></a></span>
-</nav>
-
-<?php
-}
-
 
 /**
  * For Development Purposes (Remove after Finished)

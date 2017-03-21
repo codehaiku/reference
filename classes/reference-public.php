@@ -140,7 +140,12 @@ class PublicPages
         wp_register_script($this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
 
         if (is_singular('knowledgebase')){
+
             wp_enqueue_script( 'reference-sticky-kit', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/sticky-kit.js', array('jquery'), $this->version, FALSE );
+
+            wp_localize_script('reference-sticky-kit', 'reference_sticky_kit_object', array(
+                'sticky_kit' => ' ' . get_option('reference_knb_sticky_kit') . ' ',
+            ));
 
             wp_enqueue_script($this->name);
 

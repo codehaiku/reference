@@ -231,6 +231,13 @@ class Admin
                 'group' => 'reference-content-option-section',
             ),
             array(
+                'id' => 'reference_knb_sticky_kit',
+                'label' => esc_html__('Sticky Table of Contents', 'reference'),
+                'callback' => 'reference_knb_sticky_kit_form',
+                'section' => 'reference-settings-section',
+                'group' => 'reference-content-option-section',
+            ),
+            array(
                 'id' => 'reference_knb_breadcrumbs',
                 'label' => esc_html__('BreadCrumbs', 'reference'),
                 'callback' => 'reference_knb_breadcrumbs_form',
@@ -241,6 +248,13 @@ class Admin
                 'id' => 'reference_knb_breadcrumbs_separator',
                 'label' => esc_html__('BreadCrumbs Separator', 'reference'),
                 'callback' => 'reference_knb_breadcrumbs_separator_form',
+                'section' => 'reference-settings-section',
+                'group' => 'reference-content-option-section',
+            ),
+            array(
+                'id' => 'reference_knb_category_excerpt',
+                'label' => esc_html__('Category Excerpt', 'reference'),
+                'callback' => 'reference_knb_category_excerpt_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),

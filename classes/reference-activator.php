@@ -38,12 +38,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Activator
 {
-    public static function activate() {
 
-        register_activation_hook(__FILE__, array('Activator','settings'));
-    }
-
-    public static function settings()
+    public static function activate()
     {
 
         $options = array(
@@ -64,11 +60,15 @@ class Activator
             'reference_knb_comment_feedback'            =>	true,
             'reference_knb_toc'                         =>	true,
             'reference_knb_breadcrumbs'                 =>	true,
+            'reference_knb_sticky_kit'                  =>	true,
             'reference_knb_breadcrumbs_separator'       =>	'/',
+            'reference_knb_category_excerpt'            =>	'55',
         );
 
         foreach ($options as $key => $value) {
-            update_option( $key, $value );
+            if (get_option($key) == false) {
+                update_option( $key, $value );
+            }
         }
 
         add_image_size( 'reference-knowledgebase-thumbnail', 550, 550, true );

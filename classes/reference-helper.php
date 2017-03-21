@@ -91,6 +91,7 @@ final class Helper
         $thumbnail_letter = '';
         $displayed_thumbnail = '';
         $columns = intval(get_option('reference_knb_archive_column'));
+        $excerpt = intval(get_option('reference_knb_category_excerpt'));
         $count_categories = 0;
         $taxonomy = 'knb-categories';
 
@@ -100,6 +101,10 @@ final class Helper
             'hide_empty' => 0,
             'include' => 0
         ) );
+
+        if (empty($excerpt)) {
+            $excerpt = 15;
+        }
 
         $categories_list[] = '<div class="category-listings columns-'.$columns.'">';
 
@@ -131,7 +136,7 @@ final class Helper
                     $displayed_thumbnail,
                     esc_url(get_term_link( $term->slug, $taxonomy)),
                     esc_html($term->name),
-                    esc_html(self::string_trailing($term->description, 15)),
+                    esc_html(self::string_trailing($term->description, $excerpt)),
                     esc_html('(' . self::get_post_count($term->term_id) . ')')
                 );
 
@@ -139,17 +144,17 @@ final class Helper
 
                 if (3 === $columns) {
                     if ($count_categories % 3 === 0) {
-                        $categories_list[] = '</div>' ;
+                        $categories_list[] = '<div class="category-listing allowance"></div></div>' ;
                     }
                 }
                 if (2 === $columns) {
                     if ($count_categories % 2 === 0) {
-                        $categories_list[] = '</div>';
+                        $categories_list[] = '<div class="category-listing allowance"></div></div>';
                     }
                 }
             }
         }
-        $categories_list[] = '</div> </div>';
+        $categories_list[] = '<div class="category-listing allowance"></div></div> </div>';
 
 		return implode( '', $categories_list );
 
@@ -165,10 +170,13 @@ final class Helper
         $thumbnail_letter = '';
         $displayed_thumbnail = '';
         $columns = intval(get_option('reference_knb_archive_column'));
+        $excerpt = intval(get_option('reference_knb_category_excerpt'));
         $count_categories = 0;
+        $taxonomies = self::reference_get_knowledgebase_category();
 
-
-		$taxonomies = self::reference_get_knowledgebase_category();
+        if (empty($excerpt)) {
+            $excerpt = 15;
+        }
 
         $get_current_term = get_queried_object()->term_id;
 
@@ -226,7 +234,7 @@ final class Helper
                             $displayed_thumbnail,
     						esc_url(get_term_link($term->slug, $taxonomy_slug)),
     						esc_html($term->name),
-    						esc_html(self::string_trailing($term->description, 55)),
+    						esc_html(self::string_trailing($term->description, $excerpt)),
                             esc_html('(' . self::get_post_count($term->term_id) . ')')
     					);
 
@@ -234,17 +242,17 @@ final class Helper
 
                         if (3 === $columns) {
                             if ($count_categories % 3 === 0) {
-                                $categories[] = '</div>';
+                                $categories[] = '<div class="category-listing allowance"></div></div>';
                             }
                         }
                         if (2 === $columns) {
                             if ($count_categories % 2 === 0) {
-                                $categories[] = '</div>';
+                                $categories[] = '<div class="category-listing allowance"></div></div>';
                             }
                         }
 	                }
 				}
-                $categories[] = '</div> </div>';
+                $categories[] = '<div class="category-listing allowance"></div></div> </div>';
 			}
 
 			return implode( '', $categories );
@@ -410,7 +418,16 @@ final class Helper
 
         return $formated_styles;
     }
+    public static function isOptionTrue($option = '')
+    {
+        if ((bool)$option == true) {
+            $option = 'enable';
+        } elseif ((bool)$option == false) {
+            $option = 'disable';
+        }
 
+        return $option;
+    }
     /**
      * For Menu (Unfinished)
      */
@@ -433,19 +450,6 @@ final class Helper
                 $processed_menu[$menu->ID]['url']               =   $menu->url;
                 $processed_menu[$menu->ID]['menu_order']        =   intval($menu->menu_order);
         }
-
-
-        // foreach ($queried_menu as $menu) {
-        //     if ($menu->menu_item_parent) {
-        //         $submenu[$menu->ID]             =   array();
-        //         $submenu[$menu->ID]['object_id']=   (int)$menu->object_id;
-        //         $submenu[$menu->ID]['ID']       =   $menu->ID;
-        //         $submenu[$menu->ID]['title']    =   $menu->title;
-        //         $submenu[$menu->ID]['url']      =   $menu->url;
-        //         $submenu[$menu->ID]['menu_item_parent']      =   (int)$menu->menu_item_parent;
-        //         $processed_menu[$menu->menu_item_parent]['children'] = $submenu[$menu->ID];
-        //     }
-        // }
 
         return $processed_menu;
     }
