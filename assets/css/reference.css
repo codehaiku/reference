@@ -50,6 +50,7 @@ input#reference_knowledgebase_search_submit {
  * Category Listings
  */
 .category-listings {
+    width: 100%;
     margin-bottom: 35px;
 }
 .category-listings .category-listing {
@@ -80,9 +81,6 @@ input#reference_knowledgebase_search_submit {
 .category-listings.columns-2 .category-listing:nth-child(odd) {
     border-right: 1px solid #dfdfdf;
 }
-.category-listings.columns-2 .category-listing.allowance:nth-child(odd) {
-    display: none;
-}
 .category-listings.columns-2 .category-listing:first-child:nth-last-child(1) {
     display: inline-block;
     width: 50%;
@@ -109,15 +107,43 @@ input#reference_knowledgebase_search_submit {
 .category-listings.columns-3 .category-listing:nth-child(4) {
     display: none;
 }
-.category-listings.columns-3 .category-listing:first-child:nth-last-child(2) {
+.category-listings.columns-3 .category-listing:first-child:nth-last-child(4) ~ .allowance {
+    border-left: none;
+}
+.category-listings.columns-3 .category-listing:first-child:nth-last-child(3) {
+    border-right: none;
+}
+.category-listings.columns-3 .category-listing:first-child:nth-last-child(3) ~ .allowance {
+    border: none;
+}
+.category-listings.columns-3:first-child:last-of-type .category-listing:first-child:nth-last-child(3) {
+    width: 100%;
+}
+.category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4),
+.category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4) + .category-listing,
+.category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4) + .category-listing + .allowance {
     width: 33.33%;
+    display: table-cell;
 }
-.category-listings.columns-3 .category-listing:first-child:nth-last-child(2) + .allowance {
-    width: 66.66%;
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4),
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4)  + .category-listing {
+    width: 50%;
 }
-.category-listings.columns-3 .category-listing:first-child:nth-last-child(2) + .category-listing.allowance:after {
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4)  + .category-listing {
+    padding-right: 0;
+}
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4)  + .category-listing + .allowance {
     display: none;
 }
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4)  + .category-listing .reference-cat-image {
+    margin-right: 0;
+}
+
+.category-listings.columns-3:first-child:last-of-type .category-listing:first-child:nth-last-child(3) ~ .allowance,
+.category-listings.columns-3:first-child:last-of-type .category-listing:first-child:nth-last-child(4) ~ .allowance {
+    display: none;
+}
+
 .category-listings.columns-3 .category-listing:first-child:nth-last-child(2)~.category-listing:after {
     content: '';
     display: inline-block;
@@ -510,9 +536,6 @@ article.knowledgebase .link-more {
     .category-listings.columns-3 .category-listing:nth-child(3n) {
         padding-right: 10px;
         border-right: 1px solid #dfdfdf;
-    }
-    .category-listings.columns-3 .category-listing.allowance:nth-child(3n) {
-        display: none;
     }
     .category-listings .reference-cat-image .letter-thumbnail {
         padding: 50% 0;

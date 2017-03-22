@@ -199,18 +199,18 @@ class KnowledgebaseShortcodes
 
                 if (3 === $columns) {
                     if ($count_categories % 3 === 0) {
-                        $categories_list[] = '<div class="category-listing allowance"></div></div>' ;
+                        $categories_list[] = '</div>' ;
                     }
                 }
                 if (2 === $columns) {
                     if ($count_categories % 2 === 0) {
-                        $categories_list[] = '<div class="category-listing allowance"></div></div>';
+                        $categories_list[] = '</div>';
                     }
                 }
             }
         }
 
-        $categories_list[] = '<div class="category-listing allowance"></div></div> </div>';
+        $categories_list[] = '</div></div>';
 
 		return implode( '', $categories_list );
 	}

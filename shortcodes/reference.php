@@ -53,8 +53,8 @@ $args = array(
         </div>
     </header><!-- .page-header -->
 
-    <div class="reference-knowledgebase columns-<?php esc_attr_e($columns); ?>">
-        
+    <div class="reference-knowledgebase shortcode columns-<?php esc_attr_e($columns); ?>">
+
         <?php reference_loop_category($categories, $columns, $show_category); ?>
 
         <?php while ( $knowledgebase->have_posts() ) : ?>

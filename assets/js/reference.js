@@ -77,8 +77,10 @@ jQuery(document).ready( function($) {
             parent: '#content'
         }).on('sticky_kit:bottom', function(e) {
             $(this).parent().parent().css('position', 'static');
+            $( '.reference-menu-container' ).addClass('reference_nav_is_stuck');
         }).on('sticky_kit:unbottom', function(e) {
             $(this).parent().parent().css('position', 'relative');
+            $( '.reference-menu-container' ).removeClass('reference_nav_is_stuck');
         })
 
         $(window).scroll(function() {

@@ -116,7 +116,6 @@ final class Metabox
         ?>
         <select name="knowledgebase_comment_feedback" id="knowledgebase_comment_feedback" class="postbox">
 
-            <option value=""><?php esc_html_e('— None —', 'reference'); ?></option>
             <option value="enable" <?php selected($value, 'enable'); ?>><?php esc_html_e('Enable', 'reference'); ?></option>
             <option value="disable" <?php selected($value, 'disable'); ?>><?php esc_html_e('Disable', 'reference'); ?></option>
 
@@ -143,7 +142,6 @@ final class Metabox
         ?>
         <select name="knowledgebase_breadcrumbs" id="knowledgebase_breadcrumbs" class="postbox">
 
-            <option value=""><?php esc_html_e('— None —', 'reference'); ?></option>
             <option value="enable" <?php selected($value, 'enable'); ?>><?php esc_html_e('Enable', 'reference'); ?></option>
             <option value="disable" <?php selected($value, 'disable'); ?>><?php esc_html_e('Disable', 'reference'); ?></option>
 

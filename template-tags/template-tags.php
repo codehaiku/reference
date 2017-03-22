@@ -69,12 +69,17 @@ function knb_archive_categories()
 function knb_knowledgebase_count()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
+    $knowledgebase = get_option('reference_knb_plural');
     $count = $knowledgebase_count->get_post_count();
     $name = single_term_title("", false);
     $output = '';
 
+    if ($count <= 1) {
+        $knowledgebase = get_option('reference_knb_singular');
+    }
 
-    $output = '<p class="knowledgebase-count">' . sprintf(esc_html__('There are %d knowledgebase found under "%s"', 'reference'), $count, $name) . '</p>';
+
+    $output = '<p class="knowledgebase-count">' . sprintf(esc_html__('There are %d %s found under "%s"', 'reference'), $count, $knowledgebase, $name) . '</p>';
     echo $output;
 }
 

@@ -97,7 +97,7 @@ final class Helper
 
         $categories_list = array();
 
-        $get_categories = get_terms( $taxonomy, array(
+        $terms = get_terms( $taxonomy, array(
             'hide_empty' => 0,
             'include' => 0
         ) );
@@ -105,56 +105,60 @@ final class Helper
         if (empty($excerpt)) {
             $excerpt = 15;
         }
+        if (!empty($terms)) {
 
-        $categories_list[] = '<div class="category-listings columns-'.$columns.'">';
+            $categories_list[] = '<div class="category-listings columns-'.$columns.'">';
 
-        foreach ( $get_categories as $term ) {
-            $term = array_shift($get_categories);
-            if(0 === $term->parent) {
-                if (3 === $columns) {
-                    if ($count_categories % 3 === 0) {
-                        $categories_list[] = '<div class="category-column">';
+            foreach ( $terms as $term ) {
+
+                $term = array_shift($terms);
+
+                if(0 === $term->parent) {
+                    if (3 === $columns) {
+                        if ($count_categories % 3 === 0) {
+                            $categories_list[] = '<div class="category-column">';
+                        }
                     }
-                }
-                if (2 === $columns) {
-                    if ($count_categories % 2 === 0) {
-                        $categories_list[] = '<div class="category-column">';
+                    if (2 === $columns) {
+                        if ($count_categories % 2 === 0) {
+                            $categories_list[] = '<div class="category-column">';
+                        }
                     }
-                }
-                $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
-                $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
-                $thumbnail_letter = self::fallback_thumbnail($term->name);
-                $displayed_thumbnail = $thumbnail;
+                    $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
+                    $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
+                    $thumbnail_letter = self::fallback_thumbnail($term->name);
+                    $displayed_thumbnail = $thumbnail;
 
-                if ( empty($thumbnail)) {
-                    $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
-                }
-
-                $categories_list[] = sprintf(
-                    '<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a><span class="count">%6$s</span></h5><p class="description">%5$s</p></div></div>',
-                    esc_attr(strtolower(str_replace(" ", "-", $term->name))),
-                    $displayed_thumbnail,
-                    esc_url(get_term_link( $term->slug, $taxonomy)),
-                    esc_html($term->name),
-                    esc_html(self::string_trailing($term->description, $excerpt)),
-                    esc_html('(' . self::get_post_count($term->term_id) . ')')
-                );
-
-                $count_categories++;
-
-                if (3 === $columns) {
-                    if ($count_categories % 3 === 0) {
-                        $categories_list[] = '<div class="category-listing allowance"></div></div>' ;
+                    if ( empty($thumbnail)) {
+                        $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
                     }
-                }
-                if (2 === $columns) {
-                    if ($count_categories % 2 === 0) {
-                        $categories_list[] = '<div class="category-listing allowance"></div></div>';
+
+                    $categories_list[] = sprintf(
+                        '<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a><span class="count">%6$s</span></h5><p class="description">%5$s</p></div></div>',
+                        esc_attr(strtolower(str_replace(" ", "-", $term->name))),
+                        $displayed_thumbnail,
+                        esc_url(get_term_link( $term->slug, $taxonomy)),
+                        esc_html($term->name),
+                        esc_html(self::string_trailing($term->description, $excerpt)),
+                        esc_html('(' . self::get_post_count($term->term_id) . ')')
+                    );
+
+                    $count_categories++;
+
+                    if (3 === $columns) {
+                        if ($count_categories % 3 === 0) {
+                            $categories_list[] = '</div>' ;
+                        }
+                    }
+                    if (2 === $columns) {
+                        if ($count_categories % 2 === 0) {
+                            $categories_list[] = '</div>';
+                        }
                     }
                 }
             }
+            $categories_list[] = '</div></div>';
         }
-        $categories_list[] = '<div class="category-listing allowance"></div></div> </div>';
 
 		return implode( '', $categories_list );
 
@@ -194,11 +198,14 @@ final class Helper
 
 		foreach ( $taxonomies as $taxonomy_slug => $taxonomy ) {
 
-            $args = array( 'hide_empty' => 0 );
+            $args = array(
+                'hide_empty' => 0,
+                'parent' => $get_current_term_id->term_id,
+            );
 
             $terms = get_terms( 'knb-categories', $args );
 
-			if ( $terms ) {
+			if (!empty($terms)) {
 
                 $categories[] = '<div class="category-listings columns-'.$columns.'">';
 
@@ -206,7 +213,7 @@ final class Helper
 
                     $term = array_shift( $terms );
 
-                    if($get_current_term === $term->parent || $term->parent === $get_current_term_parent) {
+                    if ($get_current_term === $term->parent || $term->parent === $get_current_term_parent) {
 
                         if (3 === $columns) {
                             if ($count_categories % 3 === 0) {
@@ -252,14 +259,15 @@ final class Helper
                         }
 	                }
 				}
-                $categories[] = '<div class="category-listing allowance"></div></div> </div>';
+                $categories[] = '<div class="category-listing allowance"></div><div class="category-listing allowance"></div></div></div>';
 			}
 
 			return implode( '', $categories );
 
 		}
 	}
-    public static function get_post_count($id = '') {
+    public static function get_post_count($id = '')
+    {
 
         if (empty($id)) {
             $id = self::current_term_id();

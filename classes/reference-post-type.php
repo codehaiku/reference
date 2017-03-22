@@ -95,7 +95,7 @@ final class PostType
         $post_type_labels = array(
     		'name'               => _x(get_option('reference_knb_plural'), 'post type general name', 'reference'),
     		'singular_name'      => _x(get_option('reference_knb_singular'), 'post type singular name', 'reference'),
-    		'menu_name'          => _x('Knowledgebase', 'admin menu', 'reference'),
+    		'menu_name'          => _x('Reference', 'admin menu', 'reference'),
     		'name_admin_bar'     => _x('Knowledgebase', 'add new on admin bar', 'reference'),
     		'add_new'            => _x('Add New', 'Knowledgebase', 'reference'),
     		'add_new_item'       => esc_html__('Add New Knowledgebase', 'reference'),
