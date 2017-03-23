@@ -147,17 +147,17 @@ final class Helper
 
                     if (3 === $columns) {
                         if ($count_categories % 3 === 0) {
-                            $categories_list[] = '</div>' ;
+                            $categories_list[] = '<div class="category-listing allowance"></div></div>' ;
                         }
                     }
                     if (2 === $columns) {
                         if ($count_categories % 2 === 0) {
-                            $categories_list[] = '</div>';
+                            $categories_list[] = '<div class="category-listing allowance"></div></div>';
                         }
                     }
                 }
             }
-            $categories_list[] = '</div></div>';
+            $categories_list[] = '<div class="category-listing allowance"></div><div class="category-listing allowance"></div></div>';
         }
 
 		return implode( '', $categories_list );
@@ -259,7 +259,7 @@ final class Helper
                         }
 	                }
 				}
-                $categories[] = '<div class="category-listing allowance"></div><div class="category-listing allowance"></div></div></div>';
+                $categories[] = '<div class="category-listing allowance"></div><div class="category-listing allowance"></div></div>';
 			}
 
 			return implode( '', $categories );

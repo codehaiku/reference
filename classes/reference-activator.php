@@ -39,8 +39,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Activator
 {
 
-    public static function activate()
+    public function activate()
     {
+        flush_rewrite_rules();
+
+        add_image_size( 'reference-knowledgebase-thumbnail', 550, 550, true );
 
         $options = array(
             'reference_knb_slug'	                    =>	'dsc-knowledgebase',
@@ -69,11 +72,9 @@ class Activator
             if (get_option($key) == false) {
                 update_option( $key, $value );
             }
+            // delete_option( $key);
         }
 
-        add_image_size( 'reference-knowledgebase-thumbnail', 550, 550, true );
-
-        flush_rewrite_rules();
     }
 
 }

@@ -36,7 +36,6 @@ $args = array(
 	),
 );
 
-// var_dump($categories);
 ?>
 
 <?php $knowledgebase = new WP_Query( $args ); ?>

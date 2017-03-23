@@ -63,10 +63,6 @@ $current_page = get_the_ID();
 
 echo $current_page;
 
-
-echo '<pre>';
-var_dump($nav_menu);
-echo '</pre>';
 ?>
 
         <?php do_action('reference_single_content_after'); ?>

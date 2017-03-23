@@ -12,19 +12,20 @@ body.archive.knowledgebase #primary article.knowledgebase {
 body.knowledgebase .pagination {
     border-top-width: 0;
 }
-
-.archive.knowledgebase.tax-knb-categories #breadcrumbs-wrap {
-    margin-top: 25px;
-}
 .reference-knowledgebase.shortcode .category-listings .category-listing .reference-cat-image,
 .has-sidebar.knowledgebase .category-listings .category-listing .reference-cat-image {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    max-height: 150px;
-    line-height: normal;
-    overflow: hidden;
-    margin-bottom: 15px;
+}
+.knowledgebase .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image,
+.knowledgebase .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image,
+.knowledgebase .category-listings.columns-1 .category-listing .reference-cat-image {
+    max-height: none;
+}
+.knowledgebase .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .letter-thumbnail,
+.knowledgebase .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .letter-thumbnail,
+.knowledgebase .category-listings.columns-1 .category-listing .reference-cat-image .letter-thumbnail {
+    height: 450px;
+    font-size: 15em;
+    line-height: 350px;
 }
 .reference-knowledgebase.shortcode .category-listings .reference-cat-image .letter-thumbnail,
 .has-sidebar.knowledgebase .category-listings .reference-cat-image .letter-thumbnail {
@@ -130,6 +131,14 @@ body.knowledgebase .pagination {
 @media(max-width: 768px) {
     .single-knowledgebase .reference-has-table-of-content .reference-menu-container {
         left: -280px;
+    }
+    .knowledgebase .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .letter-thumbnail,
+    .knowledgebase .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .letter-thumbnail,
+    .knowledgebase .category-listings.columns-1 .category-listing .reference-cat-image .letter-thumbnail {
+        font-size: 250px;
+        padding: 25% 0;
+        height: auto;
+        line-height: 150px;
     }
 }
 @media(max-width: 480px) {

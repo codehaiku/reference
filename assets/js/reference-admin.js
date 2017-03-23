@@ -4,13 +4,12 @@ jQuery(document).ready( function($) {
     function reference_media_upload(button_class) {
 
         var _custom_media = true,
-
         _orig_send_attachment = wp.media.editor.send.attachment;
 
         $('body').on('click', button_class, function(e) {
+            e.preventDefault();
 
             var button_id = '#'+$(this).attr('id');
-
             var send_attachment_bkp = wp.media.editor.send.attachment;
 
             var button = $(button_id);
@@ -23,7 +22,7 @@ jQuery(document).ready( function($) {
 
                     $('#categories-image-id').val(attachment.id);
 
-                    $('#categories-image-wrapper').html('<img class="custom_media_image" src="" style="margin:0;padding:0;max-height:100px;float:none;" />');
+                    $('#categories-image-wrapper').html('<img class="custom_media_image" src="" />');
 
                     $('#categories-image-wrapper .custom_media_image').attr('src',attachment.sizes.thumbnail.url).css('display','block');
 
@@ -33,9 +32,9 @@ jQuery(document).ready( function($) {
 
                 }
             }
-            wp.media.editor.open(button);
+            wp.media.editor.open();
 
-            return false;
+            return true;
 
         });
     }
@@ -46,13 +45,18 @@ jQuery(document).ready( function($) {
 
         $('#categories-image-id').val('');
 
-        $('#categories-image-wrapper').html('<img class="custom_media_image" src="" style="margin:0;padding:0;max-height:100px;float:none;" />');
+        $('#categories-image-wrapper').html('<img class="custom_media_image" src="" />');
 
     });
 
     $(document).ajaxComplete(function(event, xhr, settings) {
 
-        var queryStringArr = settings.data.split('&');
+        var queryStringArr = '';
+        var $response = '';
+        if (typeof settings.data !== 'undefined' && typeof settings.data !== 'null' ) {
+            queryStringArr = settings.data.split('&');
+        }
+
 
         if( $.inArray('action=add-tag', queryStringArr) !== -1 ) {
             var xml = xhr.responseXML;

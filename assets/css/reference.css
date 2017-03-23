@@ -73,23 +73,36 @@ input#reference_knowledgebase_search_submit {
 .category-listings.columns-2 .category-listing {
     width: 50%;
     display: table-cell;
-    vertical-align: middle;
 }
 .category-listings.columns-2 .category-listing:nth-child(even) {
-    padding-left: 25px;
+    padding-left: 10px;
 }
 .category-listings.columns-2 .category-listing:nth-child(odd) {
+    padding-right: 10px;
     border-right: 1px solid #dfdfdf;
+}
+.category-listings.columns-2 .category-listing:nth-child(odd).allowance {
+    display: none;
 }
 .category-listings.columns-2 .category-listing:first-child:nth-last-child(1) {
     display: inline-block;
     width: 50%;
 }
+.category-listings.columns-2 .category-column:last-of-type .category-listing,
+.category-listings.columns-1 .category-listing:nth-last-of-type(3),
+.category-listings.columns-2 .category-column:nth-child(odd):nth-last-child(3) .category-listing,
+.category-listings.columns-2 .category-column:nth-child(even):nth-last-child(3) .category-listing,
+.category-listings.columns-3 .category-column:nth-last-of-type(3) .category-listing {
+    border-bottom: none;
+}
+.category-listings.columns-2 .category-column:last-of-type .category-listing:first-child,
+.category-listings.columns-3 .category-listing:first-child:nth-last-child(3) {
+    border-right: none;
+}
 
 .category-listings.columns-3 .category-listing {
     width: 33.33%;
     display: table-cell;
-    vertical-align: top;
     position: relative;
 }
 .category-listings.columns-3 .category-listing:nth-child(3n-1) {
@@ -110,14 +123,15 @@ input#reference_knowledgebase_search_submit {
 .category-listings.columns-3 .category-listing:first-child:nth-last-child(4) ~ .allowance {
     border-left: none;
 }
-.category-listings.columns-3 .category-listing:first-child:nth-last-child(3) {
-    border-right: none;
-}
+
 .category-listings.columns-3 .category-listing:first-child:nth-last-child(3) ~ .allowance {
     border: none;
 }
-.category-listings.columns-3:first-child:last-of-type .category-listing:first-child:nth-last-child(3) {
+.category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3),
+.category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) {
     width: 100%;
+    border-right: none;
+    padding-right: 0;
 }
 .category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4),
 .category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4) + .category-listing,
@@ -126,21 +140,19 @@ input#reference_knowledgebase_search_submit {
     display: table-cell;
 }
 .category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4),
-.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4)  + .category-listing {
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4) + .category-listing {
     width: 50%;
 }
-.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4)  + .category-listing {
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4) + .category-listing {
     padding-right: 0;
 }
-.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4)  + .category-listing + .allowance {
-    display: none;
-}
-.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4)  + .category-listing .reference-cat-image {
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4) + .category-listing .reference-cat-image {
     margin-right: 0;
 }
-
-.category-listings.columns-3:first-child:last-of-type .category-listing:first-child:nth-last-child(3) ~ .allowance,
-.category-listings.columns-3:first-child:last-of-type .category-listing:first-child:nth-last-child(4) ~ .allowance {
+.category-listings > .category-listing.allowance,
+.category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) ~ .allowance,
+.category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(4) ~ .allowance,
+.category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4) + .category-listing + .allowance {
     display: none;
 }
 
@@ -154,7 +166,12 @@ input#reference_knowledgebase_search_submit {
     top: -1px;
     margin-left: -1px;
 }
-
+/**
+ * Category Archive breadcrumbs
+ */
+.archive.knowledgebase.tax-knb-categories #breadcrumbs-wrap {
+    margin-top: 25px;
+}
 /**
  * Category Archive knowledgebase
  */
@@ -187,6 +204,9 @@ article.knowledgebase .link-more {
 }
 .category-listings .reference-cat-info {
     max-width: 60%;
+}
+.reference-cat-info .description {
+    margin: 0;
 }
 .category-listings .count {
     margin-left: 5px;
@@ -493,6 +513,28 @@ article.knowledgebase .link-more {
 }
 
 @media(max-width: 768px) {
+    .knowledgebase.tax-knb-categories .page-header .page-title,
+    .knowledgebase .page-header .page-title,
+    .knowledgebase .page-header .taxonomy-description {
+        padding-left: 20%;
+    }
+    .knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail,
+    .knowledgebase .page-header .letter-thumbnail {
+        width: 15%;
+    }
+    .category-listings.columns-1 .reference-cat-image,
+    .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image,
+    .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image {
+        overflow: visible;
+        max-height: none;
+    }
+    .category-listings.columns-1 .reference-cat-image .letter-thumbnail,
+    .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image .letter-thumbnail,
+    .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image .letter-thumbnail {
+        font-size: 250px;
+        padding: 25% 0;
+        height: auto;
+    }
     .category-listings .reference-cat-image {
         width: 100%;
         max-width: 100%;
@@ -509,21 +551,48 @@ article.knowledgebase .link-more {
     }
     .category-listings .reference-cat-image .letter-thumbnail {
         position: relative;
-        padding: 35% 0;
+        height: 170px;
+        line-height: 170px;
     }
 }
 @media(max-width: 480px) {
-    .category-listings.columns-2 .category-listing,
-    .category-listings.columns-3 .category-listing {
+    .knowledgebase.tax-knb-categories .page-header .page-title,
+    .knowledgebase .page-header .page-title,
+    .knowledgebase .page-header .taxonomy-description {
+        padding-left: 28%;
+    }
+    .knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail,
+    .knowledgebase .page-header .letter-thumbnail {
+        width: 25%;
+        padding: 0;
+    }
+    .archive.knowledgebase.tax-knb-categories #breadcrumbs-wrap {
+        margin-top: 10px;
+    }
+    .knowledgebase.tax-knb-categories .page-header .page-title {
+        padding-top: 0;
+    }
+    .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3),
+    .category-listings.columns-1 .category-listing:not(.allowance),
+    .category-listings.columns-2 .category-listing:not(.allowance),
+    .category-listings.columns-3 .category-listing:not(.allowance) {
         width: 100%;
         display: inline-block;
+        border: 1px solid #dfdfdf;
+        border-top: none;
+        padding-left: 10px;
+        padding-right: 10px;
     }
     .category-listings .reference-cat-image {
         max-height: none;
     }
     .category-listings {
         border-top: 1px solid #dfdfdf;
-        border-bottom: 1px solid #dfdfdf;
+    }
+    .category-listings.columns-3 .category-listing:first-child:nth-last-child(3),
+    .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) {
+        padding-right: 10px;
+        border-right: 1px solid #dfdfdf;
     }
     .category-listings.columns-3 .category-listing:nth-child(3n-1) {
         border-left: 1px solid #dfdfdf;
@@ -538,7 +607,33 @@ article.knowledgebase .link-more {
         border-right: 1px solid #dfdfdf;
     }
     .category-listings .reference-cat-image .letter-thumbnail {
-        padding: 50% 0;
-        font-size: 5em;
+        height: auto;
+        padding: 25% 0;
+        font-size: 200px;
+    }
+    .category-listings .category-column:last-of-type {
+        margin-bottom: 35px;
+    }
+    body.knowledgebase .category-listings.columns-3 .category-column:last-of-type .category-listing:first-child,
+    body.knowledgebase .category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4) + .category-listing {
+        width: 100%;
+        display: inline-block;
+        border-bottom: 1px solid #dfdfdf;
+    }
+    .category-listings.columns-2 .category-listing:first-child:nth-last-child(3) ~ .allowance,
+    .category-listings.columns-3 .category-listing:first-child:nth-last-child(3) ~ .allowance,
+    .category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4) + .category-listing ~ .allowance {
+        display: none;
+    }
+    .category-listings.columns-2 .category-column:last-of-type .category-listing:first-child,
+    .category-listings.columns-3 .category-listing:first-child:nth-last-child(3),
+    .category-listings.columns-2 .category-column:last-of-type .category-listing,
+    .category-listings.columns-1 .category-listing:nth-last-of-type(3),
+    .category-listings.columns-2 .category-column:nth-last-of-type(3) .category-listing,
+    .category-listings.columns-2 .category-column:nth-child(odd):nth-last-child(3) .category-listing,
+    .category-listings.columns-2 .category-column:nth-child(even):nth-last-child(3) .category-listing,
+    .category-listings.columns-3 .category-column:nth-last-of-type(3) .category-listing {
+        border-right: 1px solid #dfdfdf;
+        border-bottom: 1px solid #dfdfdf;
     }
 }
