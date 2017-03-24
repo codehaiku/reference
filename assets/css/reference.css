@@ -18,11 +18,18 @@ input#reference_knowledgebase_search_submit {
 .knowledgebase .page-header .letter-thumbnail {
     width: 10%;
     font-size: 35px;
-    text-align: center;
     padding: 2% 0;
+    text-align: center;
     border: 1px solid #969696;
     background: #d7d7d7;
     position: absolute;
+}
+.letter-thumbnail a,
+.knowledgebase .page-header .letter-thumbnail a {
+    width: 100%;
+    display: inline-block;
+}
+.knowledgebase .page-header .letter-thumbnail a {
 }
 .knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
     width: 10%;
@@ -255,10 +262,13 @@ article.knowledgebase .link-more {
 /**
  * Table of Contents
  */
-.reference-menu-container ol {
+.reference-menu-container #reference-menu {
     padding-left: 0;
     margin-bottom: 0;
     counter-reset: section;
+}
+.reference-menu-container #reference-menu > li:first-of-type:before {
+    display: none;
 }
 .reference-menu-container ol li {
     list-style: none;
@@ -306,7 +316,7 @@ article.knowledgebase .link-more {
 
 
 .reference-menu-container li ol.sub-menu {
-    padding-left: 30px;
+    padding-left: 15px;
     position: relative;
 }
     .reference-menu-container li ol.sub-menu li ol {
@@ -324,8 +334,8 @@ article.knowledgebase .link-more {
 
 .reference-menu-container li ol.sub-menu > li:before {
     position: absolute;
-    top: 12px;
-    left: -20px;
+    top: 5px;
+    left: -14px;
 }
     .reference-menu-container li ol.sub-menu li ol > li:before {
         left: -30px;
@@ -335,10 +345,11 @@ article.knowledgebase .link-more {
         }
             .reference-menu-container li ol.sub-menu li ol li ol li ol > li:before {
                 left: -50px;
+                left: -50px;
+                width: 35px;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
-                .reference-menu-container li ol.sub-menu li ol li ol li ol li ol > li:before {
-                    left: -50px;
-                }
 
 
 .reference-menu-container ol.sub-menu > li {
@@ -572,6 +583,7 @@ article.knowledgebase .link-more {
     .knowledgebase.tax-knb-categories .page-header .page-title {
         padding-top: 0;
     }
+    .category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4):not(.allowance),
     .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3),
     .category-listings.columns-1 .category-listing:not(.allowance),
     .category-listings.columns-2 .category-listing:not(.allowance),
@@ -614,6 +626,8 @@ article.knowledgebase .link-more {
     .category-listings .category-column:last-of-type {
         margin-bottom: 35px;
     }
+    .category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4),
+    .category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4) + .category-listing
     body.knowledgebase .category-listings.columns-3 .category-column:last-of-type .category-listing:first-child,
     body.knowledgebase .category-listings.columns-3 .category-column:last-of-type .category-listing:first-child:nth-last-child(4) + .category-listing {
         width: 100%;

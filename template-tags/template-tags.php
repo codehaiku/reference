@@ -35,6 +35,10 @@ function knb_breadcrumb()
         'home_title'          => get_option('reference_knb_plural'),
 	);
 
+    if (empty($breadcrumb_option) && (bool)get_option('reference_knb_breadcrumbs') === true) {
+        $breadcrumb_option = 'enable';
+    }
+
     if ((bool)get_option('reference_knb_breadcrumbs') === true) {
 
         if (is_option_enabled($breadcrumb_option)) {
@@ -85,8 +89,15 @@ function knb_knowledgebase_count()
 
 function knb_display_feedback()
 { ?>
-    <?php $comment_feedback_option = get_post_meta(get_the_ID(), '_knowledgebase_comment_feedback_meta_key', true); ?>
+    <?php
 
+    $comment_feedback_option = get_post_meta(get_the_ID(), '_knowledgebase_comment_feedback_meta_key', true);
+
+    if (empty($comment_feedback_option) && (bool)get_option('reference_knb_comment_feedback') === true) {
+        $comment_feedback_option = 'enable';
+    }
+
+    ?>
     <?php if ((bool)get_option('reference_knb_comment_feedback') === true) { ?>
 
         <?php if (is_option_enabled($comment_feedback_option)) { ?>

@@ -27,6 +27,19 @@ define( 'REFERENCE_DIR_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 define( 'REFERENCE_PATH', plugin_dir_path( __FILE__ ) );
 
+register_activation_hook(__FILE__, 'run_activator');
+
+function run_activator() {
+	$plugin = new \DSC\Reference\Activator();
+	$plugin->activate();
+}
+
+function reference_flush_rewrite_rules() {
+
+    flush_rewrite_rules();
+}
+register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
+register_activation_hook( __FILE__, 'reference_flush_rewrite_rules' );
 
 /**
  * The code that runs during plugin activation.
@@ -57,14 +70,6 @@ require_once plugin_dir_path( __FILE__ ) . 'classes/reference-loader.php';
 
 
 require_once plugin_dir_path( __FILE__ ) . 'template-tags/template-tags.php';
-
-function run_activator() {
-
-	$plugin = new \DSC\Reference\Activator();
-	$plugin->activate();
-}
-
-register_activation_hook(__FILE__, 'run_activator');
 
 /**
  * This functions executes the plugin

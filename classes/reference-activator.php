@@ -41,7 +41,6 @@ class Activator
 
     public function activate()
     {
-        flush_rewrite_rules();
 
         add_image_size( 'reference-knowledgebase-thumbnail', 550, 550, true );
 
@@ -72,9 +71,8 @@ class Activator
             if (get_option($key) == false) {
                 update_option( $key, $value );
             }
-            // delete_option( $key);
         }
-
+        flush_rewrite_rules();
     }
 
 }

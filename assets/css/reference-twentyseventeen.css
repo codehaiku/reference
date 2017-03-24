@@ -14,6 +14,10 @@ body.knowledgebase .pagination {
 }
 .reference-knowledgebase.shortcode .category-listings .category-listing .reference-cat-image,
 .has-sidebar.knowledgebase .category-listings .category-listing .reference-cat-image {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin-bottom: 15px;
 }
 .knowledgebase .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image,
 .knowledgebase .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image,
@@ -76,10 +80,12 @@ body.knowledgebase .pagination {
 }
 .single-knowledgebase .reference-single-content {
     min-width: 100%;
+    padding-right: 0;
 }
 @media screen and (min-width: 48em) {
     .has-sidebar.single-knowledgebase:not(.error404) #primary {
         width: 75%;
+        padding-right: 15px;
     }
     .has-sidebar.single-knowledgebase #secondary {
         width: 25%;
@@ -129,6 +135,10 @@ body.knowledgebase .pagination {
     }
 }
 @media(max-width: 768px) {
+    .reference-knowledgebase.shortcode .category-listings .reference-cat-image .letter-thumbnail,
+    .has-sidebar.knowledgebase .category-listings .reference-cat-image .letter-thumbnail {
+        padding: 0;
+    }
     .single-knowledgebase .reference-has-table-of-content .reference-menu-container {
         left: -280px;
     }
@@ -144,5 +154,9 @@ body.knowledgebase .pagination {
 @media(max-width: 480px) {
     .knowledgebase .category-listings .category-listing .reference-cat-image {
         max-height: none;
+    }
+    .reference-knowledgebase.shortcode .category-listings .reference-cat-image .letter-thumbnail,
+    .has-sidebar.knowledgebase .category-listings .reference-cat-image .letter-thumbnail {
+        padding: 25% 0;
     }
 }

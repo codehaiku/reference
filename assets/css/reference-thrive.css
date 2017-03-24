@@ -1,0 +1,155 @@
+.reference-feedback-container,
+.reference-menu-wrap,
+.category-listings,
+#breadcrumbs-wrap,
+.knowledgebase-count,
+.reference-knowledgebase-search-field {
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 1.5px 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+/**
+*Archives knowledgebase
+*/
+.knowledgebase.archive.tax-knb-categories .page-header {
+    position: relative;
+    padding-left: 19%;
+    min-height: 130px;
+}
+.knowledgebase .page-header .letter-thumbnail,
+.knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
+    position: absolute;
+    left: 15px;
+    width: 15%;
+    max-width: 15%;
+    overflow: hidden;
+}
+.letter-thumbnail, .knowledgebase .page-header .letter-thumbnail {
+    min-height: 100px;
+}
+.reference-knowledgebase-search-field {
+    margin-bottom: 15px;
+}
+.reference-knowledgebase-search-field input[type=text] {
+    margin-bottom: 0;
+}
+.category-listings .category-listing .reference-cat-image {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin-bottom: 15px;
+}
+.category-listings .reference-cat-info {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+}
+.category-listings .reference-cat-image .letter-thumbnail {
+    padding: 52px 0;
+    position: relative;
+}
+.reference-has-table-of-content .reference-menu-container {
+    float: left;
+}
+.reference-has-table-of-content .reference-single-content {
+    float: right;
+    margin-bottom: 15px;
+}
+.reference-menu-container ol.sub-menu li > ol.sub-menu {
+    padding-left: 0;
+}
+.reference-menu-container ol.sub-menu li > ol.sub-menu li:before {
+    display: none;
+}
+.reference-feedback-container {
+    margin: 15px 0;
+}
+@media (min-width: 992px) {
+    .reference-has-table-of-content .reference-single-content {
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .reference-has-table-of-content .reference-single-content {
+        padding-right: 0;
+    }
+    .single-knowledgebase .reference-has-table-of-content {
+        position: static!important;
+    }
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-container {
+        position: absolute;
+        top: 85px;
+        left: 25px;
+        min-width: 300px;
+        max-width: 300px;
+    }
+    .single-knowledgebase .reference-menu-container.reference_nav_is_stuck {
+        bottom: 0;
+    }
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-container {
+        -webkit-transition: left 0.5s ease-in-out;
+           -moz-transition: left 0.5s ease-in-out;
+                transition: left 0.5s ease-in-out;
+        left: -285px;
+    }
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-container:hover {
+        left: 25px;
+    }
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:before {
+        right: -26px;
+    }
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:after {
+        right: -20px;
+    }
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before,
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+    }
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before {
+        width: 25px;
+        height: 25px;
+        background: #1c1c1c;
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        right: -10px;
+        top: 25px;
+    }
+    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
+        width: 15px;
+        height: 2.5px;
+        background: #ffffff;
+        right: -5px;
+        top: 36.5px;
+    }
+}
+@media (max-width: 768px) {
+    .category-listings .reference-cat-image .letter-thumbnail {
+        height: auto;
+        line-height: normal;
+    }
+}
+@media (max-width: 480px) {
+    .knowledgebase.archive .page-header {
+        padding-left: 37%;
+    }
+    .knowledgebase .page-header .letter-thumbnail, .knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
+        width: 30%;
+        max-width: 30%;
+        line-height: 100px;
+    }
+    .category-listings {
+        border-top: none;
+    }
+    .category-listings .category-column:first-child {
+        border-top: 1px solid #dfdfdf;
+    }
+    .category-listings .category-column:last-of-type {
+        margin-bottom: 0;
+    }
+}

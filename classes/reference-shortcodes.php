@@ -188,7 +188,18 @@ class KnowledgebaseShortcodes
                         }
 
             			$categories_list[] = sprintf(
-                            '<div class="category-listing %1$s"><div class="reference-cat-image">%2$s</div><div class="reference-cat-info"><h5><a href="%3$s">%4$s</a><span class="count">%6$s</span></h5><p class="description">%5$s</p></div></div>',
+                            '<div class="category-listing %1$s">
+                                <div class="reference-cat-image">
+                                    <a href="%3$s">%2$s</a>
+                                </div>
+                                <div class="reference-cat-info">
+                                    <h5>
+                                        <a href="%3$s">%4$s</a>
+                                        <span class="count">%6$s</span>
+                                    </h5>
+                                    <p class="description">%5$s</p>
+                                </div>
+                            </div>',
                             esc_attr(strtolower(str_replace(" ", "-", $term->name))),
                             $displayed_thumbnail,
                             esc_url(get_term_link( $term->slug, $taxonomy)),
@@ -213,6 +224,10 @@ class KnowledgebaseShortcodes
                 }
             }
             $categories_list[] = '<div class="category-listing allowance"></div><div class="category-listing allowance"></div></div>';
+        }
+
+        if ($count_categories % $columns) {
+            $categories[] = '</div>';
         }
 
 		return implode( '', $categories_list );
