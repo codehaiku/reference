@@ -1,6 +1,6 @@
 .reference-feedback-container,
 .reference-menu-wrap,
-.category-listings,
+.category-listings:not(.shortcode),
 #breadcrumbs-wrap,
 .knowledgebase-count,
 .reference-knowledgebase-search-field {
@@ -11,24 +11,45 @@
     border-radius: 0;
     box-shadow: 0 1.5px 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.12);
 }
+.shortcode .reference-knowledgebase-search-field,
+#content.site-content #content-left-col #primary.content-area .shortcode article.hentry {
+    box-shadow: none;
+}
 /**
 *Archives knowledgebase
 */
+.category-listings .reference-cat-image {
+    margin-right: 0;
+}
+.knowledgebase.archive .archive-type {
+    display: none;
+}
 .knowledgebase.archive.tax-knb-categories .page-header {
     position: relative;
-    padding-left: 19%;
+    padding-left: 140px;
     min-height: 130px;
 }
 .knowledgebase .page-header .letter-thumbnail,
 .knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
-    position: absolute;
+    position: relative;
     left: 15px;
-    width: 15%;
-    max-width: 15%;
-    overflow: hidden;
+    width: 100%;
+    height: auto;
 }
-.letter-thumbnail, .knowledgebase .page-header .letter-thumbnail {
-    min-height: 100px;
+.knowledgebase .page-header .letter-thumbnail {
+    padding: 0;
+    line-height: 100px;
+    position: absolute;
+    width: 115px;
+    height: 100px;
+}
+.knowledgebase.tax-knb-categories .page-header > a:first-child {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: 130px;
+    height: 100px;
+    overflow: hidden;
 }
 .reference-knowledgebase-search-field {
     margin-bottom: 15px;
@@ -36,21 +57,21 @@
 .reference-knowledgebase-search-field input[type=text] {
     margin-bottom: 0;
 }
-.category-listings .category-listing .reference-cat-image {
-    width: 100%;
-    max-width: none;
-    height: auto;
-    margin-bottom: 15px;
+article.knowledgebase h1.entry-title {
+    margin-top: 0;
 }
-.category-listings .reference-cat-info {
-    width: 100%;
-    max-width: none;
-    text-align: center;
+article.knowledgebase .entry-content p {
+    margin-bottom: 0;
 }
-.category-listings .reference-cat-image .letter-thumbnail {
-    padding: 52px 0;
-    position: relative;
+/**
+* Syntax Highlighter
+*/
+.reference-highlighter {
+    padding: 2.5px;
 }
+/**
+* Single knowledgebase
+*/
 .reference-has-table-of-content .reference-menu-container {
     float: left;
 }
@@ -72,9 +93,9 @@
         padding-right: 0;
     }
 }
-
 @media (max-width: 992px) {
     .reference-has-table-of-content .reference-single-content {
+        width: 100%;
         padding-right: 0;
     }
     .single-knowledgebase .reference-has-table-of-content {
@@ -129,19 +150,10 @@
     }
 }
 @media (max-width: 768px) {
-    .category-listings .reference-cat-image .letter-thumbnail {
-        height: auto;
-        line-height: normal;
-    }
 }
 @media (max-width: 480px) {
     .knowledgebase.archive .page-header {
         padding-left: 37%;
-    }
-    .knowledgebase .page-header .letter-thumbnail, .knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
-        width: 30%;
-        max-width: 30%;
-        line-height: 100px;
     }
     .category-listings {
         border-top: none;

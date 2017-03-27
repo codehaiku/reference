@@ -60,11 +60,13 @@ input#reference_knowledgebase_search_submit {
     width: 100%;
     margin-bottom: 35px;
 }
+.category-listings > .category-listing {
+    border-bottom: 1px solid #dfdfdf;
+}
 .category-listings .category-listing {
     display: inline-block;
     vertical-align: top;
     padding: 45px 0;
-    border-bottom: 1px solid #dfdfdf;
 }
 .category-listings.columns-1 .category-listing:last-of-type,
 .category-listings .category-column:last-of-type .category-listing {
@@ -73,6 +75,7 @@ input#reference_knowledgebase_search_submit {
 .category-column {
     display: table;
     width: 100%;
+    border-bottom: 1px solid #dfdfdf;
 }
 .category-listings.columns-1 .category-listing {
     width: 100%;
@@ -95,11 +98,11 @@ input#reference_knowledgebase_search_submit {
     display: inline-block;
     width: 50%;
 }
-.category-listings.columns-2 .category-column:last-of-type .category-listing,
+.category-listings.columns-2 .category-column:first-child:nth-last-child(3),
+.category-listings.columns-3 .category-column:first-child:nth-last-child(3),
+.category-listings.columns-2 .category-column:last-of-type,
 .category-listings.columns-1 .category-listing:nth-last-of-type(3),
-.category-listings.columns-2 .category-column:nth-child(odd):nth-last-child(3) .category-listing,
-.category-listings.columns-2 .category-column:nth-child(even):nth-last-child(3) .category-listing,
-.category-listings.columns-3 .category-column:nth-last-of-type(3) .category-listing {
+.category-listings.columns-2 .category-column:nth-child(odd):nth-last-child(3) {
     border-bottom: none;
 }
 .category-listings.columns-2 .category-column:last-of-type .category-listing:first-child,
@@ -197,6 +200,7 @@ article.knowledgebase .link-more {
 .category-listings .reference-cat-info {
     display: inline-block;
     vertical-align: top;
+    width: 100%;
 }
 .category-listings .reference-cat-image {
     width: 80px;
@@ -209,18 +213,26 @@ article.knowledgebase .link-more {
 .category-listings .reference-cat-image .letter-thumbnail {
     width: 100%;
 }
-.category-listings .reference-cat-info {
+.reference-cat-info {
     max-width: 60%;
+    padding-left: 5px;
+}
+.reference-cat-info h5 {
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 .reference-cat-info .description {
+    font-size: 12px;
     margin: 0;
 }
 .category-listings .count {
+    font-size: 12px;
     margin-left: 5px;
 }
 .category-listings .reference-cat-image img {
     width: 100%;
     height: auto;
+    vertical-align: middle;
 }
 
 /**
@@ -415,6 +427,8 @@ article.knowledgebase .link-more {
     height: 2px;
     display: inline-block;
     background: #fff;
+    position: relative;
+    bottom: -1px;
 }
 .reference-menu-container ol li ol.sub-menu li.menu-item-has-children .pages-menu-toggle:after {
     height: 10px;
@@ -454,7 +468,6 @@ article.knowledgebase .link-more {
  * Reference Navigation
  */
  .reference-navigation {
-     text-align: center;
      padding: 15px 0;
  }
 
@@ -470,7 +483,9 @@ article.knowledgebase .link-more {
     margin-bottom: 20px;
 }
 .feedback-response-link {
+    width: 100%;
     margin-bottom: 15px;
+    display: inline-block;
 }
 
 /**
@@ -482,8 +497,8 @@ article.knowledgebase .link-more {
     position: relative;
     display: inline-block;
     text-indent: -9999em;
-    border: 5px solid rgba(255, 255, 255, 0.35);
-    border-left: 5px solid #ffffff;
+    border: 5px solid rgba(0, 0, 0, 0.35);
+    border-left: 5px solid rgba(0, 0, 0, 0.68);
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
@@ -563,6 +578,7 @@ article.knowledgebase .link-more {
     .category-listings .reference-cat-image .letter-thumbnail {
         position: relative;
         height: 170px;
+        display: inline-block;
         line-height: 170px;
     }
 }
@@ -598,6 +614,7 @@ article.knowledgebase .link-more {
     .category-listings .reference-cat-image {
         max-height: none;
     }
+    .category-listings.columns-1 .category-listing:first-child,
     .category-listings {
         border-top: 1px solid #dfdfdf;
     }

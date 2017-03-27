@@ -42,7 +42,7 @@ $args = array(
 
 <?php if ( $knowledgebase->have_posts() ) : ?>
 
-    <header class="reference-header">
+    <header class="reference-header shortcode">
         <div class="reference-knowledgebase-search-field">
             <form role="search" class="reference-knowledgebase-search-form" action="<?php echo site_url('/'); ?>" method="get" id="searchform">
                 <input type="text" name="s" placeholder="<?php esc_attr_e('Search Knowledgebase', 'reference'); ?>"/>
@@ -66,15 +66,6 @@ $args = array(
 
                 <div class="reference-knowledgebase-wrap">
 
-                    <div class="reference-knowledgebase-thumbnail">
-
-                        <?php if ( has_post_thumbnail() ) { ?>
-
-                            <?php the_post_thumbnail(); ?>
-
-                        <?php } ?>
-
-                    </div>
                     <div class="reference-knowledgebase-details">
 
                         <div class="reference-knowledgebase-details-title-wrapper">

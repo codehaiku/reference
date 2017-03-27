@@ -130,7 +130,7 @@ final class Helper
                     $displayed_thumbnail = $thumbnail;
 
                     if ( empty($thumbnail)) {
-                        $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
+                        $displayed_thumbnail = '<span class="letter-thumbnail">' . $thumbnail_letter . '</span>';
                     }
 
                     $categories_list[] = sprintf(
@@ -247,7 +247,7 @@ final class Helper
                         $displayed_thumbnail = $thumbnail;
 
                         if ( empty($thumbnail)) {
-                            $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
+                            $displayed_thumbnail = '<span class="letter-thumbnail">' . $thumbnail_letter . '</span>';
                         }
 
     					$categories[] = sprintf(
@@ -296,28 +296,34 @@ final class Helper
 
 		}
 	}
-    public static function get_post_count($id = '')
+    public static function get_post_count ($id = '')
     {
+        $tax_query = '';
 
-        if (empty($id)) {
-            $id = self::current_term_id();
+        if (is_tax( 'knb-categories' )) {
+
+            if (empty($id)) {
+                $id = self::current_term_id();
+            }
+
+            $tax_query = array(
+            'relation' => 'AND',
+                array(
+                    'taxonomy' => 'knb-categories',  //taxonomy name  here, I used 'product_cat'
+                    'field' => 'id',
+                    'terms' => array( $id )
+                )
+            );
         }
 
         $args = array(
-          'post_type'     => 'knowledgebase', //post type, I used 'product'
-          'post_status'   => 'publish', // just tried to find all published post
-          'posts_per_page' => -1,  //show all
-          'tax_query' => array(
-            'relation' => 'AND',
-            array(
-              'taxonomy' => 'knb-categories',  //taxonomy name  here, I used 'product_cat'
-              'field' => 'id',
-              'terms' => array( $id )
-            )
-          )
+            'post_type'     => 'knowledgebase', //post type, I used 'product'
+            'post_status'   => 'publish', // just tried to find all published post
+            'posts_per_page' => -1,  //show all
+            'tax_query' => $tax_query
         );
 
-        $query = new WP_Query( $args);
+        $query = new WP_Query($args);
 
         return (int)$query->post_count;
 
@@ -331,10 +337,10 @@ final class Helper
         $image_id = get_term_meta( $get_current_term_id, 'categories-image-id', true );
         $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
         $thumbnail_letter = self::fallback_thumbnail($term_title);
-        $displayed_thumbnail = '<a href=' . esc_url($term_link) .'title="' . esc_attr($term_title) . '">'. $thumbnail . '</a>';;
+        $displayed_thumbnail = '<a href="' . esc_url($term_link) .'" title="' . esc_attr($term_title) . '">'. $thumbnail . '</a>';;
 
         if ( empty($thumbnail)) {
-            $displayed_thumbnail = '<div class="letter-thumbnail"><a href=' . esc_url($term_link) .'title="' . esc_attr($term_title) . '">'. $thumbnail_letter . '</a></div>';
+            $displayed_thumbnail = '<a href="' . esc_url($term_link) .'" title="' . esc_attr($term_title) . '"><span class="letter-thumbnail">'. $thumbnail_letter . '</span></a>';
         }
 
         return $displayed_thumbnail;
@@ -433,23 +439,24 @@ final class Helper
 
     public static function get_highlighting_style()
     {
-        $styles = glob(__DIR__."\..\assets\css\styles\*.css");
-        $remove = array( '-', '.css');
-        $replace = array( ' ', '');
+        $styles_library = array(
+            'agate',
+            'androidstudio',
+            'atom one dark',
+            'darcula',
+            'dark',
+            'gruvbox dark',
+            'hybrid',
+            'monokai sublime',
+            'obsidian',
+            'ocean'
+        );
 
-        $get_styles = array();
-        $formated_styles = '';
-
-        foreach ($styles as $style) {
-            $get_styles[] = basename($style);
-        }
-
-        $formated_styles = str_replace($remove, $replace, $get_styles);
-
-        return $formated_styles;
+        return $styles_library;
     }
     public static function get_highlighting_style_file()
     {
+        $formated_styles = '';
         $style = get_option( 'reference_knb_syntax_highlighting_style' );
 
         $formated_styles = str_replace(' ', '-', $style);

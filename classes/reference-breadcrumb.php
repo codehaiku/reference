@@ -52,7 +52,9 @@ class Breadcrumbs {
  		// Add Post Type archive link & separator (always present)
  		$html .= '<span class="item-home"><a class="bread-link bread-home" href="' . esc_url( get_post_type_archive_link( $args['post_type'] ) ) . '" title="' . esc_attr( $args['home_title'] ) . '">' . esc_html( $args['home_title'] ) . '</a></span>';
 
- 		$html .= $separator;
+        if (! is_post_type_archive('knowledgebase') ) {
+            $html .= $separator;
+        }
 
         // Post
         if ( is_singular( $args['post_type']  ) ) {

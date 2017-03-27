@@ -289,8 +289,7 @@ class Admin
     public function archiveSlugCallback()
     {
         echo esc_html_e(
-            'All settings related to the
-        	slug of the knowledgebase archive pages.', 'reference'
+            'All settings related to the slug of the knowledgebase archive pages. You need to update or save the “permalink” settings if you had change this option.', 'reference'
         );
         return;
     }

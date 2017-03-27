@@ -87,6 +87,34 @@ function knb_knowledgebase_count()
     echo $output;
 }
 
+function knb_category_navigation()
+{
+    $knowledgebase_count = new \DSC\Reference\Helper;
+    $count = $knowledgebase_count->get_post_count();
+
+    $args = array(
+    	'base'               => str_replace( $count, '%#%', esc_url( get_pagenum_link( $count ) ) ),
+    	'format'             => '?paged=%#%',
+    	'current'            => max( 1, get_query_var('paged') ),
+    	'show_all'           => false,
+    	'end_size'           => 1,
+    	'mid_size'           => 2,
+    	'prev_next'          => true,
+    	'prev_text'          => __('« Previous'),
+    	'next_text'          => __('Next »'),
+    	'type'               => 'plain',
+    	'add_args'           => false,
+    	'add_fragment'       => '',
+    	'before_page_number' => '',
+    	'after_page_number'  => ''
+    );
+    ?>
+
+    <nav class="navigation reference-navigation" role="navigation">
+        <?php echo paginate_links( $args ); ?>
+    </nav>
+<?php }
+
 function knb_display_feedback()
 { ?>
     <?php
@@ -104,15 +132,15 @@ function knb_display_feedback()
 
             <div class="reference-feedback-container" id="reference-feedback" data-value="<?php echo get_the_ID(); ?>">
                 <p lass="feedback-header"><?php esc_html_e('Was this article helpful?', 'reference'); ?></p>
-                <div class="feedback-response-link">
+                <span class="feedback-response-link">
                     <?php if (is_ip_listed()) {?>
-                        <a href="" id="reference-confirm-feedback"><?php esc_html_e('Yes', 'reference'); ?></a>/<a href="" id="reference-decline-feedback"><?php esc_html_e('No', 'reference'); ?></a>
+                        <a href="" id="reference-confirm-feedback"><?php esc_html_e('Yes', 'reference'); ?></a><?php esc_html_e(' / ', 'reference'); ?><a href="" id="reference-decline-feedback"><?php esc_html_e('No', 'reference'); ?></a>
                     <?php } else { ?>
                         <?php esc_html_e('You have already voted.', 'reference'); ?>
                     <?php } ?>
-                </div>
+                </span>
                 <small class="feedback-results">
-                    <span id="confirmed_amount"><?php get_feedback_confirm_amount(); ?></span><?php esc_html_e(' said "Yes" while ', 'reference'); ?><span id="declined_amount"><?php get_feedback_decline_amount(); ?></span><?php esc_html_e(' said "No"', 'reference'); ?>
+                    <span id="confirmed_amount"><?php get_feedback_confirm_amount(); ?></span><?php esc_html_e(' said "Yes" and ', 'reference'); ?><span id="declined_amount"><?php get_feedback_decline_amount(); ?></span><?php esc_html_e(' said "No"', 'reference'); ?>
                 </small>
                 <?php wp_nonce_field( 'reference-feedback-ajax-nonce', 'reference-feedback-security' ); ?>
             </div>
@@ -128,7 +156,7 @@ function get_feedback_confirm_amount()
     $confirm_value = get_post_meta(get_the_ID(), '_knowledgebase_feedback_confirm_meta_key', true);
 
     if(empty($confirm_value)) {
-        $confirm_value = 0;
+        $confirm_value = esc_html__('No one', 'reference');
     }
     echo $confirm_value;
 }
@@ -137,7 +165,7 @@ function get_feedback_decline_amount()
     $decline_value = get_post_meta(get_the_ID(), '_knowledgebase_feedback_decline_meta_key', true);
 
     if(empty($decline_value)) {
-        $decline_value = 0;
+        $decline_value = esc_html__('no one', 'reference');
     }
 
     echo $decline_value;

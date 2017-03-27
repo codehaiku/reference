@@ -94,20 +94,15 @@ class PublicPages
      public function enqueue_styles()
      {
 
-        $post = Helper::global_post();
         $highlighting_style = Helper::get_highlighting_style_file();
-
-        if ( !isset( $post ) ) {
-            return;
-        }
 
         $theme = wp_get_theme(); // gets the current theme
 
-        if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax( 'knb-categories' ) || has_shortcode( $post->post_content, 'reference_loop')) {
+        if (self::is_knowledgebase('knowledgebase', 'knowledgebase', 'knb-categories', 'reference_loop')) {
 
             wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference.css', array(), $this->version, 'all' );
 
-            if ('Thrive-WordPress-Theme' === $theme->template) {
+            if ('thrive' === $theme->template) {
                 wp_enqueue_style( 'reference-thrive', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference-thrive.css', array(), $this->version, 'all' );
             }
             if ('twentyseventeen' === $theme->template) {
@@ -121,7 +116,12 @@ class PublicPages
             }
         }
 
-        if (has_shortcode( $post->post_content, 'reference_highlighter') && (bool)get_option('reference_knb_syntax_highlighting') === true) {
+        if (self::is_knowledgebase($shortcode = 'reference_highlighter') && self::is_option_true('reference_knb_syntax_highlighting') === true) {
+
+            if(empty($highlighting_style)) {
+                $highlighting_style = 'dark';
+            }
+
             wp_enqueue_style( 'highlighter-style', plugin_dir_url( dirname(__FILE__) ) . 'assets/css/styles/' . $highlighting_style . '.css', array(), $this->version, 'all' );
         }
         return;
@@ -135,6 +135,11 @@ class PublicPages
     public function enqueue_scripts()
     {
         $post = Helper::global_post();
+        $breadcrumbs_separator = wp_strip_all_tags(get_option('reference_knb_breadcrumbs_separator'));
+
+        if (empty($breadcrumbs_separator)) {
+            $breadcrumbs_separator = "/";
+        }
 
         if ( !isset( $post ) ) {
             return;
@@ -142,7 +147,7 @@ class PublicPages
 
         wp_register_script($this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/js/reference.js', array('jquery'), $this->version, FALSE );
 
-        if (is_singular('knowledgebase')){
+        if (self::is_knowledgebase($singular = 'knowledgebase')){
 
             wp_enqueue_script( 'reference-sticky-kit', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/sticky-kit.js', array('jquery'), $this->version, FALSE );
 
@@ -153,12 +158,11 @@ class PublicPages
             wp_enqueue_script($this->name);
 
             wp_localize_script($this->name, 'reference_breadcrumb_separator_object', array(
-                'separator' => ' ' . get_option('reference_knb_breadcrumbs_separator') . ' ',
+                'separator' => ' ' . $breadcrumbs_separator . ' ',
             ));
 
         }
-
-        if (has_shortcode( $post->post_content, 'reference_highlighter') && (bool)get_option('reference_knb_syntax_highlighting') === true) {
+        if (self::is_knowledgebase($shortcode = 'reference_highlighter') && self::is_option_true('reference_knb_syntax_highlighting') === true) {
             wp_enqueue_script($this->name);
             wp_enqueue_script( 'reference-highlight', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/highlight.js', array('jquery'), $this->version, FALSE );
         }
@@ -270,9 +274,28 @@ class PublicPages
         }
     }
 
-    public function display($template)
+    public function is_knowledgebase($archive = '', $singular = '', $tax = '', $shortcode = '')
     {
+        $post = Helper::global_post();
+
+        if ( !isset( $post ) ) {
+            return;
+        }
+
+        $condition = is_post_type_archive($archive) || is_singular($singular) || is_tax($tax) || has_shortcode( $post->post_content, $shortcode);
+
+        return $condition;
 	}
+
+    public function is_option_true($option = '')
+    {
+        if (!empty($option)) {
+            if ((bool)get_option($option) === true) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public function get_the_archive_categories_title($title)
     {

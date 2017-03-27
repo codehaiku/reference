@@ -158,7 +158,7 @@ class KnowledgebaseShortcodes
 
         if (!empty($child_categories)) {
 
-            $categories_list[] = '<div class="category-listings columns-'.$columns.'">';
+            $categories_list[] = '<div class="category-listings columns-'.$columns.' shortcode">';
 
             foreach ( $get_child_term_categories as $term ) {
 
@@ -184,7 +184,7 @@ class KnowledgebaseShortcodes
                         $displayed_thumbnail = $thumbnail;
 
                         if ( empty($thumbnail)) {
-                            $displayed_thumbnail = '<div class="letter-thumbnail">' . $thumbnail_letter . '</div>';
+                            $displayed_thumbnail = '<span class="letter-thumbnail">' . $thumbnail_letter . '</span>';
                         }
 
             			$categories_list[] = sprintf(

@@ -28,7 +28,7 @@ function reference_knb_syntax_highlighting_style_form() {
         }
     echo '</select>';
 
-    esc_html_e('Select the highlightning style for displayed codes.', 'reference');
+    esc_html_e(' Select the highlightning style for displayed codes.', 'reference');
 
     echo '<p class="description">' . esc_html__('This option allows you to change the style for displaying your codes your [reference_highlighter] shortcode.', 'reference') . ' </p>';
 
