@@ -78,11 +78,13 @@ class PublicPages
         $this->name = $name;
         $this->version = $version;
 
-        add_action( 'init', array($this, 'reference_feedback_ajax_init') );
-        add_filter( 'body_class', array($this, 'body_class') );
-        add_filter( 'post_class', array($this, 'post_class_callback') );
-        add_filter( 'get_the_archive_title', array($this, 'get_the_archive_categories_title') );
-        add_action( 'pre_get_posts', array($this,'search_filter'));
+        add_action('init', array($this, 'reference_feedback_ajax_init'));
+        add_filter('body_class', array($this, 'body_class'));
+        add_filter('post_class', array($this, 'post_class_callback'));
+        add_filter('get_the_archive_title', array($this, 'get_the_archive_categories_title'));
+        add_action('pre_get_posts', array($this,'search_filter'));
+        add_filter('template_include', array($this, 'search_results'));
+        add_action('pre_get_posts', array($this, 'posts_per_page'));
 
     }
 
@@ -98,7 +100,7 @@ class PublicPages
 
         $theme = wp_get_theme(); // gets the current theme
 
-        if (self::is_knowledgebase('knowledgebase', 'knowledgebase', 'knb-categories', 'reference_loop')) {
+        if (self::is_knowledgebase('knowledgebase', 'knowledgebase', 'knb-categories', 'reference_loop') || is_search()) {
 
             wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference.css', array(), $this->version, 'all' );
 
@@ -249,6 +251,13 @@ class PublicPages
         die();
     }
 
+    public function posts_per_page( $query ) {
+        $posts_per_page = get_option('reference_knb_posts_per_page');
+        if ($query->is_main_query()) {
+            $query->set('posts_per_page', absint($posts_per_page));
+        }
+    }
+
     public function body_class($classes)
     {
     	$classes[] = 'knowledgebase';
@@ -256,7 +265,8 @@ class PublicPages
         return $classes;
     }
 
-    public function post_class_callback( $classes ) {
+    public function post_class_callback( $classes )
+    {
 
         if (is_singular( 'knowledgebase' )) {
     		$classes[] = 'single-knowledgebase';
@@ -264,7 +274,8 @@ class PublicPages
     	return $classes;
     }
 
-    public function search_filter( $query ) {
+    public function search_filter($query)
+    {
         if (!is_admin() && $query->is_main_query()) {
             if ($query->is_search) {
                 if (is_post_type_archive('knowledgebase') || is_singular( 'knowledgebase' ) || is_tax('knb-categories')) {
@@ -273,12 +284,27 @@ class PublicPages
             }
         }
     }
+    public function search_results($template)
+    {
+        $wp_query = Helper::global_wp_query();
 
+        $post_types = get_query_var('post_type');
+
+        if (is_array($post_types)) {
+            foreach ($post_types as $post_type) {
+                if( $wp_query->is_search && $post_type == 'knowledgebase' ) {
+                    return locate_template('knowledgebase-search.php');
+                }
+            }
+        }
+
+        return $template;
+    }
     public function is_knowledgebase($archive = '', $singular = '', $tax = '', $shortcode = '')
     {
         $post = Helper::global_post();
 
-        if ( !isset( $post ) ) {
+        if (!isset($post)) {
             return;
         }
 

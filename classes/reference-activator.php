@@ -65,6 +65,7 @@ class Activator
             'reference_knb_sticky_kit'                  =>	true,
             'reference_knb_breadcrumbs_separator'       =>	'/',
             'reference_knb_category_excerpt'            =>	'55',
+            'reference_knb_posts_per_page'            =>	'10',
         );
 
         foreach ($options as $key => $value) {

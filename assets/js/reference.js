@@ -4,7 +4,9 @@ jQuery(document).ready( function($) {
     // Syntax Highlighting
     $('pre code').each(function(i, block) {
         if($(this).parent().hasClass('reference-highlighter')) {
-            hljs.highlightBlock(block);
+            if (typeof hljs !== 'undefined' && hljs !== null) {
+                hljs.highlightBlock(block);
+            }
         }
     });
 

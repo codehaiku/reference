@@ -258,6 +258,13 @@ class Admin
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
+            array(
+                'id' => 'reference_knb_posts_per_page',
+                'label' => esc_html__('Posts per Page', 'reference'),
+                'callback' => 'reference_knb_posts_per_page_form',
+                'section' => 'reference-settings-section',
+                'group' => 'reference-content-option-section',
+            ),
 
         );
 

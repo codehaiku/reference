@@ -51,6 +51,12 @@ final class Helper
 
         return $term;
     }
+    public static function global_wp_query()
+    {
+        global $wp_query;
+
+        return $wp_query;
+    }
 
     public static function reference_get_knowledgebase_category()
     {

@@ -96,17 +96,17 @@ final class PostType
     		'name'               => _x(get_option('reference_knb_plural'), 'post type general name', 'reference'),
     		'singular_name'      => _x(get_option('reference_knb_singular'), 'post type singular name', 'reference'),
     		'menu_name'          => _x('Reference', 'admin menu', 'reference'),
-    		'name_admin_bar'     => _x('Knowledgebase', 'add new on admin bar', 'reference'),
-    		'add_new'            => _x('Add New', 'Knowledgebase', 'reference'),
-    		'add_new_item'       => esc_html__('Add New Knowledgebase', 'reference'),
-    		'new_item'           => esc_html__('New Knowledgebase', 'reference'),
-    		'edit_item'          => esc_html__('Edit Knowledgebase', 'reference'),
-    		'view_item'          => esc_html__('View Knowledgebase', 'reference'),
-    		'all_items'          => esc_html__('All Knowledgebase', 'reference'),
-    		'search_items'       => esc_html__('Search Knowledgebase', 'reference'),
-    		'parent_item_colon'  => esc_html__('Parent Knowledgebase:', 'reference'),
-    		'not_found'          => esc_html__('No Knowledgebase found.', 'reference'),
-    		'not_found_in_trash' => esc_html__('No Knowledgebase found in Trash.', 'reference')
+    		'name_admin_bar'     => _x('Article', 'add new on admin bar', 'reference'),
+    		'add_new'            => _x('Add New', 'Article', 'reference'),
+    		'add_new_item'       => esc_html__('Add New Article', 'reference'),
+    		'new_item'           => esc_html__('New Article', 'reference'),
+    		'edit_item'          => esc_html__('Edit Article', 'reference'),
+    		'view_item'          => esc_html__('View Article', 'reference'),
+    		'all_items'          => esc_html__('All Articles', 'reference'),
+    		'search_items'       => esc_html__('Search Article', 'reference'),
+    		'parent_item_colon'  => esc_html__('Parent Article:', 'reference'),
+    		'not_found'          => esc_html__('No Articles found.', 'reference'),
+    		'not_found_in_trash' => esc_html__('No Articles found in Trash.', 'reference')
     	);
 
         $post_type_args = array(
@@ -131,15 +131,15 @@ final class PostType
         $category_labels = array(
     		'name'              => _x(get_option('reference_knb_category_plural'), 'taxonomy general name', 'reference'),
     		'singular_name'     => _x(get_option('reference_knb_category_singular'), 'taxonomy singular name', 'reference'),
-    		'search_items'      => esc_html__('Search Categories', 'reference'),
-    		'all_items'         => esc_html__('All Categories', 'reference'),
-    		'parent_item'       => esc_html__('Parent Category', 'reference'),
-    		'parent_item_colon' => esc_html__('Parent Category:', 'reference'),
-    		'edit_item'         => esc_html__('Edit Category', 'reference'),
-    		'update_item'       => esc_html__('Update Category', 'reference'),
-    		'add_new_item'      => esc_html__('Add New Category', 'reference'),
-    		'new_item_name'     => esc_html__('New Category Name', 'reference'),
-    		'menu_name'         => esc_html__('Categories', 'reference'),
+    		'search_items'      => esc_html__('Search Topics', 'reference'),
+    		'all_items'         => esc_html__('All Topics', 'reference'),
+    		'parent_item'       => esc_html__('Parent Topic', 'reference'),
+    		'parent_item_colon' => esc_html__('Parent Topic:', 'reference'),
+    		'edit_item'         => esc_html__('Edit Topic', 'reference'),
+    		'update_item'       => esc_html__('Update Topic', 'reference'),
+    		'add_new_item'      => esc_html__('Add New Topic', 'reference'),
+    		'new_item_name'     => esc_html__('New Topic Name', 'reference'),
+    		'menu_name'         => esc_html__('Topics', 'reference'),
     	);
 
     	$category_args = array(

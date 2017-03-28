@@ -82,12 +82,11 @@ function knb_knowledgebase_count()
         $knowledgebase = get_option('reference_knb_singular');
     }
 
-
-    $output = '<p class="knowledgebase-count">' . sprintf(esc_html__('There are %d %s found under "%s"', 'reference'), $count, $knowledgebase, $name) . '</p>';
+    $output = '<p class="reference-knowledgebase-count">' . sprintf(esc_html__('%d %s found under "%s"', 'reference'), $count, $knowledgebase, $name) . '</p>';
     echo $output;
 }
 
-function knb_category_navigation()
+function reference_navigation()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
     $count = $knowledgebase_count->get_post_count();
@@ -110,9 +109,7 @@ function knb_category_navigation()
     );
     ?>
 
-    <nav class="navigation reference-navigation" role="navigation">
-        <?php echo paginate_links( $args ); ?>
-    </nav>
+    <nav class="navigation reference-navigation" role="navigation"><?php echo paginate_links( $args ); ?></nav>
 <?php }
 
 function knb_display_feedback()
@@ -203,15 +200,34 @@ function reference_highlighting_style()
     return $styles->get_highlighting_style();
 
 }
+function reference_no_search_result($message = '')
+{ ?>
+    <?php
+    $helper = new \DSC\Reference\Helper;
+    $wp_query = $helper->global_wp_query();
+    $searched_items = $wp_query->post_count;
+    $knowledgebase = get_option('reference_knb_singular');
 
-/**
- * For Development Purposes (Remove after Finished)
- */
-function display_ips()
-{
-    $ip_addresses = (array) get_post_meta(get_the_ID(), '_knowledgebase_feedback_ip_meta_key', true);
+    if (0 === $searched_items || 1 === $searched_items) {
+        $knowledgebase = get_option('reference_knb_plural');
+    }
 
-    echo '<pre>';
-        var_dump($ip_addresses);
-    echo '</pre>';
-}
+    if (empty($message)) {
+        if (0 === $searched_items || 1 === $searched_items) {
+            $message = sprintf(
+                esc_html('There are no %s found.', 'reference'),
+                $knowledgebase
+            );
+        } else {
+            $message = sprintf(
+                esc_html('There are %d %s found.', 'reference'),
+                $searched_items,
+                $knowledgebase
+            );
+        }
+    }
+    ?>
+    <div id="reference-message" class="notification">
+		<p><?php echo ($message); ?></p>
+	</div>
+<?php }

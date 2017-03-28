@@ -1,6 +1,9 @@
 /**
  * Search Fields
  */
+.reference-clearfix {
+    clear: both;
+}
 .reference-knowledgebase-search-field {
     margin-top: 15px;
     margin-bottom: 35px;
@@ -467,9 +470,12 @@ article.knowledgebase .link-more {
 /**
  * Reference Navigation
  */
- .reference-navigation {
-     padding: 15px 0;
- }
+.reference-navigation {
+    padding: 15px 0;
+}
+.reference-navigation:empty {
+    padding: 0;
+}
 
 /**
  * Reference Feedback
