@@ -102,7 +102,7 @@ class KnowledgebaseShortcodes
     {
         $post = Helper::global_post();
 
-        $columns = intval($columns);
+        $columns = absint($columns);
         $terms = '';
         $term = '';
         $taxonomy = 'knb-categories';
@@ -110,7 +110,7 @@ class KnowledgebaseShortcodes
         $thumbnail = '';
         $thumbnail_letter = '';
         $displayed_thumbnail = '';
-        $excerpt = intval(get_option('reference_knb_category_excerpt'));
+        $excerpt = Options::getCategoryExcerpt();
         $count_categories = 0;
 
         $categories_list = array();

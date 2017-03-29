@@ -104,13 +104,14 @@ final class Metabox
     {
 
         $option = new Helper;
+        $comment_feedback_option = Options::getCommentFeedback();
         $value = get_post_meta($post->ID, '_knowledgebase_comment_feedback_meta_key', true);
 
         // Make sure the form request comes from WordPress
         wp_nonce_field( basename( __FILE__ ), 'knowledgebase_comment_feedback_nonce' );
 
         if (empty($value)) {
-            $value = $option->isOptionTrue(get_option('reference_knb_comment_feedback'));
+            $value = $option->isOptionTrue($comment_feedback_option);
         }
 
         ?>
@@ -130,13 +131,14 @@ final class Metabox
     {
 
         $option = new Helper;
+        $breadcrumbs_option = Options::getBreadcrumbs();
         $value = get_post_meta($post->ID, '_knowledgebase_breadcrumbs_meta_key', true);
 
         // Make sure the form request comes from WordPress
         wp_nonce_field( basename( __FILE__ ), 'knowledgebase_breadcrumbs_nonce' );
 
         if (empty($value)) {
-            $value = $option->isOptionTrue(get_option('reference_knb_breadcrumbs'));
+            $value = $option->isOptionTrue($breadcrumbs_option);
         }
 
         ?>

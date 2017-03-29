@@ -100,7 +100,7 @@ class PublicPages
 
         $theme = wp_get_theme(); // gets the current theme
 
-        if (self::is_knowledgebase('knowledgebase', 'knowledgebase', 'knb-categories', 'reference_loop') || is_search()) {
+        if (self::is_knowledgebase('knowledgebase', 'knowledgebase', 'knb-categories', 'reference_loop') || is_search() || !have_posts()) {
 
             wp_enqueue_style( $this->name, plugin_dir_url( dirname(__FILE__) ) . 'assets/css/reference.css', array(), $this->version, 'all' );
 
@@ -137,10 +137,11 @@ class PublicPages
     public function enqueue_scripts()
     {
         $post = Helper::global_post();
-        $breadcrumbs_separator = wp_strip_all_tags(get_option('reference_knb_breadcrumbs_separator'));
+        $breadcrumbs_separator_option = Options::getBreadcrumbsSeparator();
+        $sticky_kit_option = Options::getStickyKit();
 
-        if (empty($breadcrumbs_separator)) {
-            $breadcrumbs_separator = "/";
+        if (empty($breadcrumbs_separator_option)) {
+            $breadcrumbs_separator_option = "/";
         }
 
         if ( !isset( $post ) ) {
@@ -154,13 +155,13 @@ class PublicPages
             wp_enqueue_script( 'reference-sticky-kit', plugin_dir_url( dirname(__FILE__) ) . 'assets/js/sticky-kit.js', array('jquery'), $this->version, FALSE );
 
             wp_localize_script('reference-sticky-kit', 'reference_sticky_kit_object', array(
-                'sticky_kit' => ' ' . get_option('reference_knb_sticky_kit') . ' ',
+                'sticky_kit' => ' ' . $sticky_kit_option . ' ',
             ));
 
             wp_enqueue_script($this->name);
 
             wp_localize_script($this->name, 'reference_breadcrumb_separator_object', array(
-                'separator' => ' ' . $breadcrumbs_separator . ' ',
+                'separator' => ' ' . $breadcrumbs_separator_option . ' ',
             ));
 
         }
@@ -252,9 +253,10 @@ class PublicPages
     }
 
     public function posts_per_page( $query ) {
-        $posts_per_page = get_option('reference_knb_posts_per_page');
+        $posts_per_page_option = Options::getPostsPerPage();
+
         if ($query->is_main_query()) {
-            $query->set('posts_per_page', absint($posts_per_page));
+            $query->set('posts_per_page', absint($posts_per_page_option));
         }
     }
 
@@ -320,7 +322,7 @@ class PublicPages
                 return true;
             }
         }
-        return false;
+        return;
     }
 
     public function get_the_archive_categories_title($title)

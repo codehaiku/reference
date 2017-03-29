@@ -33,14 +33,16 @@ class Breadcrumbs {
  		}
 
  		$post = Helper::global_post();
+        $option_separator = Options::getBreadcrumbsSeparator();
+        $option_knb_plural = Options::getKnbPlural();
 
  		$defaults  = array(
  			'post_type'           => 'knowledgebase',
  			'taxonomy'            => 'knb-categories',
- 			'separator_icon'      => ' ' . get_option('reference_knb_breadcrumbs_separator') . ' ',
+ 			'separator_icon'      => ' ' . $option_separator . ' ',
  			'breadcrumbs_id'      => 'breadcrumbs-wrap',
  			'breadcrumbs_classes' => 'breadcrumb-trail breadcrumbs',
- 			'home_title'          => get_option('reference_knb_plural'),
+ 			'home_title'          => $option_knb_plural,
  		);
 
  		$args      = apply_filters( 'reference_breadcrumbs_args', wp_parse_args( $args, $defaults ) );

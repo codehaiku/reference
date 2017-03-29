@@ -23,25 +23,30 @@ function knb_breadcrumb()
 {
 
     $breadcrumb = new \DSC\Reference\Breadcrumbs();
+    $option = new \DSC\Reference\Options();
 
-    $breadcrumb_option = get_post_meta(get_the_ID(), '_knowledgebase_breadcrumbs_meta_key', true);
+    $reference_plural_option = $option->getKnbPlural();
+    $breadcrumbs_option = $option->getBreadcrumbs();
+    $breadcrumbs_separator_option = $option->getBreadcrumbsSeparator();
+
+    $breadcrumb_option_meta = get_post_meta(get_the_ID(), '_knowledgebase_breadcrumbs_meta_key', true);
 
 	$args = array(
         'post_type'           => 'knowledgebase',
         'taxonomy'            => 'knb-categories',
-        'separator_icon'      => ' ' . get_option('reference_knb_breadcrumbs_separator') . ' ',
+        'separator_icon'      => ' ' . $breadcrumbs_separator_option . ' ',
         'breadcrumbs_id'      => 'breadcrumbs-wrap',
         'breadcrumbs_classes' => 'breadcrumb-trail breadcrumbs',
-        'home_title'          => get_option('reference_knb_plural'),
+        'home_title'          => $reference_plural_option,
 	);
 
-    if (empty($breadcrumb_option) && (bool)get_option('reference_knb_breadcrumbs') === true) {
-        $breadcrumb_option = 'enable';
+    if (empty($breadcrumb_option_meta) && (bool)$breadcrumbs_option === true) {
+        $breadcrumb_option_meta = 'enable';
     }
 
-    if ((bool)get_option('reference_knb_breadcrumbs') === true) {
+    if ((bool)$breadcrumbs_option === true) {
 
-        if (is_option_enabled($breadcrumb_option)) {
+        if (is_option_enabled($breadcrumb_option_meta)) {
 
             echo $breadcrumb->render( $args );
 
@@ -73,13 +78,17 @@ function knb_archive_categories()
 function knb_knowledgebase_count()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
-    $knowledgebase = get_option('reference_knb_plural');
+    $option = new \DSC\Reference\Options();
+    $knowledgebase = $option->getKnbPlural();
     $count = $knowledgebase_count->get_post_count();
     $name = single_term_title("", false);
     $output = '';
 
     if ($count <= 1) {
-        $knowledgebase = get_option('reference_knb_singular');
+        $knowledgebase = $option->getKnbSingular();
+    }
+    if (is_post_type_archive('knowledgebase')) {
+        $name = $knowledgebase;
     }
 
     $output = '<p class="reference-knowledgebase-count">' . sprintf(esc_html__('%d %s found under "%s"', 'reference'), $count, $knowledgebase, $name) . '</p>';
@@ -115,17 +124,19 @@ function reference_navigation()
 function knb_display_feedback()
 { ?>
     <?php
+    $option = new \DSC\Reference\Options();
+    $comment_feedback_option = $option->getCommentFeedback();
 
-    $comment_feedback_option = get_post_meta(get_the_ID(), '_knowledgebase_comment_feedback_meta_key', true);
+    $comment_feedback_meta = get_post_meta(get_the_ID(), '_knowledgebase_comment_feedback_meta_key', true);
 
-    if (empty($comment_feedback_option) && (bool)get_option('reference_knb_comment_feedback') === true) {
-        $comment_feedback_option = 'enable';
+    if (empty($comment_feedback_meta) && (bool)$comment_feedback_option === true) {
+        $comment_feedback_meta = 'enable';
     }
 
     ?>
-    <?php if ((bool)get_option('reference_knb_comment_feedback') === true) { ?>
+    <?php if ((bool)$comment_feedback_option === true) { ?>
 
-        <?php if (is_option_enabled($comment_feedback_option)) { ?>
+        <?php if (is_option_enabled($comment_feedback_meta)) { ?>
 
             <div class="reference-feedback-container" id="reference-feedback" data-value="<?php echo get_the_ID(); ?>">
                 <p lass="feedback-header"><?php esc_html_e('Was this article helpful?', 'reference'); ?></p>
@@ -150,22 +161,22 @@ function knb_display_feedback()
 
 function get_feedback_confirm_amount()
 {
-    $confirm_value = get_post_meta(get_the_ID(), '_knowledgebase_feedback_confirm_meta_key', true);
+    $confirm_value_meta = get_post_meta(get_the_ID(), '_knowledgebase_feedback_confirm_meta_key', true);
 
-    if(empty($confirm_value)) {
-        $confirm_value = esc_html__('No one', 'reference');
+    if(empty($confirm_value_meta)) {
+        $confirm_value_meta = esc_html__('No one', 'reference');
     }
-    echo $confirm_value;
+    echo $confirm_value_meta;
 }
 function get_feedback_decline_amount()
 {
-    $decline_value = get_post_meta(get_the_ID(), '_knowledgebase_feedback_decline_meta_key', true);
+    $decline_value_meta = get_post_meta(get_the_ID(), '_knowledgebase_feedback_decline_meta_key', true);
 
-    if(empty($decline_value)) {
-        $decline_value = esc_html__('no one', 'reference');
+    if(empty($decline_value_meta)) {
+        $decline_value_meta = esc_html__('no one', 'reference');
     }
 
-    echo $decline_value;
+    echo $decline_value_meta;
 }
 function is_ip_listed()
 {
@@ -204,16 +215,18 @@ function reference_no_search_result($message = '')
 { ?>
     <?php
     $helper = new \DSC\Reference\Helper;
+    $options = new \DSC\Reference\Options;
+    $knowledgebase = $options->getKnbSingular();
+
     $wp_query = $helper->global_wp_query();
-    $searched_items = $wp_query->post_count;
-    $knowledgebase = get_option('reference_knb_singular');
+    $searched_items = $wp_query->found_posts;
 
     if (0 === $searched_items || 1 === $searched_items) {
-        $knowledgebase = get_option('reference_knb_plural');
+        $knowledgebase = $options->getKnbPlural();
     }
 
     if (empty($message)) {
-        if (0 === $searched_items || 1 === $searched_items) {
+        if (0 === $searched_items) {
             $message = sprintf(
                 esc_html('There are no %s found.', 'reference'),
                 $knowledgebase

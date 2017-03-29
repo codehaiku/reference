@@ -101,6 +101,11 @@ input#reference_knowledgebase_search_submit {
     display: inline-block;
     width: 50%;
 }
+.category-column:not(:last-child):nth-last-of-type(3) + .category-column {
+    border-top: 1px solid #dfdfdf;
+}
+.category-column:last-child,
+.category-column:not(:last-child):nth-last-of-type(3),
 .category-listings.columns-2 .category-column:first-child:nth-last-child(3),
 .category-listings.columns-3 .category-column:first-child:nth-last-child(3),
 .category-listings.columns-2 .category-column:last-of-type,

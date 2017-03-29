@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function reference_knb_toc_form() {
 
     echo '<label for="reference_knb_toc">';
-        echo '<input name="reference_knb_toc" id="reference_knb_toc" type="checkbox" class="regular-text code" value="1" ' . checked( 1, get_option( 'reference_knb_toc' ), false ) . '>';
+        echo '<input name="reference_knb_toc" id="reference_knb_toc" type="checkbox" class="regular-text code" value="1" ' . checked(1, absint(esc_attr(get_option('reference_knb_toc'))), false) . '>';
         esc_html_e('Enable Table of Contents', 'reference');
     echo '</label>';
 

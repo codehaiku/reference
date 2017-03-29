@@ -85,6 +85,8 @@ class Loader
 		/**
          * This class handles all the defined actions in the frontend.
 		 */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-options.php';
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-public.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-post-type.php';
@@ -97,13 +99,15 @@ class Loader
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/reference-action-hooks.php';
 
-		$this->loader = new \DSC\Reference\AddFiltersActions();
+		$this->loader = new AddFiltersActions();
 
-        new \DSC\Reference\KnowledgebaseShortcodes();
+        new Options();
 
-        new \DSC\Reference\Metabox();
+        new KnowledgebaseShortcodes();
 
-        new \DSC\Reference\ActionHooks();
+        new Metabox();
+
+        new ActionHooks();
 
     }
     private function set_locale()

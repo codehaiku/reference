@@ -96,8 +96,8 @@ final class Helper
         $thumbnail = '';
         $thumbnail_letter = '';
         $displayed_thumbnail = '';
-        $columns = intval(get_option('reference_knb_archive_column'));
-        $excerpt = intval(get_option('reference_knb_category_excerpt'));
+        $columns = Options::getArchiveColumn();
+        $excerpt = Options::getCategoryExcerpt();
         $count_categories = 0;
         $taxonomy = 'knb-categories';
 
@@ -194,8 +194,8 @@ final class Helper
         $thumbnail = '';
         $thumbnail_letter = '';
         $displayed_thumbnail = '';
-        $columns = intval(get_option('reference_knb_archive_column'));
-        $excerpt = intval(get_option('reference_knb_category_excerpt'));
+        $columns = Options::getArchiveColumn();
+        $excerpt = Options::getCategoryExcerpt();
         $count_categories = 0;
         $taxonomies = self::reference_get_knowledgebase_category();
 
@@ -304,7 +304,14 @@ final class Helper
 	}
     public static function get_post_count ($id = '')
     {
-        $tax_query = '';
+        $tax_query = array(
+        'relation' => 'AND',
+            array(
+                'taxonomy' => 'knb-categories',  //taxonomy name  here, I used 'product_cat'
+                'field' => 'id',
+                'terms' => array( $id )
+            )
+        );
 
         if (is_tax( 'knb-categories' )) {
 
@@ -332,7 +339,6 @@ final class Helper
         $query = new WP_Query($args);
 
         return (int)$query->post_count;
-
     }
 
     public static function the_category_thumbnail()
@@ -463,6 +469,7 @@ final class Helper
     public static function get_highlighting_style_file()
     {
         $formated_styles = '';
+        $style = Options::getSyntaxHighlightingStyle();
         $style = get_option( 'reference_knb_syntax_highlighting_style' );
 
         $formated_styles = str_replace(' ', '-', $style);

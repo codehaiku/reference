@@ -16,38 +16,43 @@ get_header(); ?>
 
 			<main id="main" class="site-main" role="main">
 
-                <?php knb_breadcrumb(); ?>
+                <div class="reference-main-wrapper">
 
-                <?php do_action('reference_has_table_of_content_before'); ?>
+                    <?php knb_breadcrumb(); ?>
 
-                    <?php do_action('reference_single_content_before'); ?>
+                    <?php do_action('reference_has_table_of_content_before'); ?>
 
-            			<?php while ( have_posts() ) : the_post(); ?>
+                        <?php do_action('reference_single_content_before'); ?>
 
-                            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                                <div class="entry-meta">
-                                    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-                                </div>
-                                <div class="entry-content">
-                                    <?php the_content(); ?>
-                                </div>
-                            </article><!-- #post-## -->
+                			<?php while ( have_posts() ) : the_post(); ?>
 
-                            <?php knb_display_feedback(); ?>
+                                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                                    <div class="entry-meta">
+                                        <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+                                    </div>
+                                    <div class="entry-content">
+                                        <?php the_content(); ?>
+                                    </div>
+                                </article><!-- #post-## -->
 
-            				<?php
-            					// If comments are open or we have at least one comment, load up the comment template.
-            					if ( comments_open() || get_comments_number() ) :
-            						comments_template();
-            					endif;
-            				?>
+                                <?php knb_display_feedback(); ?>
 
-            			<?php endwhile; // End of the loop. ?>
+                				<?php
+                					// If comments are open or we have at least one comment, load up the comment template.
+                					if ( comments_open() || get_comments_number() ) :
+                						comments_template();
+                					endif;
+                				?>
 
-                    <?php do_action('reference_single_content_after'); ?>
+                			<?php endwhile; // End of the loop. ?>
 
-                <?php do_action('reference_has_table_of_content_after'); ?>
+                        <?php do_action('reference_single_content_after'); ?>
 
+                    <?php do_action('reference_has_table_of_content_after'); ?>
+
+                    <div class="reference-clearfix"></div>
+
+                </div><!--.reference-main-wrapper-->
 			</main><!-- #main -->
 		</div><!-- #primary -->
 	</div><!--col-md-8-->

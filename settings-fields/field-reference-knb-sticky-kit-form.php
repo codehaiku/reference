@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function reference_knb_sticky_kit_form() {
 
     echo '<label for="reference_knb_sticky_kit">';
-        echo '<input name="reference_knb_sticky_kit" id="reference_knb_sticky_kit" type="checkbox" class="regular-text code" value="1" ' . checked( 1, get_option( 'reference_knb_sticky_kit' ), false ) . '>';
+        echo '<input name="reference_knb_sticky_kit" id="reference_knb_sticky_kit" type="checkbox" class="regular-text code" value="1" ' . checked( 1, absint(esc_attr(get_option( 'reference_knb_sticky_kit' ))), false ) . '>';
         esc_html_e('Enable Sticky Table of Contents', 'reference');
     echo '</label>';
 

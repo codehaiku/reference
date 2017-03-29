@@ -29,18 +29,20 @@ final class ActionHooks
 {
     public function __construct()
     {
-        add_action('reference_has_table_of_content_before', array( $this, 'reference_has_table_of_content_before_callback'), 10, 2);
-        add_action('reference_has_table_of_content_after', array( $this, 'reference_has_table_of_content_after_callback'), 10, 2);
+        add_action('reference_has_table_of_content_before', array( $this, 'tableOfContentBeforeCallback'), 10, 2);
+        add_action('reference_has_table_of_content_after', array( $this, 'tableOfContentAfterCallback'), 10, 2);
 
-        add_action('reference_single_content_before', array( $this, 'reference_single_content_before_callback'), 10, 2);
-        add_action('reference_single_content_after', array( $this, 'reference_single_content_after_callback'), 10, 2);
+        add_action('reference_single_content_before', array( $this, 'singleContentBeforeCallback'), 10, 2);
+        add_action('reference_single_content_after', array( $this, 'singleContentAfterCallback'), 10, 2);
 
     }
-    public function reference_has_table_of_content_before_callback() {
+    public function tableOfContentBeforeCallback()
+    {
 
         $table_of_content_setting = Helper::get_table_of_content_setting();
+        $table_of_content_option = Options::getTableOfContent();
 
-        if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true && is_nav_menu($table_of_content_setting)) {
+        if (!empty($table_of_content_setting) && (bool) $table_of_content_option === true && is_nav_menu($table_of_content_setting)) {
 
             echo '<div class="reference-has-table-of-content">';
                 echo '<div class="reference-menu-container">';
@@ -49,30 +51,36 @@ final class ActionHooks
         }
 
     }
-    public function reference_has_table_of_content_after_callback() {
+    public function tableOfContentAfterCallback()
+    {
 
         $table_of_content_setting = Helper::get_table_of_content_setting();
+        $table_of_content_option = Options::getTableOfContent();
 
-        if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true && is_nav_menu($table_of_content_setting)) {
+        if (!empty($table_of_content_setting) && (bool) $table_of_content_option === true && is_nav_menu($table_of_content_setting)) {
             echo '</div>';
         }
 
     }
-    public function reference_single_content_before_callback() {
+    public function singleContentBeforeCallback()
+    {
 
         $table_of_content_setting = Helper::get_table_of_content_setting();
+        $table_of_content_option = Options::getTableOfContent();
 
-        if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true && is_nav_menu($table_of_content_setting)) {
+        if (!empty($table_of_content_setting) && (bool) $table_of_content_option === true && is_nav_menu($table_of_content_setting)) {
 
             echo '<div class="reference-single-content">';
         }
 
     }
-    public function reference_single_content_after_callback() {
+    public function singleContentAfterCallback()
+    {
 
         $table_of_content_setting = Helper::get_table_of_content_setting();
+        $table_of_content_option = Options::getTableOfContent();
 
-        if (!empty($table_of_content_setting) && (bool)get_option('reference_knb_toc') === true) {
+        if (!empty($table_of_content_setting) && (bool) $table_of_content_option === true && is_nav_menu($table_of_content_setting)) {
 
             echo '</div>';
         }

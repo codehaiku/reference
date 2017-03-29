@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function reference_knb_syntax_highlighting_form() {
 
     echo '<label for="reference_knb_syntax_highlighting">';
-        echo '<input name="reference_knb_syntax_highlighting" id="reference_knb_syntax_highlighting" type="checkbox" class="regular-text code" value="1" ' . checked( 1, intval( esc_attr( get_option( 'reference_knb_syntax_highlighting' ) ) ), false ) . '>';
+        echo '<input name="reference_knb_syntax_highlighting" id="reference_knb_syntax_highlighting" type="checkbox" class="regular-text code" value="1" ' . checked(1, absint(esc_attr(get_option('reference_knb_syntax_highlighting'))), false) . '>';
         esc_html_e('Enable Syntax Highlighting', 'reference');
     echo '</label>';
 
