@@ -302,6 +302,22 @@ final class Helper
 
 		}
 	}
+    public static function get_all_terms_id ()
+    {
+        $term_ids = array();
+
+        $term_args = array(
+            'hide_empty' => 0,
+        );
+
+        $terms = get_terms( 'knb-categories', $term_args );
+
+        foreach ($terms as $term) {
+            $term_ids[] = $term->term_id;
+        }
+
+        return $term_ids;
+    }
     public static function get_post_count ($id = '')
     {
         $tax_query = array(
@@ -309,7 +325,7 @@ final class Helper
             array(
                 'taxonomy' => 'knb-categories',  //taxonomy name  here, I used 'product_cat'
                 'field' => 'id',
-                'terms' => array( $id )
+                'terms' => $id
             )
         );
 

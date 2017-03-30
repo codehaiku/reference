@@ -27,34 +27,36 @@ input#reference_knowledgebase_search_submit {
     background: #d7d7d7;
     position: absolute;
 }
-.letter-thumbnail a,
-.knowledgebase .page-header .letter-thumbnail a {
+.reference-header-image,
+.reference-header-info {
+    display: inline-block;
+    vertical-align: top;
+}
+.reference-header-image {
+    width: 15%;
+}
+.reference-header-info {
+    width: 84%;
+    padding-left: 15px;
+}
+.knowledgebase .page-header .letter-thumbnail,
+.knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
+    position: relative;
+    width: 100px;
+    max-width: 100%;
+}
+.reference-header-image a,
+.knowledgebase .page-header .letter-thumbnail {
     width: 100%;
     display: inline-block;
 }
-.knowledgebase .page-header .letter-thumbnail a {
+.knowledgebase .page-header .letter-thumbnail {
+    height: 100px;
+    line-height: 90px;
 }
-.knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
-    width: 10%;
-    position: absolute;
-}
-.archive.knowledgebase .page-header .page-title {
-    padding: 0;
-}
-
-.knowledgebase.tax-knb-categories .page-header .page-title,
-.knowledgebase .page-header .page-title,
-.knowledgebase .page-header .taxonomy-description {
+.knowledgebase .page-header h1,
+.knowledgebase .page-header p {
     width: 100%;
-    padding-left: 11.5%;
-}
-.knowledgebase.tax-knb-categories .page-header .page-title,
-.knowledgebase .page-header .page-title {
-    padding-top: 1.5em;
-}
-
-.knowledgebase .page-header .taxonomy-description {
-
 }
 /**
  * Category Listings
@@ -188,7 +190,7 @@ input#reference_knowledgebase_search_submit {
  * Category Archive breadcrumbs
  */
 .archive.knowledgebase.tax-knb-categories #breadcrumbs-wrap {
-    margin-top: 25px;
+
 }
 /**
  * Category Archive knowledgebase
@@ -550,14 +552,15 @@ article.knowledgebase .link-more {
 }
 
 @media(max-width: 768px) {
-    .knowledgebase.tax-knb-categories .page-header .page-title,
-    .knowledgebase .page-header .page-title,
-    .knowledgebase .page-header .taxonomy-description {
-        padding-left: 20%;
-    }
     .knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail,
     .knowledgebase .page-header .letter-thumbnail {
-        width: 15%;
+        width: 100%;
+    }
+    .reference-header-image {
+        width: 20%;
+    }
+    .reference-header-info {
+        width: 77%;
     }
     .category-listings.columns-1 .reference-cat-image,
     .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) .reference-cat-image,
@@ -594,15 +597,9 @@ article.knowledgebase .link-more {
     }
 }
 @media(max-width: 480px) {
-    .knowledgebase.tax-knb-categories .page-header .page-title,
-    .knowledgebase .page-header .page-title,
-    .knowledgebase .page-header .taxonomy-description {
-        padding-left: 28%;
-    }
-    .knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail,
     .knowledgebase .page-header .letter-thumbnail {
-        width: 25%;
-        padding: 0;
+        height: auto;
+        line-height: inherit;
     }
     .archive.knowledgebase.tax-knb-categories #breadcrumbs-wrap {
         margin-top: 10px;

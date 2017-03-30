@@ -68,6 +68,7 @@ article.knowledgebase h1.entry-title {
  * Archive category list
  */
 .category-listings {
+    /*margin-bottom: 0;*/
 }
 /**
  * Archive knowledgebase count

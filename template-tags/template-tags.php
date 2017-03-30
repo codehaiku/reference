@@ -80,6 +80,7 @@ function knb_knowledgebase_count()
     $knowledgebase_count = new \DSC\Reference\Helper;
     $option = new \DSC\Reference\Options();
     $knowledgebase = $option->getKnbPlural();
+    $terms_ids = $knowledgebase_count->get_all_terms_id();
     $count = $knowledgebase_count->get_post_count();
     $name = single_term_title("", false);
     $output = '';
@@ -89,6 +90,7 @@ function knb_knowledgebase_count()
     }
     if (is_post_type_archive('knowledgebase')) {
         $name = $knowledgebase;
+        $count = $knowledgebase_count->get_post_count($terms_ids);
     }
 
     $output = '<p class="reference-knowledgebase-count">' . sprintf(esc_html__('%d %s found under "%s"', 'reference'), $count, $knowledgebase, $name) . '</p>';
