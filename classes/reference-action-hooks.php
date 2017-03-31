@@ -1,6 +1,7 @@
 <?php
 /**
- * This class is executes during plugin activation.
+ * This class is executes during single knowledgebase pages
+ * to contain if the content has table of contents
  *
  * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
@@ -10,7 +11,7 @@
  * PHP Version 5.4
  *
  * @category Reference\ActionHooks
- * @package  Reference\WordPress\Knowledgebase
+ * @package  Reference
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
@@ -24,11 +25,27 @@ namespace DSC\Reference;
 if (! defined('ABSPATH') ) {
     return;
 }
-
+/**
+ * Attach all Reference action hooks to the following
+ * class methods listed in __construct.
+ *
+ * @category Reference\ActionHooks
+ * @package  Reference
+ * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
+ * @author   Jasper J. <emailnotdisplayed@domain.tld>
+ * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ */
 final class ActionHooks
 {
-
-
+    /**
+     * Attach all Reference action hooks to the following
+     * class methods listed in __construct.
+     *
+     * @since  1.0.0
+     * @access public
+     * @return void
+     */
     public function __construct()
     {
         add_action(
@@ -50,73 +67,83 @@ final class ActionHooks
         );
 
     }
+    /**
+     * Returns the opening tag for main container for the Table of Contents
+     * and the Knowledgebase content
+     *
+     * @since  1.0.0
+     * @access public
+     * @return void
+     */
     public function tableOfContentBeforeCallback()
     {
-
-        $table_of_content_setting = Helper::get_table_of_content_setting();
-        $table_of_content_option = Options::getTableOfContent();
-
-        if (! empty($table_of_content_setting)
-            && (bool) $table_of_content_option === true
-            && is_nav_menu($table_of_content_setting)
-        ) {
-
+        if (true === self::isTocEnabled()) {
             echo '<div class="reference-has-table-of-content">';
             echo '<div class="reference-menu-container">';
                 Helper::table_of_content();
             echo '</div>';
         }
-
     }
+    /**
+     * Returns the closing tag for main container for the Table of Contents
+     * and the Knowledgebase content
+     *
+     * @since  1.0.0
+     * @access public
+     * @return void
+     */
     public function tableOfContentAfterCallback()
     {
-
-        $table_of_content_setting = Helper::get_table_of_content_setting();
-        $table_of_content_option = Options::getTableOfContent();
-
-        if (! empty($table_of_content_setting)
-            && (bool) $table_of_content_option === true
-            && is_nav_menu($table_of_content_setting)
-        ) {
+        if (true === self::isTocEnabled()) {
             echo '</div>';
         }
-
     }
     /**
      * Returns the opening tag for single content with Table of Contents
      *
-     * @return string|null Opening tag for single content with Table of Contents
+     * @since  1.0.0
+     * @access public
+     * @return void
      */
     public function singleContentBeforeCallback()
     {
-
-        $table_of_content_setting = Helper::get_table_of_content_setting();
-        $table_of_content_option = Options::getTableOfContent();
-
-        if (! empty($table_of_content_setting)
-            && (bool) true === $table_of_content_option
-            && is_nav_menu($table_of_content_setting)
-        ) {
+        if (true === self::isTocEnabled()) {
             echo '<div class="reference-single-content">';
         }
     }
     /**
      * Returns the closing tag for single content with Table of Contents
      *
+     * @since  1.0.0
+     * @access public
      * @return string|null Closing tag for single content with Table of Contents
      */
     public function singleContentAfterCallback()
     {
-
-        $table_of_content_setting = Helper::get_table_of_content_setting();
-        $table_of_content_option = Options::getTableOfContent();
-
-        if (! empty($table_of_content_setting)
-            && (bool) true === $table_of_content_option
-            && is_nav_menu($table_of_content_setting)
-        ) {
+        if (true === self::isTocEnabled()) {
             echo '</div>';
         }
+    }
+    /**
+     * Check if the Table of Contents setting is enable
+     * or the Knowledgebase has menu
+     *
+     * @since  1.0.0
+     * @access public
+     * @return boolean|true if setting is enabled
+     */
+    public function isTocEnabled()
+    {
+        $table_of_content_setting = Helper::get_table_of_content_setting();
+        $table_of_content_option = Options::getTableOfContent();
+        $setting = false;
 
+        if (! empty($table_of_content_setting)
+            && true === (bool) $table_of_content_option
+            && is_nav_menu($table_of_content_setting)
+        ) {
+            $setting = true;
+        }
+        return $setting;
     }
 }

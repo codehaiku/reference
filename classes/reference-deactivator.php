@@ -1,34 +1,52 @@
 <?php
-
 /**
- * Fired during plugin activation
+ * This class executes during plugin deactivation.
  *
- * @since      1.0.0
+ * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
- * @package    reference-wordpress-knowledgebase
- * @subpackage reference-wordpress-knowledgebase/classes
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * PHP Version 5.4
+ *
+ * @category Reference\Deactivator
+ * @package  Reference
+ * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
+ * @author   Jasper J. <emailnotdisplayed@domain.tld>
+ * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @version  GIT:github.com/codehaiku/reference-wordpress-knowledgebase
+ * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @since    1.0
  */
 
 namespace DSC\Reference;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH') ) {
     return;
 }
 
 /**
- * Fired during plugin activation.
+ * This class executes during plugin deactivation.
  *
- * This class defines all code necessary to run during the plugin's activation.
- *
- * @since      1.0.0
- * @package    reference-wordpress-knowledgebase
- * @subpackage reference-wordpress-knowledgebase/classes
- * @author     Dunhakdis
+ * @category Reference\Deactivator
+ * @package  Reference
+ * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
+ * @author   Jasper J. <emailnotdisplayed@domain.tld>
+ * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @link     github.com/codehaiku/reference-wordpress-knowledgebase
  */
-class Deactivator {
+class Deactivator
+{
+    /**
+     * This methode executes during plugin deactivation.
+     *
+     * @since  1.0.0
+     * @access public
+     * @return void
+     */
+    public static function deactivate()
+    {
 
-	public static function deactivate() {
-
-	}
+    }
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This class is executes the reference shortcode.
+ * This class is used to display value, fetch data and set conditions.
  *
  * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
@@ -10,7 +10,7 @@
  * PHP Version 5.4
  *
  * @category Reference\Reference\Helper
- * @package  Reference WordPress Knowledgebase
+ * @package  Reference
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
@@ -22,14 +22,14 @@ namespace DSC\Reference;
 
 use \WP_Query;
 
- if ( ! defined( 'ABSPATH' ) ) {
-     return;
- }
+if (! defined('ABSPATH') ) {
+    return;
+}
 
 /**
- * This class handles the frontend funtionality.
+ * This class is used to display value, fetch data and set conditions.
  *
- * @category Reference\Public\ReferencePublic
+ * @category Reference\Public\Helper
  * @package  Reference
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
@@ -62,27 +62,27 @@ final class Helper
     {
         $post = self::global_post();
 
-		if ( ! empty( $post->ID ) ) {
+        if (! empty($post->ID) ) {
 
-			$post = get_post( $post->ID );
+               $post = get_post($post->ID);
 
-			// Get post type by post.
-			$post_type = $post->post_type;
+               // Get post type by post.
+               $post_type = $post->post_type;
 
-			// Get post type taxonomies.
-			$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+               // Get post type taxonomies.
+               $taxonomies = get_object_taxonomies($post_type, 'objects');
 
-			return $taxonomies;
-		}
+               return $taxonomies;
+        }
 
-		return false;
+        return false;
 
-	}
-    public static function get_categories_image ( $term, $taxonomy )
+    }
+    public static function get_categories_image( $term, $taxonomy )
     {
         $term = self::global_term();
 
-        $image_id = get_term_meta ( $term->term_id, 'categories-image-id', true );
+        $image_id = get_term_meta($term->term_id, 'categories-image-id', true);
 
         return  $term->term_id;
     }
@@ -103,10 +103,12 @@ final class Helper
 
         $categories_list = array();
 
-        $terms = get_terms( $taxonomy, array(
+        $terms = get_terms(
+            $taxonomy, array(
             'hide_empty' => 0,
             'include' => 0
-        ) );
+            )
+        );
 
         if (empty($excerpt)) {
             $excerpt = 15;
@@ -130,12 +132,12 @@ final class Helper
                             $categories_list[] = '<div class="category-column">';
                         }
                     }
-                    $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
-                    $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
+                    $image_id = get_term_meta($term->term_id, 'categories-image-id', true);
+                    $thumbnail = wp_get_attachment_image($image_id, 'reference-knowledgebase-thumbnail');
                     $thumbnail_letter = self::fallback_thumbnail($term->name);
                     $displayed_thumbnail = $thumbnail;
 
-                    if ( empty($thumbnail)) {
+                    if (empty($thumbnail)) {
                         $displayed_thumbnail = '<span class="letter-thumbnail">' . $thumbnail_letter . '</span>';
                     }
 
@@ -154,7 +156,7 @@ final class Helper
                         </div>',
                         esc_attr(strtolower(str_replace(" ", "-", $term->name))),
                         $displayed_thumbnail,
-                        esc_url(get_term_link( $term->slug, $taxonomy)),
+                        esc_url(get_term_link($term->slug, $taxonomy)),
                         esc_html($term->name),
                         esc_html(self::string_trailing($term->description, $excerpt)),
                         esc_html('(' . self::get_post_count($term->term_id) . ')')
@@ -181,7 +183,7 @@ final class Helper
             $categories[] = '</div>';
         }
 
-		return implode( '', $categories_list );
+        return implode('', $categories_list);
 
     }
     public static function reference_display_child_category_list()
@@ -209,30 +211,30 @@ final class Helper
 
         $get_current_term_parent = ($get_current_term_id->parent == 0) ? $get_current_term_id : get_term($get_current_term_id->parent, 'knb-categories');
 
-		$categories = array();
+        $categories = array();
 
-		if ( ! $taxonomies ) {
+        if (! $taxonomies ) {
 
-			return;
+               return;
 
-		}
+        }
 
-		foreach ( $taxonomies as $taxonomy_slug => $taxonomy ) {
+        foreach ( $taxonomies as $taxonomy_slug => $taxonomy ) {
 
             $args = array(
                 'hide_empty' => 0,
                 'parent' => $get_current_term_id->term_id,
-            );
+                  );
 
-            $terms = get_terms( 'knb-categories', $args );
+                  $terms = get_terms('knb-categories', $args);
 
-			if (!empty($terms)) {
+            if (!empty($terms)) {
 
-                $categories[] = '<div class="category-listings columns-'.$columns.'">';
+                            $categories[] = '<div class="category-listings columns-'.$columns.'">';
 
                 foreach ( $terms as $term ) {
 
-                    $term = array_shift( $terms );
+                    $term = array_shift($terms);
 
                     if ($get_current_term === $term->parent || $term->parent === $get_current_term_parent) {
 
@@ -247,17 +249,17 @@ final class Helper
                             }
                         }
 
-                        $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
-                        $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
-                        $thumbnail_letter = self::fallback_thumbnail($term->name);
-                        $displayed_thumbnail = $thumbnail;
+                             $image_id = get_term_meta($term->term_id, 'categories-image-id', true);
+                             $thumbnail = wp_get_attachment_image($image_id, 'reference-knowledgebase-thumbnail');
+                             $thumbnail_letter = self::fallback_thumbnail($term->name);
+                             $displayed_thumbnail = $thumbnail;
 
-                        if ( empty($thumbnail)) {
+                        if (empty($thumbnail)) {
                             $displayed_thumbnail = '<span class="letter-thumbnail">' . $thumbnail_letter . '</span>';
                         }
 
-    					$categories[] = sprintf(
-    						'<div class="category-listing %1$s">
+                                $categories[] = sprintf(
+                                    '<div class="category-listing %1$s">
                                 <div class="reference-cat-image">
                                     <a href="%3$s">%2$s</a>
                                 </div>
@@ -269,13 +271,13 @@ final class Helper
                                     <p class="description">%5$s</p>
                                 </div>
                             </div>',
-                            esc_attr(strtolower(str_replace(" ", "-", $term->name))),
-                            $displayed_thumbnail,
-    						esc_url(get_term_link($term->slug, $taxonomy_slug)),
-    						esc_html($term->name),
-    						esc_html(self::string_trailing($term->description, $excerpt)),
-                            esc_html('(' . self::get_post_count($term->term_id) . ')')
-    					);
+                                    esc_attr(strtolower(str_replace(" ", "-", $term->name))),
+                                    $displayed_thumbnail,
+                                    esc_url(get_term_link($term->slug, $taxonomy_slug)),
+                                    esc_html($term->name),
+                                    esc_html(self::string_trailing($term->description, $excerpt)),
+                                    esc_html('(' . self::get_post_count($term->term_id) . ')')
+                                );
 
                         $count_categories++;
 
@@ -289,20 +291,20 @@ final class Helper
                                 $categories[] = '<div class="category-listing allowance"></div></div>';
                             }
                         }
-	                }
-				}
-                $categories[] = '<div class="category-listing allowance"></div><div class="category-listing allowance"></div></div>';
-			}
-
-            if ($count_categories % $columns) {
-                $categories[] = '</div>';
+                    }
+                }
+                            $categories[] = '<div class="category-listing allowance"></div><div class="category-listing allowance"></div></div>';
             }
 
-			return implode( '', $categories );
+            if ($count_categories % $columns) {
+                  $categories[] = '</div>';
+            }
 
-		}
-	}
-    public static function get_all_terms_id ()
+               return implode('', $categories);
+
+        }
+    }
+    public static function get_all_terms_id()
     {
         $term_ids = array();
 
@@ -310,7 +312,7 @@ final class Helper
             'hide_empty' => 0,
         );
 
-        $terms = get_terms( 'knb-categories', $term_args );
+        $terms = get_terms('knb-categories', $term_args);
 
         foreach ($terms as $term) {
             $term_ids[] = $term->term_id;
@@ -318,7 +320,7 @@ final class Helper
 
         return $term_ids;
     }
-    public static function get_post_count ($id = '')
+    public static function get_post_count($id = '')
     {
         $tax_query = array(
         'relation' => 'AND',
@@ -329,7 +331,7 @@ final class Helper
             )
         );
 
-        if (is_tax( 'knb-categories' )) {
+        if (is_tax('knb-categories')) {
 
             if (empty($id)) {
                 $id = self::current_term_id();
@@ -361,13 +363,13 @@ final class Helper
     {
         $get_current_term_id = self::current_term_id();
         $term_title = single_term_title("", false);
-        $term_link = get_term_link( $get_current_term_id );
-        $image_id = get_term_meta( $get_current_term_id, 'categories-image-id', true );
-        $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
+        $term_link = get_term_link($get_current_term_id);
+        $image_id = get_term_meta($get_current_term_id, 'categories-image-id', true);
+        $thumbnail = wp_get_attachment_image($image_id, 'reference-knowledgebase-thumbnail');
         $thumbnail_letter = self::fallback_thumbnail($term_title);
         $displayed_thumbnail = '<a href="' . esc_url($term_link) .'" title="' . esc_attr($term_title) . '">'. $thumbnail . '</a>';;
 
-        if ( empty($thumbnail)) {
+        if (empty($thumbnail)) {
             $displayed_thumbnail = '<a href="' . esc_url($term_link) .'" title="' . esc_attr($term_title) . '"><span class="letter-thumbnail">'. $thumbnail_letter . '</span></a>';
         }
 
@@ -383,6 +385,7 @@ final class Helper
 
         foreach ($get_current_term_id as $key => $value) {
             $$key = $value;
+
         }
 
         return $term_id;
@@ -396,8 +399,8 @@ final class Helper
     public static function string_trailing($text, $lenght)
     {
 
-        if( strlen( $text ) > $lenght ) {
-            $text = substr( $text, 0, $lenght ) . '...';
+        if(strlen($text) > $lenght ) {
+            $text = substr($text, 0, $lenght) . '...';
         }
         return $text;
     }
@@ -405,7 +408,7 @@ final class Helper
     public static function get_nav_menu()
     {
 
-        $menu = get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+        $menu = get_terms('nav_menu', array( 'hide_empty' => true ));
 
         return $menu;
     }
@@ -430,7 +433,6 @@ final class Helper
         if (!empty($menu) && !empty($reference_menu) && is_nav_menu($reference_menu)) {
             echo $ordered_list;
         }
-
     }
     public static function get_table_of_content_setting()
     {
@@ -457,8 +459,9 @@ final class Helper
             foreach ($output as $key => $subject) {
                 $result = preg_match_all($pattern, $subject, $subpattern);
                 if ($result == 1) {
-                    if ($subpattern[1][0] != "127.0.0.1")
-                    $ip = $subpattern[1][0];
+                    if ($subpattern[1][0] != "127.0.0.1") {
+                        $ip = $subpattern[1][0];
+                    }
                 }
             }
         }
@@ -486,7 +489,7 @@ final class Helper
     {
         $formated_styles = '';
         $style = Options::getSyntaxHighlightingStyle();
-        $style = get_option( 'reference_knb_syntax_highlighting_style' );
+        $style = get_option('reference_knb_syntax_highlighting_style');
 
         $formated_styles = str_replace(' ', '-', $style);
 
@@ -510,7 +513,6 @@ final class Helper
         if (empty($current_menu)) {
             $current_menu = self::get_table_of_content_setting();
         }
-
         $queried_menu = wp_get_nav_menu_items($current_menu);
 
         $processed_menu = array();
@@ -527,4 +529,5 @@ final class Helper
 
         return $processed_menu;
     }
+
 }

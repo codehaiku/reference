@@ -121,16 +121,16 @@ class Loader
 
         $plugin_admin = new \DSC\Reference\Admin( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
 
-        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+        $this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
 
     }
     private function define_public_hooks()
     {
         $plugin_public = new \DSC\Reference\PublicPages( $this->get_dscKnB(), $this->get_version(), $this->get_loader() );
 
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+        $this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+        $this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
     }
 
     /**
