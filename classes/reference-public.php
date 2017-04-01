@@ -96,7 +96,7 @@ class PublicPages
      public function enqueue_styles()
      {
 
-        $highlighting_style = Helper::get_highlighting_style_file();
+        $highlighting_style = Helper::getSyntaxHighlightingStyleFile();
 
         $theme = wp_get_theme(); // gets the current theme
 
@@ -136,7 +136,7 @@ class PublicPages
      */
     public function enqueue_scripts()
     {
-        $post = Helper::global_post();
+        $post = Helper::globalPost();
         $breadcrumbs_separator_option = Options::getBreadcrumbsSeparator();
         $sticky_kit_option = Options::getStickyKit();
 
@@ -198,7 +198,7 @@ class PublicPages
         $reference_confirmed = filter_input(INPUT_POST, 'reference-confirm', FILTER_SANITIZE_STRING);
         $reference_declined = filter_input(INPUT_POST, 'reference-decline', FILTER_SANITIZE_STRING);
 
-        $ip = Helper::get_ip();
+        $ip = Helper::getIpAddress();
         $ip_addresses = (array) get_post_meta($reference_id, '_knowledgebase_feedback_ip_meta_key', true);
         $ip_array = array();
 
@@ -288,7 +288,7 @@ class PublicPages
     }
     public function search_results($template)
     {
-        $wp_query = Helper::global_wp_query();
+        $wp_query = Helper::globalWpQuery();
 
         $post_types = get_query_var('post_type');
 
@@ -304,7 +304,7 @@ class PublicPages
     }
     public function is_knowledgebase($archive = '', $singular = '', $tax = '', $shortcode = '')
     {
-        $post = Helper::global_post();
+        $post = Helper::globalPost();
 
         if (!isset($post)) {
             return;

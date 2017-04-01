@@ -53,7 +53,7 @@ class Breadcrumbs
             return;
         }
 
-        $post = Helper::global_post();
+        $post = Helper::globalPost();
         $option_separator = Options::getBreadcrumbsSeparator();
         $option_knb_plural = Options::getKnbPlural();
 

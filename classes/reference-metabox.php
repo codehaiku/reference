@@ -75,7 +75,7 @@ final class Metabox
 
     public function referenceToCMenuMetabox($post)
     {
-        $reference_menus = Helper::get_nav_menu();
+        $reference_menus = Helper::getNavMenu();
 
         // Make sure the form request comes from WordPress
         wp_nonce_field( basename( __FILE__ ), 'knowledgebase_toc_menu_nonce' );

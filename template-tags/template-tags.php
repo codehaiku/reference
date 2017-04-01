@@ -57,7 +57,7 @@ function knb_category_thumbnail()
 {
      $archive_thumbnail = new \DSC\Reference\Helper;
 
-     echo $archive_thumbnail->the_category_thumbnail();
+     echo $archive_thumbnail->getCategoryThumbnail();
 }
 function knb_search_form()
 {
@@ -67,21 +67,21 @@ function knb_child_categories()
 {
     $child_category = new \DSC\Reference\Helper;
 
-    echo $child_category->reference_display_child_category_list();
+    echo $child_category->knowledgebaseCategoryChildList();
 }
 function knb_archive_categories()
 {
     $child_category = new \DSC\Reference\Helper;
 
-    echo $child_category->reference_display_knowledgebase_category_list();
+    echo $child_category->knowledgebaseCategoryList();
 }
 function knb_knowledgebase_count()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
     $option = new \DSC\Reference\Options();
     $knowledgebase = $option->getKnbPlural();
-    $terms_ids = $knowledgebase_count->get_all_terms_id();
-    $count = $knowledgebase_count->get_post_count();
+    $terms_ids = $knowledgebase_count->getTermIds();
+    $count = $knowledgebase_count->getPostCount();
     $name = single_term_title("", false);
     $output = '';
 
@@ -90,7 +90,7 @@ function knb_knowledgebase_count()
     }
     if (is_post_type_archive('knowledgebase')) {
         $name = $knowledgebase;
-        $count = $knowledgebase_count->get_post_count($terms_ids);
+        $count = $knowledgebase_count->getPostCount($terms_ids);
     }
 
     $output = '<p class="reference-knowledgebase-count">' . sprintf(esc_html__('%d %s found under "%s"', 'reference'), $count, $knowledgebase, $name) . '</p>';
@@ -100,7 +100,7 @@ function knb_knowledgebase_count()
 function reference_navigation()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
-    $count = $knowledgebase_count->get_post_count();
+    $count = $knowledgebase_count->getPostCount();
 
     $args = array(
     	'base'               => str_replace( $count, '%#%', esc_url( get_pagenum_link( $count ) ) ),
@@ -183,7 +183,7 @@ function get_feedback_decline_amount()
 function is_ip_listed()
 {
     $ip = new \DSC\Reference\Helper;
-    $the_ip = $ip->get_ip();
+    $the_ip = $ip->getIpAddress();
     $ip_addresses = (array) get_post_meta(get_the_ID(), '_knowledgebase_feedback_ip_meta_key', true);
 
     if (!in_array($the_ip, $ip_addresses)) {
@@ -210,7 +210,7 @@ function reference_loop_category($categories, $columns, $show_category)
 function reference_highlighting_style()
 {
     $styles = new \DSC\Reference\Helper;
-    return $styles->get_highlighting_style();
+    return $styles->getSyntaxHighlightingStyle();
 
 }
 function reference_no_search_result($message = '')
@@ -220,7 +220,7 @@ function reference_no_search_result($message = '')
     $options = new \DSC\Reference\Options;
     $knowledgebase = $options->getKnbSingular();
 
-    $wp_query = $helper->global_wp_query();
+    $wp_query = $helper->globalWpQuery();
     $searched_items = $wp_query->found_posts;
 
     if (0 === $searched_items || 1 === $searched_items) {

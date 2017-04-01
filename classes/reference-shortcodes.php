@@ -100,7 +100,7 @@ class KnowledgebaseShortcodes
 
     public static function reference_shortcode_display_knowledgebase_category_list($categories, $columns)
     {
-        $post = Helper::global_post();
+        $post = Helper::globalPost();
 
         $columns = absint($columns);
         $terms = '';
@@ -180,7 +180,7 @@ class KnowledgebaseShortcodes
                     if( $term->parent) {
                         $image_id = get_term_meta( $term->term_id, 'categories-image-id', true );
                         $thumbnail = wp_get_attachment_image ( $image_id, 'reference-knowledgebase-thumbnail' );
-                        $thumbnail_letter = Helper::fallback_thumbnail($term->name);
+                        $thumbnail_letter = Helper::getFallbackThumbnail($term->name);
                         $displayed_thumbnail = $thumbnail;
 
                         if ( empty($thumbnail)) {
@@ -204,8 +204,8 @@ class KnowledgebaseShortcodes
                             $displayed_thumbnail,
                             esc_url(get_term_link( $term->slug, $taxonomy)),
                             esc_html($term->name),
-                            esc_html(Helper::string_trailing($term->description, $excerpt)),
-                            esc_html('(' . Helper::get_post_count($term->term_id) . ')')
+                            esc_html(Helper::stringTrailing($term->description, $excerpt)),
+                            esc_html('(' . Helper::getPostCount($term->term_id) . ')')
                         );
                     }
 

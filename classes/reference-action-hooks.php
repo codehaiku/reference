@@ -80,7 +80,7 @@ final class ActionHooks
         if (true === self::isTocEnabled()) {
             echo '<div class="reference-has-table-of-content">';
             echo '<div class="reference-menu-container">';
-                Helper::table_of_content();
+                Helper::getTableOfContentMenu();
             echo '</div>';
         }
     }
@@ -134,7 +134,7 @@ final class ActionHooks
      */
     public function isTocEnabled()
     {
-        $table_of_content_setting = Helper::get_table_of_content_setting();
+        $table_of_content_setting = Helper::getTableOfContentSetting();
         $table_of_content_option = Options::getTableOfContent();
         $setting = false;
 
