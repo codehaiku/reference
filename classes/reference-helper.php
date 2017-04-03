@@ -9,13 +9,13 @@
  *
  * PHP Version 5.4
  *
- * @category Reference\Reference\Helper
+ * @category Reference\Helper
  * @package  Reference
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @version  GIT:github.com/codehaiku/reference-wordpress-knowledgebase
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @version  GIT:github.com/codehaiku/reference
+ * @link     github.com/codehaiku/reference
  */
 
 namespace DSC\Reference;
@@ -29,12 +29,12 @@ if (! defined('ABSPATH')) {
 /**
  * This class is used to display value, fetch data and set conditions.
  *
- * @category Reference\Public\Helper
+ * @category Reference\Helper
  * @package  Reference
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @link     github.com/codehaiku/reference
  * @since    1.0
  */
 final class Helper

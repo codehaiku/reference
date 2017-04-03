@@ -1,6 +1,6 @@
 <?php
 /**
- * This class is executes during plugin activation.
+ * Reference Template Tags
  *
  * (c) Dunhakdis <dunhakdis@useissuestabinstead.com>
  *
@@ -9,17 +9,27 @@
  *
  * PHP Version 5.4
  *
- * @category Reference\ActionHooks
- * @package  Reference WordPress Knowledgebase
+ * @category Reference
+ * @package  Reference
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @version  GIT:github.com/codehaiku/reference-wordpress-knowledgebase
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase  The Plugin Repository
+ * @link     github.com/codehaiku/reference
  * @since    1.0
  */
 
-function knb_breadcrumb()
+if (! defined('ABSPATH') ) {
+    return;
+}
+
+/**
+ * Displays the reference breadcrumb.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_breadcrumb()
 {
 
     $breadcrumb = new \DSC\Reference\Breadcrumbs();
@@ -29,16 +39,20 @@ function knb_breadcrumb()
     $breadcrumbs_option = $option->getBreadcrumbs();
     $breadcrumbs_separator_option = $option->getBreadcrumbsSeparator();
 
-    $breadcrumb_option_meta = get_post_meta(get_the_ID(), '_knowledgebase_breadcrumbs_meta_key', true);
+    $breadcrumb_option_meta = get_post_meta(
+        get_the_ID(),
+        '_knowledgebase_breadcrumbs_meta_key',
+        true
+    );
 
-	$args = array(
+    $args = array(
         'post_type'           => 'knowledgebase',
         'taxonomy'            => 'knb-categories',
         'separator_icon'      => ' ' . $breadcrumbs_separator_option . ' ',
         'breadcrumbs_id'      => 'breadcrumbs-wrap',
         'breadcrumbs_classes' => 'breadcrumb-trail breadcrumbs',
         'home_title'          => $reference_plural_option,
-	);
+    );
 
     if (empty($breadcrumb_option_meta) && (bool)$breadcrumbs_option === true) {
         $breadcrumb_option_meta = 'enable';
@@ -46,36 +60,66 @@ function knb_breadcrumb()
 
     if ((bool)$breadcrumbs_option === true) {
 
-        if (is_option_enabled($breadcrumb_option_meta)) {
+        if (Is_Option_enabled($breadcrumb_option_meta)) {
 
-            echo $breadcrumb->render( $args );
+            echo $breadcrumb->render($args);
 
         }
     }
 }
-function knb_category_thumbnail()
+/**
+ * Displays the Reference category thumbnail.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_Category_thumbnail()
 {
      $archive_thumbnail = new \DSC\Reference\Helper;
 
      echo $archive_thumbnail->getCategoryThumbnail();
 }
-function knb_search_form()
+/**
+ * Displays the Reference search form.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_Search_form()
 {
-    require_once plugin_dir_path( __FILE__ ) . '../templates/search-form.php';
+    include_once plugin_dir_path(__FILE__) . '../templates/search-form.php';
 }
-function knb_child_categories()
+/**
+ * Displays the Reference category archive category lists.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_Child_categories()
 {
     $child_category = new \DSC\Reference\Helper;
 
     echo $child_category->knowledgebaseCategoryChildList();
 }
-function knb_archive_categories()
+/**
+ * Displays the Reference archive category lists.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_Archive_categories()
 {
     $child_category = new \DSC\Reference\Helper;
 
     echo $child_category->knowledgebaseCategoryList();
 }
-function knb_knowledgebase_count()
+/**
+ * Displays the Reference knowledgebase count.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_Knowledgebase_count()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
     $option = new \DSC\Reference\Options();
@@ -93,66 +137,125 @@ function knb_knowledgebase_count()
         $count = $knowledgebase_count->getPostCount($terms_ids);
     }
 
-    $output = '<p class="reference-knowledgebase-count">' . sprintf(esc_html__('%d %s found under "%s"', 'reference'), $count, $knowledgebase, $name) . '</p>';
+    $output = '<p class="reference-knowledgebase-count">' .
+        sprintf(
+            esc_html__('%d %s found under "%s"', 'reference'),
+            $count,
+            $knowledgebase,
+            $name
+        ) .
+    '</p>';
     echo $output;
 }
-
-function reference_navigation()
+/**
+ * Displays the Reference category navigation.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_navigation()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
     $count = $knowledgebase_count->getPostCount();
 
     $args = array(
-    	'base'               => str_replace( $count, '%#%', esc_url( get_pagenum_link( $count ) ) ),
-    	'format'             => '?paged=%#%',
-    	'current'            => max( 1, get_query_var('paged') ),
-    	'show_all'           => false,
-    	'end_size'           => 1,
-    	'mid_size'           => 2,
-    	'prev_next'          => true,
-    	'prev_text'          => __('« Previous'),
-    	'next_text'          => __('Next »'),
-    	'type'               => 'plain',
-    	'add_args'           => false,
-    	'add_fragment'       => '',
-    	'before_page_number' => '',
-    	'after_page_number'  => ''
+        'base'               => str_replace(
+            $count,
+            '%#%',
+            esc_url(get_pagenum_link($count))
+        ),
+        'format'             => '?paged=%#%',
+        'current'            => max(1, get_query_var('paged')),
+        'show_all'           => false,
+        'end_size'           => 1,
+        'mid_size'           => 2,
+        'prev_next'          => true,
+        'prev_text'          => __('« Previous'),
+        'next_text'          => __('Next »'),
+        'type'               => 'plain',
+        'add_args'           => false,
+        'add_fragment'       => '',
+        'before_page_number' => '',
+        'after_page_number'  => ''
     );
     ?>
 
-    <nav class="navigation reference-navigation" role="navigation"><?php echo paginate_links( $args ); ?></nav>
+    <nav
+        class="navigation reference-navigation"
+        role="navigation">
+            <?php echo paginate_links($args); ?>
+    </nav>
 <?php }
-
-function knb_display_feedback()
-{ ?>
+/**
+ * Displays the Reference comment feedback.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_Display_feedback()
+{
+    ?>
     <?php
     $option = new \DSC\Reference\Options();
     $comment_feedback_option = $option->getCommentFeedback();
+    $comment_feedback_meta = get_post_meta(
+        get_the_ID(),
+        '_knowledgebase_comment_feedback_meta_key',
+        true
+    );
 
-    $comment_feedback_meta = get_post_meta(get_the_ID(), '_knowledgebase_comment_feedback_meta_key', true);
-
-    if (empty($comment_feedback_meta) && (bool)$comment_feedback_option === true) {
+    if (empty($comment_feedback_meta)
+        && true === (bool)$comment_feedback_option
+    ) {
         $comment_feedback_meta = 'enable';
     }
 
     ?>
-    <?php if ((bool)$comment_feedback_option === true) { ?>
+    <?php if (true === (bool)$comment_feedback_option) { ?>
 
-        <?php if (is_option_enabled($comment_feedback_meta)) { ?>
+        <?php if (Is_Option_enabled($comment_feedback_meta)) { ?>
 
-            <div class="reference-feedback-container" id="reference-feedback" data-value="<?php echo get_the_ID(); ?>">
-                <p lass="feedback-header"><?php esc_html_e('Was this article helpful?', 'reference'); ?></p>
+            <div
+                class="reference-feedback-container"
+                id="reference-feedback"
+                data-value="<?php echo get_the_ID(); ?>"
+            >
+                <p lass="feedback-header">
+                    <?php esc_html_e(
+                        'Was this article helpful?',
+                        'reference'
+                    ); ?>
+                </p>
                 <span class="feedback-response-link">
-                    <?php if (is_ip_listed()) {?>
-                        <a href="" id="reference-confirm-feedback"><?php esc_html_e('Yes', 'reference'); ?></a><?php esc_html_e(' / ', 'reference'); ?><a href="" id="reference-decline-feedback"><?php esc_html_e('No', 'reference'); ?></a>
+                    <?php if (Is_IP_listed()) {?>
+                        <a href="" id="reference-confirm-feedback">
+                            <?php esc_html_e('Yes', 'reference'); ?>
+                        </a>
+                        <?php esc_html_e(' / ', 'reference'); ?>
+                        <a href="" id="reference-decline-feedback">
+                            <?php esc_html_e('No', 'reference'); ?>
+                        </a>
                     <?php } else { ?>
-                        <?php esc_html_e('You have already voted.', 'reference'); ?>
+                        <?php esc_html_e(
+                            'You have already voted.',
+                            'reference'
+                        ); ?>
                     <?php } ?>
                 </span>
                 <small class="feedback-results">
-                    <span id="confirmed_amount"><?php get_feedback_confirm_amount(); ?></span><?php esc_html_e(' said "Yes" and ', 'reference'); ?><span id="declined_amount"><?php get_feedback_decline_amount(); ?></span><?php esc_html_e(' said "No"', 'reference'); ?>
+                    <span id="confirmed_amount">
+                        <?php Get_Reference_Feedback_Confirm_amount(); ?>
+                    </span>
+                    <?php esc_html_e(' said "Yes" and ', 'reference'); ?>
+                    <span id="declined_amount">
+                        <?php Get_Reference_Feedback_Decline_amount(); ?>
+                    </span>
+                    <?php esc_html_e(' said "No"', 'reference'); ?>
                 </small>
-                <?php wp_nonce_field( 'reference-feedback-ajax-nonce', 'reference-feedback-security' ); ?>
+                <?php wp_nonce_field(
+                    'reference-feedback-ajax-nonce',
+                    'reference-feedback-security'
+                ); ?>
             </div>
 
         <?php } ?>
@@ -160,37 +263,75 @@ function knb_display_feedback()
     <?php } ?>
 
 <?php }
-
-function get_feedback_confirm_amount()
+/**
+ * Displays the Reference confirmed feedback.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Get_Reference_Feedback_Confirm_amount()
 {
-    $confirm_value_meta = get_post_meta(get_the_ID(), '_knowledgebase_feedback_confirm_meta_key', true);
+    $confirm_value_meta = get_post_meta(
+        get_the_ID(),
+        '_knowledgebase_feedback_confirm_meta_key',
+        true
+    );
 
-    if(empty($confirm_value_meta)) {
+    if (empty($confirm_value_meta)) {
         $confirm_value_meta = esc_html__('No one', 'reference');
     }
     echo $confirm_value_meta;
 }
-function get_feedback_decline_amount()
+/**
+ * Displays the Reference declined feedback.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Get_Reference_Feedback_Decline_amount()
 {
-    $decline_value_meta = get_post_meta(get_the_ID(), '_knowledgebase_feedback_decline_meta_key', true);
+    $decline_value_meta = get_post_meta(
+        get_the_ID(),
+        '_knowledgebase_feedback_decline_meta_key',
+        true
+    );
 
-    if(empty($decline_value_meta)) {
+    if (empty($decline_value_meta)) {
         $decline_value_meta = esc_html__('no one', 'reference');
     }
 
     echo $decline_value_meta;
 }
-function is_ip_listed()
+/**
+ * Check if the visitors has voted by getting his or her IP address and
+ * checking if it exist.
+ *
+ * @since  1.0.0
+ * @return bolean true Returns true if IP address does not exist.
+ */
+function Is_IP_listed()
 {
     $ip = new \DSC\Reference\Helper;
     $the_ip = $ip->getIpAddress();
-    $ip_addresses = (array) get_post_meta(get_the_ID(), '_knowledgebase_feedback_ip_meta_key', true);
+    $ip_addresses = (array) get_post_meta(
+        get_the_ID(),
+        '_knowledgebase_feedback_ip_meta_key',
+        true
+    );
 
     if (!in_array($the_ip, $ip_addresses)) {
         return true;
     }
 }
-function is_option_enabled($option = '')
+/**
+ * Checks if an option is enabled.
+ *
+ * @param string $option The value of the option.
+ *
+ * @since  1.0.0
+ * @return bolean true Returns true if option is enable.
+ */
+function Is_Option_enabled($option = '')
 {
     if ($option === 'enable') {
         return true;
@@ -198,23 +339,51 @@ function is_option_enabled($option = '')
         return false;
     }
 }
-function reference_loop_category($categories, $columns, $show_category)
+/**
+ * Displays the Reference category lists in the reference shortcode.
+ *
+ * @param array  $categories    The listed categories.
+ * @param int    $columns       The number of columns.
+ * @param bolean $show_category Show or hide the category lists.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function Reference_Loop_category($categories, $columns, $show_category)
 {
     $category = new \DSC\Reference\KnowledgebaseShortcodes;
 
     if ('true' === $show_category) {
-        echo $category->reference_shortcode_display_knowledgebase_category_list($categories, $columns, $show_category);
+        echo $category->referenceShortcodeCategoryList(
+            $categories,
+            $columns,
+            $show_category
+        );
     }
 }
-
-function reference_highlighting_style()
+/**
+ * Returns the Syntax Highlighting Style.
+ *
+ * @since  1.0.0
+ * @return string $styles the Returns the Syntax Highlighting Style.
+ */
+function Reference_Highlighting_style()
 {
     $styles = new \DSC\Reference\Helper;
     return $styles->getSyntaxHighlightingStyle();
 
 }
-function reference_no_search_result($message = '')
-{ ?>
+/**
+ * Displays the Reference no search result section.
+ *
+ * @param string $message The no search result message.
+ *
+ * @since  1.0.0
+ * @return string $styles the Returns the Syntax Highlighting Style.
+ */
+function Reference_No_Search_result($message = '')
+{
+    ?>
     <?php
     $helper = new \DSC\Reference\Helper;
     $options = new \DSC\Reference\Options;
@@ -243,6 +412,6 @@ function reference_no_search_result($message = '')
     }
     ?>
     <div id="reference-message" class="notification">
-		<p><?php echo ($message); ?></p>
-	</div>
+        <p><?php echo ($message); ?></p>
+    </div>
 <?php }

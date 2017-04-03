@@ -18,7 +18,7 @@ get_header(); ?>
 
                 <div class="reference-main-wrapper">
 
-                    <?php knb_breadcrumb(); ?>
+                    <?php Reference_breadcrumb(); ?>
 
                     <?php do_action('reference_has_table_of_content_before'); ?>
 
@@ -35,7 +35,7 @@ get_header(); ?>
                                     </div>
                                 </article><!-- #post-## -->
 
-                                <?php knb_display_feedback(); ?>
+                                <?php Reference_Display_feedback(); ?>
 
                 				<?php
                 					// If comments are open or we have at least one comment, load up the comment template.

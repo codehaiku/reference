@@ -27,13 +27,13 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
-        <?php knb_breadcrumb(); ?>
+        <?php Reference_breadcrumb(); ?>
 
-        <?php knb_search_form(); ?>
+        <?php Reference_Search_form(); ?>
 
-        <?php knb_archive_categories(); ?>
+        <?php Reference_Archive_categories(); ?>
 
-        <?php knb_knowledgebase_count(); ?>
+        <?php Reference_Knowledgebase_count(); ?>
 
 		<?php
 		if ( have_posts() ) : ?>
@@ -56,7 +56,7 @@ get_header(); ?>
 
 			<?php endwhile; ?>
 
-            <?php reference_navigation(); ?>
+            <?php Reference_navigation(); ?>
 
 		<?php else : ?>
 

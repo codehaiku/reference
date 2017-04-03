@@ -11,7 +11,7 @@ jQuery(document).ready( function($) {
             url: reference_feedback_object.ajaxurl,
 
             data: {
-                'action': 'reference_feedback_ajax', //calls wp_ajax_nopriv_ajaxlogin
+                'action': 'referenceCommentFeedbackAjax', //calls wp_ajax_nopriv_ajaxlogin
 
                 'reference-id': $( '#reference-feedback' ).attr('data-value'),
 
@@ -58,7 +58,7 @@ jQuery(document).ready( function($) {
             url: reference_feedback_object.ajaxurl,
 
             data: {
-                'action': 'reference_feedback_ajax', //calls wp_ajax_nopriv_ajaxlogin
+                'action': 'referenceCommentFeedbackAjax', //calls wp_ajax_nopriv_ajaxlogin
 
                 'reference-id': $( '#reference-feedback' ).attr('data-value'),
 
@@ -67,7 +67,7 @@ jQuery(document).ready( function($) {
                 'reference-feedback-security': $( '#reference-feedback-security' ).val()
 
             },
-            
+
             beforeSend: function(){
                 $('.feedback-response-link').html(reference_feedback_object.loading);
             },

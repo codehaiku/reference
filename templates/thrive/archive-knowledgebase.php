@@ -4,44 +4,62 @@
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
- * @package thrive
+ * PHP Version 5.4
+ * @category
+ * @package Thrive
+ * @author
+ * @license
+ * @link
  */
 
 get_header(); ?>
 <div id="archive-section">
-	<div class="col-md-8" id="content-left-col">
-		<div id="primary" class="content-area">
-			<main id="main" class="site-main" role="main">
+    <div class="col-md-8" id="content-left-col">
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main" role="main">
                 <div class="reference-main-wrapper">
 
-                    <?php knb_breadcrumb(); ?>
+                    <?php Reference_breadcrumb(); ?>
 
-        			<?php if ( have_posts() ) : ?>
-        				<?php
-        					$archive_allowed_tags = array(
-        					    'a' => array(
-        					        'href' => array(),
-        					        'title' => array()
-        					    ),
-        					    'span' => array(
-        					    	'class' => array()
-        					    )
-        					);
-        				?>
+            <?php if (have_posts() ) : ?>
+                        <?php
+                            $archive_allowed_tags = array(
+                                'a' => array(
+                                    'href' => array(),
+                                    'title' => array()
+                                ),
+                                'span' => array(
+                                    'class' => array()
+                                )
+                            );
+                        ?>
 
-                        <?php knb_search_form(); ?>
+                        <?php Reference_Search_form(); ?>
 
-                        <?php knb_archive_categories(); ?>
+                        <?php Reference_Archive_categories(); ?>
 
-                        <?php knb_knowledgebase_count(); ?>
+                        <?php Reference_Knowledgebase_count(); ?>
 
-        				<?php /* Start the Loop */ ?>
-        				<?php while ( have_posts() ) : the_post(); ?>
+                        <?php /* Start the Loop */ ?>
+                        <?php while ( have_posts() ) : the_post(); ?>
 
-                            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                            <article
+                                id="post-<?php the_ID(); ?>"
+                                <?php post_class(); ?>
+                            >
                                 <div class="entry-meta">
-                                    <a href="<?php echo esc_url(the_permalink()); ?>" title="<?php echo esc_attr(the_title()); ?>">
-                                        <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+                                    <a
+                                        href="
+                                        <?php echo esc_url(the_permalink()); ?>
+                                        "
+                                        title="
+                                        <?php echo esc_attr(the_title()); ?>
+                                        "
+                                    >
+                                        <?php the_title(
+                                            '<h1 class="entry-title">',
+                                            '</h1>'
+                                        ); ?>
                                     </a>
                                 </div>
                                 <div class="entry-content">
@@ -49,23 +67,23 @@ get_header(); ?>
                                 </div>
                             </article><!-- #post-## -->
 
-        				<?php endwhile; ?>
+                        <?php endwhile; ?>
 
-                        <?php reference_navigation(); ?>
+                        <?php Reference_navigation(); ?>
 
-        			<?php else : ?>
+            <?php else : ?>
 
-        				<?php get_template_part( 'knowledgebase', 'none' ); ?>
+                        <?php get_template_part('knowledgebase', 'none'); ?>
 
-        			<?php endif; ?>
+            <?php endif; ?>
 
                 </div><!--.reference-main-wrapper-->
-			</main><!-- #main -->
-		</div><!-- #primary -->
-	</div><!--col-md-8-->
+            </main><!-- #main -->
+        </div><!-- #primary -->
+    </div><!--col-md-8-->
 
 <div class="col-md-4" id="content-right-col">
-	<?php get_sidebar(); ?>
+    <?php get_sidebar(); ?>
 </div>
 </div><!--#archive-section-->
 <?php get_footer(); ?>

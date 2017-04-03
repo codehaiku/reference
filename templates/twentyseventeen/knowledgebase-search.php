@@ -26,7 +26,7 @@ get_header(); ?>
 		<main id="main" class="site-main" role="main">
 
 		<?php if ( have_posts() ) : ?>
-            <?php knb_breadcrumb(); ?>
+            <?php Reference_breadcrumb(); ?>
 
             <?php /* Start the Loop */ ?>
 
@@ -44,18 +44,18 @@ get_header(); ?>
 
             <?php endwhile; ?>
 
-            <?php reference_navigation(); ?>
+            <?php Reference_navigation(); ?>
 
         <?php else : ?>
 
-            <?php knb_breadcrumb(); ?>
+            <?php Reference_breadcrumb(); ?>
 
 			<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'twentyseventeen' ); ?></p>
             <div id="search-page-search-form">
-               <?php knb_search_form(); ?>
+               <?php Reference_Search_form(); ?>
             </div>
 
-            <?php reference_no_search_result(); ?>
+            <?php Reference_No_Search_result(); ?>
         <?php endif; ?>
 
 		</main><!-- #main -->

@@ -15,8 +15,8 @@
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @version  GIT:github.com/codehaiku/reference-wordpress-knowledgebase
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @version  GIT:github.com/codehaiku/reference
+ * @link     github.com/codehaiku/reference
  */
 
 namespace DSC\Reference;
@@ -33,7 +33,7 @@ if (! defined('ABSPATH') ) {
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @link     github.com/codehaiku/reference
  * @since    1.0
  */
 class Admin
@@ -200,21 +200,21 @@ class Admin
             array(
                 'id' => 'reference_knb_slug',
                 'label' => esc_html__('Slug', 'reference'),
-                'callback' => 'reference_knb_slug_form',
+                'callback' => 'Reference_Knb_Slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
             ),
             array(
                 'id' => 'reference_knb_category_slug',
                 'label' => esc_html__('Category Slug', 'reference'),
-                'callback' => 'reference_knb_category_slug_form',
+                'callback' => 'Reference_Knb_Category_Slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
             ),
             array(
                 'id' => 'reference_knb_tag_slug',
                 'label' => esc_html__('Tag Slug', 'reference'),
-                'callback' => 'reference_knb_tag_slug_form',
+                'callback' => 'Reference_Knb_Tag_Slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
             ),
@@ -222,112 +222,112 @@ class Admin
             array(
                 'id' => 'reference_knb_singular',
                 'label' => esc_html__('Singular', 'reference'),
-                'callback' => 'reference_knb_singular_form',
+                'callback' => 'Reference_Knb_Singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_plural',
                 'label' => esc_html__('Plural', 'reference'),
-                'callback' => 'reference_knb_plural_form',
+                'callback' => 'Reference_Knb_Plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_category_singular',
                 'label' => esc_html__('Category Singular', 'reference'),
-                'callback' => 'reference_knb_category_singular_form',
+                'callback' => 'Reference_Knb_Category_Singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_category_plural',
                 'label' => esc_html__('Category Plural', 'reference'),
-                'callback' => 'reference_knb_category_plural_form',
+                'callback' => 'Reference_Knb_Category_Plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_tag_singular',
                 'label' => esc_html__('Tag Singular', 'reference'),
-                'callback' => 'reference_knb_tag_singular_form',
+                'callback' => 'Reference_Knb_Tag_Singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_tag_plural',
                 'label' => esc_html__('Tag Plural', 'reference'),
-                'callback' => 'reference_knb_tag_plural_form',
+                'callback' => 'Reference_Knb_Tag_Plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_archive_column',
                 'label' => esc_html__('Columns', 'reference'),
-                'callback' => 'reference_knb_archive_column_form',
+                'callback' => 'Reference_Knb_Archive_Column_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_syntax_highlighting',
                 'label' => esc_html__('Syntax Highlighting', 'reference'),
-                'callback' => 'reference_knb_syntax_highlighting_form',
+                'callback' => 'Reference_Knb_Syntax_Highlighting_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_syntax_highlighting_style',
                 'label' => esc_html__('Syntax Highlighting Style', 'reference'),
-                'callback' => 'reference_knb_syntax_highlighting_style_form',
+                'callback' => 'Reference_Knb_Syntax_Highlighting_Style_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_comment_feedback',
                 'label' => esc_html__('Comment Feedback', 'reference'),
-                'callback' => 'reference_knb_comment_feedback_form',
+                'callback' => 'Reference_Knb_Comment_Feedback_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_toc',
                 'label' => esc_html__('Table of Contents', 'reference'),
-                'callback' => 'reference_knb_toc_form',
+                'callback' => 'Reference_Knb_Toc_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_sticky_kit',
                 'label' => esc_html__('Sticky Table of Contents', 'reference'),
-                'callback' => 'reference_knb_sticky_kit_form',
+                'callback' => 'Reference_Knb_Sticky_Kit_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_breadcrumbs',
                 'label' => esc_html__('BreadCrumbs', 'reference'),
-                'callback' => 'reference_knb_breadcrumbs_form',
+                'callback' => 'Reference_Knb_Breadcrumbs_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_breadcrumbs_separator',
                 'label' => esc_html__('BreadCrumbs Separator', 'reference'),
-                'callback' => 'reference_knb_breadcrumbs_separator_form',
+                'callback' => 'Reference_Knb_Breadcrumbs_Separator_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_category_excerpt',
                 'label' => esc_html__('Category Excerpt', 'reference'),
-                'callback' => 'reference_knb_category_excerpt_form',
+                'callback' => 'Reference_Knb_Category_Excerpt_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_posts_per_page',
                 'label' => esc_html__('Posts per Page', 'reference'),
-                'callback' => 'reference_knb_posts_per_page_form',
+                'callback' => 'Reference_Knb_Posts_Per_Page_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),

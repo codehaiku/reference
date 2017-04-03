@@ -14,8 +14,8 @@
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @version  GIT:github.com/codehaiku/reference-wordpress-knowledgebase
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @version  GIT:github.com/codehaiku/reference
+ * @link     github.com/codehaiku/reference
  * @since    1.0
  */
 
@@ -33,12 +33,12 @@ if (! defined('ABSPATH') ) {
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @link     github.com/codehaiku/reference
  */
 class Deactivator
 {
     /**
-     * This methode executes during plugin deactivation.
+     * This method executes during plugin deactivation.
      *
      * @since  1.0.0
      * @access public

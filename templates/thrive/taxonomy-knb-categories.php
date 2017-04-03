@@ -28,11 +28,11 @@ get_header(); ?>
         					);
         				?>
 
-                        <?php knb_breadcrumb(); ?>
+                        <?php Reference_breadcrumb(); ?>
 
         				<header class="page-header thrive-card no-mg-top">
                             <div class="reference-header-image">
-                                <?php knb_category_thumbnail(); ?>
+                                <?php Reference_Category_thumbnail(); ?>
                             </div>
         					<?php
                                 $archive_title = get_the_archive_title( '<h1 class="page-title">', '</h1>' );
@@ -57,11 +57,11 @@ get_header(); ?>
                             </div>
         				</header><!-- .page-header -->
 
-                        <?php knb_search_form(); ?>
+                        <?php Reference_Search_form(); ?>
 
-                        <?php knb_child_categories(); ?>
+                        <?php Reference_Child_categories(); ?>
 
-                        <?php knb_knowledgebase_count(); ?>
+                        <?php Reference_Knowledgebase_count(); ?>
 
         				<?php /* Start the Loop */ ?>
         				<?php while ( have_posts() ) : the_post(); ?>
@@ -79,7 +79,7 @@ get_header(); ?>
 
         				<?php endwhile; ?>
 
-                        <?php reference_navigation(); ?>
+                        <?php Reference_navigation(); ?>
 
         			<?php else : ?>
 

@@ -9,13 +9,13 @@
  *
  * PHP Version 5.4
  *
- * @category Reference\Metabox
- * @package  Reference WordPress Knowledgebase
+ * @category Reference\Loader
+ * @package  Reference
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @version  GIT:github.com/codehaiku/reference-wordpress-knowledgebase
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @version  GIT:github.com/codehaiku/reference
+ * @link     github.com/codehaiku/reference
  * @since    1.0
  */
 
@@ -32,7 +32,7 @@ if (! defined('ABSPATH') ) {
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
- * @link     github.com/codehaiku/reference-wordpress-knowledgebase
+ * @link     github.com/codehaiku/reference
  */
 final class Loader
 {
@@ -41,7 +41,8 @@ final class Loader
      *
      * @since  1.0.0
      * @access protected
-     * @var    AddFiltersActions    $loader    Handles and registers all hooks for the plugin.
+     * @var    AddFiltersActions    $loader    Handles and registers all hooks
+     *                                         for the plugin.
      */
     protected $loader;
 
@@ -50,7 +51,8 @@ final class Loader
      *
      * @since  1.0.0
      * @access protected
-     * @var    string    $reference    The string the plugin uses to identify the plugin.
+     * @var    string    $reference    The string the plugin uses to identify
+     *                                 the plugin.
      */
     protected $reference;
 
@@ -76,10 +78,10 @@ final class Loader
         $this->reference = 'reference';
         $this->version = '1.0.0';
 
-        $this->load_dependencies();
-        $this->set_locale();
-        $this->define_admin_hooks();
-        $this->define_public_hooks();
+        $this->_loadDependencies();
+        $this->_setLocale();
+        $this->_setAdminHooks();
+        $this->_setPublicHooks();
     }
     /**
      * This method is used to load all the dependencies needed by the Reference
@@ -89,7 +91,7 @@ final class Loader
      * @access private
      * @return void
      */
-    private function load_dependencies()
+    private function _loadDependencies()
     {
         /**
          * This class that handles the arrangement of the actions and filters
@@ -162,7 +164,7 @@ final class Loader
      * @access private
      * @return void
      */
-    private function set_locale()
+    private function _setLocale()
     {
 
     }
@@ -174,7 +176,7 @@ final class Loader
      * @access private
      * @return void
      */
-    private function define_admin_hooks()
+    private function _setAdminHooks()
     {
         $post_type = new \DSC\Reference\PostType(
             $this->getName(),
@@ -200,7 +202,7 @@ final class Loader
      * @access private
      * @return void
      */
-    private function define_public_hooks()
+    private function _setPublicHooks()
     {
         $plugin_public = new \DSC\Reference\PublicPages(
             $this->getName(),
@@ -210,12 +212,12 @@ final class Loader
         $this->loader->addAction(
             'wp_enqueue_scripts',
             $plugin_public,
-            'enqueue_styles'
+            'setEnqueueStyles'
         );
         $this->loader->addAction(
             'wp_enqueue_scripts',
             $plugin_public,
-            'enqueue_scripts'
+            'setEnqueueScripts'
         );
     }
     /**
