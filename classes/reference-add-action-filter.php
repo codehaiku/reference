@@ -226,6 +226,6 @@ class AddFiltersActions
                 $hook['accepted_args']
             );
         }
+        return;
     }
-    return;
 }
