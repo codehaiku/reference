@@ -20,7 +20,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 
@@ -176,17 +176,23 @@ class Options
         );
     }
     /**
-     * Get the Syntax Highlighting Option and convert to absolute integer.
+     * Checks if 'Syntax Highlighting' setting is enabled.
      *
-     * @return integer Returns absolute integer.
+     * @return boolean Returns true if 'Syntax Highlighting' setting is enabled.
      */
     public static function getSyntaxHighlighting()
     {
-        return absint(
+        $is_enabled = absint(
             get_option(
                 'reference_knb_syntax_highlighting'
             )
         );
+
+        if (1 === $is_enabled) {
+            return true;
+        }
+
+        return false;
     }
     /**
      * Get the Syntax Highlighting Style Option and sanitized the value.
@@ -202,56 +208,80 @@ class Options
         );
     }
     /**
-     * Get the Comment Feedback Option and convert to absolute integer.
+     * Checks if 'Comment Feedback' setting is enabled.
      *
-     * @return integer Returns absolute integer.
+     * @return boolean Returns true if 'Comment Feedback' setting is enabled.
      */
     public static function getCommentFeedback()
     {
-        return absint(
+        $is_enabled = absint(
             get_option(
                 'reference_knb_comment_feedback'
             )
         );
+
+        if (1 === $is_enabled) {
+            return true;
+        }
+
+        return false;
     }
     /**
-     * Get the Table of Content Option and convert to absolute integer.
+     * Checks if the 'Table of Contents' setting is enabled.
      *
-     * @return integer Returns absolute integer.
+     * @return boolean Returns true if 'Table of Contents' setting is enabled.
      */
     public static function getTableOfContent()
     {
-        return absint(
+        $is_enabled = absint(
             get_option(
                 'reference_knb_toc'
             )
         );
+
+        if (1 === $is_enabled) {
+            return true;
+        }
+
+        return false;
     }
     /**
-     * Get the Breadcrumbs Option and convert to absolute integer.
+     * Checks if the 'Breadcrumbs' setting is enabled.
      *
-     * @return integer Returns absolute integer.
+     * @return boolean Returns true if 'Breadcrumbs' setting is enabled.
      */
     public static function getBreadcrumbs()
     {
-        return absint(
+        $is_enabled = absint(
             get_option(
                 'reference_knb_breadcrumbs'
             )
         );
+
+        if (1 === $is_enabled) {
+            return true;
+        }
+
+        return false;
     }
     /**
-     * Get the Sticky Kit Option and convert to absolute integer.
+     * Checks if the 'Sticky Kit' setting is enabled.
      *
-     * @return integer Returns absolute integer.
+     * @return boolean Returns true if the 'Sticky Kit' setting is enabled.
      */
     public static function getStickyKit()
     {
-        return absint(
+        $is_enabled = absint(
             get_option(
                 'reference_knb_sticky_kit'
             )
         );
+
+        if (1 === $is_enabled) {
+            return true;
+        }
+
+        return false;
     }
     /**
      * Get the Breadcrumbs Separator Option and sanitized the value.

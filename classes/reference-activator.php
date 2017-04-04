@@ -21,7 +21,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 
@@ -78,5 +78,6 @@ class Activator
             }
         }
         flush_rewrite_rules();
+        return;
     }
 }

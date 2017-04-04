@@ -21,7 +21,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 
@@ -83,7 +83,6 @@ class AddFiltersActions
 
         $this->actions = array();
         $this->filters = array();
-
     }
 
     /**
@@ -111,7 +110,7 @@ class AddFiltersActions
         $priority = 10,
         $accepted_args = 1
     ) {
-        $this->actions = $this->_add(
+        $this->actions = $this->add(
             $this->actions,
             $hook,
             $component,
@@ -119,6 +118,7 @@ class AddFiltersActions
             $priority,
             $accepted_args
         );
+        return;
     }
 
     /**
@@ -146,13 +146,15 @@ class AddFiltersActions
         $priority = 10,
         $accepted_args = 1
     ) {
-        $this->filters = $this->_add(
+        $this->filters = $this->add(
             $this->filters,
             $hook,
             $component,
-            $callback, $priority,
+            $callback,
+            $priority,
             $accepted_args
         );
+        return;
     }
 
     /**
@@ -181,7 +183,7 @@ class AddFiltersActions
      * @return array $hooks
      * Collection of actions and filters registered in WordPress
      */
-    private function _add($hooks,$hook,$component,$callback,$priority,$accepted_args)
+    private function add($hooks, $hook, $component, $callback, $priority, $accepted_args)
     {
 
         $hooks[] = array(
@@ -193,7 +195,6 @@ class AddFiltersActions
         );
 
         return $hooks;
-
     }
     /**
      * Register the filters and actions with WordPress.
@@ -203,7 +204,7 @@ class AddFiltersActions
      */
     public function runner()
     {
-        foreach ( $this->filters as $hook ) {
+        foreach ($this->filters as $hook) {
             add_filter(
                 $hook['hook'],
                 array(
@@ -214,7 +215,7 @@ class AddFiltersActions
                 $hook['accepted_args']
             );
         }
-        foreach ( $this->actions as $hook ) {
+        foreach ($this->actions as $hook) {
             add_action(
                 $hook['hook'],
                 array(
@@ -226,4 +227,5 @@ class AddFiltersActions
             );
         }
     }
+    return;
 }

@@ -9,8 +9,8 @@
  *
  * PHP Version 5.4
  *
- * @category Reference\Reference_Knb_Slug_Form
- * @package  Reference\Reference_Knb_Slug_Form
+ * @category Reference\reference_knb_slug_form
+ * @package  Reference\reference_knb_slug_form
  * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
  * @author   Jasper J. <emailnotdisplayed@domain.tld>
  * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
@@ -19,7 +19,7 @@
  * @since    1.0
  */
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 /**
@@ -27,7 +27,7 @@ if (! defined('ABSPATH') ) {
  *
  * @return void
  */
-function Reference_Knb_Slug_form()
+function reference_knb_slug_form()
 {
 
     echo '<input

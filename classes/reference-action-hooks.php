@@ -22,7 +22,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 /**
@@ -50,22 +50,29 @@ final class ActionHooks
     {
         add_action(
             'reference_has_table_of_content_before',
-            array( $this, 'tableOfContentBeforeCallback' ), 10, 2
+            array( $this, 'tableOfContentBeforeCallback' ),
+            10,
+            2
         );
         add_action(
             'reference_has_table_of_content_after',
-            array( $this, 'tableOfContentAfterCallback' ), 10, 2
+            array( $this, 'tableOfContentAfterCallback' ),
+            10,
+            2
         );
 
         add_action(
             'reference_single_content_before',
-            array( $this, 'singleContentBeforeCallback' ), 10, 2
+            array( $this, 'singleContentBeforeCallback' ),
+            10,
+            2
         );
         add_action(
             'reference_single_content_after',
-            array( $this, 'singleContentAfterCallback' ), 10, 2
+            array( $this, 'singleContentAfterCallback' ),
+            10,
+            2
         );
-
     }
     /**
      * Returns the opening tag for main container for the Table of Contents
@@ -83,6 +90,7 @@ final class ActionHooks
                 Helper::getTableOfContentMenu();
             echo '</div>';
         }
+        return;
     }
     /**
      * Returns the closing tag for main container for the Table of Contents
@@ -97,6 +105,7 @@ final class ActionHooks
         if (true === self::isTocEnabled()) {
             echo '</div>';
         }
+        return;
     }
     /**
      * Returns the opening tag for single content with Table of Contents
@@ -110,6 +119,7 @@ final class ActionHooks
         if (true === self::isTocEnabled()) {
             echo '<div class="reference-single-content">';
         }
+        return;
     }
     /**
      * Returns the closing tag for single content with Table of Contents
@@ -123,6 +133,7 @@ final class ActionHooks
         if (true === self::isTocEnabled()) {
             echo '</div>';
         }
+        return;
     }
     /**
      * Check if the Table of Contents setting is enable

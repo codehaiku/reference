@@ -21,7 +21,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 
@@ -46,7 +46,6 @@ class Deactivator
      */
     public static function deactivate()
     {
-
+        return;
     }
-
 }

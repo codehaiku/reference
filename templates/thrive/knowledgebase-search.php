@@ -15,7 +15,7 @@ get_header(); ?>
 
         			<?php if ( have_posts() ) : ?>
 
-                        <?php Reference_breadcrumb(); ?>
+                        <?php reference_breadcrumb(); ?>
 
         				<header class="search-page-header mg-bottom-35">
 
@@ -32,12 +32,12 @@ get_header(); ?>
         					</h1>
 
         					<div id="search-page-search-form">
-        	                   <?php Reference_Search_form(); ?>
+        	                   <?php reference_search_form(); ?>
         					</div>
 
         				</header><!-- .page-header -->
 
-                        <?php Reference_No_Search_result(); ?>
+                        <?php reference_no_search_result(); ?>
 
                         <?php /* Start the Loop */ ?>
         				<?php while ( have_posts() ) : the_post(); ?>
@@ -55,11 +55,11 @@ get_header(); ?>
 
         				<?php endwhile; ?>
 
-        				<?php Reference_navigation(); ?>
+        				<?php reference_navigation(); ?>
 
         			<?php else : ?>
 
-                        <?php Reference_breadcrumb(); ?>
+                        <?php reference_breadcrumb(); ?>
 
                         <header class="search-page-header mg-bottom-35">
 
@@ -76,12 +76,12 @@ get_header(); ?>
         					</h1>
 
         					<div id="search-page-search-form">
-        	                   <?php Reference_Search_form(); ?>
+        	                   <?php reference_search_form(); ?>
         					</div>
 
         				</header><!-- .page-header -->
 
-                        <?php Reference_No_Search_result(); ?>
+                        <?php reference_no_search_result(); ?>
 
         			<?php endif; ?>
 

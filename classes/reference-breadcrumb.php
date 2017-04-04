@@ -21,9 +21,8 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
-
 }
 /**
  * Handles the Breadcrumbs trails for the Reference plugin.
@@ -47,9 +46,9 @@ class Breadcrumbs
      * @access public
      * @return void
      */
-    public function render( $args = array() )
+    public function render($args = array())
     {
-        if (is_front_page() ) {
+        if (is_front_page()) {
             return;
         }
 
@@ -93,24 +92,19 @@ class Breadcrumbs
         esc_html($args['home_title']) .
         '</a></span>';
 
-        if (! is_post_type_archive('knowledgebase') ) {
+        if (! is_post_type_archive('knowledgebase')) {
             $html .= $separator;
-
         }
 
         // Post
-        if (is_singular($args['post_type']) ) {
-
+        if (is_singular($args['post_type'])) {
             $html .= '
                 <span class="item-current item-' . $post->ID . '">
                 <span class="bread-current bread-' . $post->ID . '" title="' .
             esc_attr(get_the_title()) . '">' .
             esc_html(get_the_title()) .
             '</span></span>';
-
-
-        } elseif (is_tax($args['taxonomy']) ) {
-
+        } elseif (is_tax($args['taxonomy'])) {
             $custom_tax_name = get_queried_object()->name;
 
             $taxonomy = get_queried_object()->taxonomy;
@@ -120,13 +114,11 @@ class Breadcrumbs
                 $taxonomy
             );
 
-            if (! empty($ancestors) ) {
+            if (! empty($ancestors)) {
                    $ancestors = array_reverse($ancestors);
-
             }
 
             foreach ($ancestors as $ancestor_id) {
-
                 $ancestor = get_term_by('id', $ancestor_id, $taxonomy);
                 $ancestor_link = get_term_link($ancestor_id, $taxonomy);
 
@@ -137,7 +129,6 @@ class Breadcrumbs
                 esc_html($ancestor->name) .
                 '</a></span>' .
                 $separator;
-
             }
 
             $html .= '
@@ -145,13 +136,11 @@ class Breadcrumbs
                 <span class="bread-current bread-archive">' .
             esc_html($custom_tax_name) .
             '</span></span>';
-
         }
         $html .= '</div>';
         $html = apply_filters('reference_breadcrumbs_filter', $html);
 
         echo wp_kses_post($html);
-
+        return;
     }
-
 }

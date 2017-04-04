@@ -22,7 +22,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 /**
@@ -144,7 +144,7 @@ final class Metabox
                 ); ?>
             </option>
 
-            <?php foreach ($reference_menus as $reference_menu): ?>
+            <?php foreach ($reference_menus as $reference_menu) : ?>
                 <option
                     value="
                         <?php
@@ -174,7 +174,6 @@ final class Metabox
         </p>
 
         <?php
-
     }
     /**
      * This method displays the Reference Comment Feedback Metabox.
@@ -317,7 +316,6 @@ final class Metabox
         </p>
 
         <?php
-
     }
     /**
      * This method verify if nonce is valid then updates a post_meta.
@@ -405,6 +403,7 @@ final class Metabox
                 $sanitized_knowledgebase_breadcrumbs
             );
         }
+        return;
     }
     /**
      * This method verify if nonce is valid.

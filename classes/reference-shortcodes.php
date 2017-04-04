@@ -20,7 +20,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 
@@ -82,11 +82,12 @@ final class KnowledgebaseShortcodes
             'columns' => 3,
             'enable_search' => 'yes',
             'show_category' => 'yes',
-            ), $atts, 'reference_loop'
+            ),
+            $atts,
+            'reference_loop'
         );
 
         return $this->display($atts);
-
     }
     /**
      * This method registers the reference_highlighter shortcode.
@@ -108,13 +109,14 @@ final class KnowledgebaseShortcodes
             'columns' => 3,
             'enable_search' => 'yes',
             'show_category' => 'yes',
-            ), $atts, 'reference_highlighter'
+            ),
+            $atts,
+            'reference_highlighter'
         );
 
         return '<pre class="reference-highlighter">
                     <code>' . $content . '</code>
                 </pre>';
-
     }
     /**
      * This method sets the template for the reference_loop shortcode.
@@ -173,7 +175,8 @@ final class KnowledgebaseShortcodes
         $categories_list = array();
 
         $get_term_categories = get_terms(
-            $taxonomy, array(
+            $taxonomy,
+            array(
             'orderby'    => 'count',
             'hide_empty' => 0,
             'name' => $categories
@@ -195,8 +198,8 @@ final class KnowledgebaseShortcodes
             $columns = 3;
         }
 
-        foreach ( $get_term_categories as $get_term_category ) {
-            foreach ( $terms as $term ) {
+        foreach ($get_term_categories as $get_term_category) {
+            foreach ($terms as $term) {
                 if ($get_term_category->term_id === $term->parent) {
                     $child_categories[] = $term->name;
                 }
@@ -204,25 +207,24 @@ final class KnowledgebaseShortcodes
         }
 
         $get_child_term_categories = get_terms(
-            $taxonomy, array(
+            $taxonomy,
+            array(
             'hide_empty' => 0,
             'name' => $child_categories
             )
         );
 
-        foreach ($categories as $category ) {
-            $term_name = get_term_by('name',  $category,  'knb-categories');
+        foreach ($categories as $category) {
+            $term_name = get_term_by('name', $category, 'knb-categories');
             if ($term_name != null) {
                 $listed_categories[] = $term_name->term_id;
             }
         }
 
         if (!empty($child_categories)) {
-
             $categories_list[] = '<div class="category-listings
                                   columns-'.$columns.' shortcode">';
-            foreach ( $get_child_term_categories as $term ) {
-
+            foreach ($get_child_term_categories as $term) {
                 $term = array_shift($get_child_term_categories);
                 if (in_array(
                     $term->parent,
@@ -230,7 +232,6 @@ final class KnowledgebaseShortcodes
                 )
                     && $term->parent !== 0
                 ) {
-
                     if (3 === $columns) {
                         if ($count_categories % 3 === 0) {
                             $categories_list[] = '<div class="category-column">';

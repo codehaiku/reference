@@ -15,7 +15,7 @@ get_header(); ?>
     	<div id="primary" class="content-area">
     		<main id="main" class="site-main" role="main">
 
-                <?php Reference_breadcrumb(); ?>
+                <?php reference_breadcrumb(); ?>
 
                 <header class="entry-header">
             		<?php
@@ -43,7 +43,7 @@ get_header(); ?>
                                 </div>
                             </article><!-- #post-## -->
 
-                            <?php Reference_Display_feedback(); ?>
+                            <?php reference_display_comment_feedback(); ?>
 
                             <?php
                                 // If comments are open or we have at least one comment, load up the comment template.

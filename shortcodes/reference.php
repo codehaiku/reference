@@ -91,7 +91,7 @@ $args = array(
     <div class="reference-knowledgebase shortcode
     columns-<?php esc_attr_e($columns); ?>">
 
-        <?php Reference_Loop_category($categories, $columns, $show_category); ?>
+        <?php reference_loop_category($categories, $columns, $show_category); ?>
 
         <?php while ( $knowledgebase->have_posts() ) : ?>
 

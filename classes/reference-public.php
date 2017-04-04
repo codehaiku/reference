@@ -21,7 +21,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 
@@ -47,7 +47,7 @@ class PublicPages
      * @var    string    $loader    Handles and registers all
      *                                         hooks for the plugin.
      */
-    private $_loader;
+    private $loader;
 
     /**
      * The ID of this plugin.
@@ -56,7 +56,7 @@ class PublicPages
      * @access private
      * @var    string    $name    The ID of this plugin.
      */
-    private $_name;
+    private $name;
 
     /**
      * The current version of the plugin.
@@ -65,25 +65,25 @@ class PublicPages
      * @access protected
      * @var    string    $version    The current version of the plugin.
      */
-    private $_version;
+    private $version;
 
     /**
      * Initialize the class and set its properties.
      *
-     * @param string  $_name    The name of the plugin.
-     * @param integer $_version The version of this plugin.
-     * @param string  $_loader  The version of this plugin.
+     * @param string  $name    The name of the plugin.
+     * @param integer $version The version of this plugin.
+     * @param string  $loader  The version of this plugin.
      *
      * @since  1.0.0
      * @access public
      * @return void
      */
-    public function __construct( $_name, $_version, $_loader )
+    public function __construct($name, $version, $loader)
     {
 
-        $this->loader = $_loader;
-        $this->name = $_name;
-        $this->version = $_version;
+        $this->loader = $loader;
+        $this->name = $name;
+        $this->version = $version;
 
         add_action('init', array($this, 'referenceCommentFeedbackAjaxInit'));
         add_filter('body_class', array($this, 'setBodyClass'));
@@ -92,7 +92,6 @@ class PublicPages
         add_action('pre_get_posts', array($this,'setSearchfilter'));
         add_filter('template_include', array($this, 'setSearchTemplate'));
         add_action('pre_get_posts', array($this, 'setPostsPerPage'));
-
     }
 
     /**
@@ -117,7 +116,6 @@ class PublicPages
             || is_search()
             || !have_posts()
         ) {
-
             wp_enqueue_style(
                 $this->name,
                 plugin_dir_url(dirname(__FILE__)) . 'assets/css/reference.css',
@@ -171,7 +169,6 @@ class PublicPages
         if (self::isKnowledgebase($shortcode = 'reference_highlighter')
             && true === self::isOptionTrue('reference_knb_syntax_highlighting')
         ) {
-
             if (empty($highlighting_style)) {
                 $highlighting_style = 'dark';
             }
@@ -205,7 +202,7 @@ class PublicPages
             $breadcrumbs_separator_option = "/";
         }
 
-        if (!isset($post) ) {
+        if (!isset($post)) {
             return;
         }
 
@@ -218,7 +215,6 @@ class PublicPages
         );
 
         if (self::isKnowledgebase($singular = 'knowledgebase')) {
-
             wp_enqueue_script(
                 'reference-sticky-kit',
                 plugin_dir_url(dirname(__FILE__)) . 'assets/js/sticky-kit.js',
@@ -244,7 +240,6 @@ class PublicPages
                     'separator' => ' ' . $breadcrumbs_separator_option . ' ',
                 )
             );
-
         }
         if (self::isKnowledgebase($shortcode = 'reference_highlighter')
             && true === self::isOptionTrue('reference_knb_syntax_highlighting')
@@ -258,6 +253,7 @@ class PublicPages
                 false
             );
         }
+        return;
     }
     /**
      * This method initialize the referenceCommentFeedbackAjax() to the
@@ -440,13 +436,14 @@ class PublicPages
      * @access public
      * @return void
      */
-    public function setPostsPerPage( $query )
+    public function setPostsPerPage($query)
     {
         $posts_per_page_option = Options::getPostsPerPage();
 
         if ($query->is_main_query()) {
             $query->set('posts_per_page', absint($posts_per_page_option));
         }
+        return;
     }
     /**
      * This method sets the body_class for knowledgebase post type.
@@ -476,7 +473,7 @@ class PublicPages
      * @return string|array $classes Returns the $classes and set the body_class
      *                               for single knowledgebase pages.
      */
-    public function setPostClassCallback( $classes )
+    public function setPostClassCallback($classes)
     {
         if (is_singular('knowledgebase')) {
             $classes[] = 'single-knowledgebase';
@@ -509,6 +506,7 @@ class PublicPages
                 }
             }
         }
+        return;
     }
     /**
      * This method includes the Reference search template in the $template.
@@ -605,5 +603,4 @@ class PublicPages
         }
         return $title;
     }
-
 }

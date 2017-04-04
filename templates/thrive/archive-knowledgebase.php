@@ -5,11 +5,15 @@
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
  * PHP Version 5.4
- * @category
- * @package Thrive
- * @author
- * @license
- * @link
+ *
+ * @category Reference
+ * @package  Reference
+ * @author   Dunhakdis Software Creatives <emailnotdisplayed@domain.tld>
+ * @author   Jasper J. <emailnotdisplayed@domain.tld>
+ * @license  http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @version  GIT:github.com/codehaiku/reference
+ * @link     github.com/codehaiku/reference
+ * @since    1.0
  */
 
 get_header(); ?>
@@ -19,9 +23,9 @@ get_header(); ?>
             <main id="main" class="site-main" role="main">
                 <div class="reference-main-wrapper">
 
-                    <?php Reference_breadcrumb(); ?>
+                    <?php reference_breadcrumb(); ?>
 
-            <?php if (have_posts() ) : ?>
+                    <?php if ( have_posts() ) : ?>
                         <?php
                             $archive_allowed_tags = array(
                                 'a' => array(
@@ -34,11 +38,11 @@ get_header(); ?>
                             );
                         ?>
 
-                        <?php Reference_Search_form(); ?>
+                        <?php reference_search_form(); ?>
 
-                        <?php Reference_Archive_categories(); ?>
+                        <?php reference_archive_categories(); ?>
 
-                        <?php Reference_Knowledgebase_count(); ?>
+                        <?php reference_knowledgebase_count(); ?>
 
                         <?php /* Start the Loop */ ?>
                         <?php while ( have_posts() ) : the_post(); ?>
@@ -69,7 +73,7 @@ get_header(); ?>
 
                         <?php endwhile; ?>
 
-                        <?php Reference_navigation(); ?>
+                        <?php reference_navigation(); ?>
 
             <?php else : ?>
 

@@ -90,7 +90,6 @@ final class Helper
         $post = self::globalPost();
 
         if (! empty($post->ID)) {
-
             $post = get_post($post->ID);
 
             $post_type = $post->post_type;
@@ -137,13 +136,11 @@ final class Helper
             $excerpt = 15;
         }
         if (!empty($terms)) {
-
             $categories_list[] = '
                 <div class="category-listings columns-'.$columns.'">
             ';
 
-            foreach ( $terms as $term ) {
-
+            foreach ($terms as $term) {
                 $term = array_shift($terms);
 
                 if (0 === $term->parent) {
@@ -260,7 +257,6 @@ final class Helper
         }
 
         return implode('', $categories_list);
-
     }
     /**
      * This method is used to display the Category Listing for
@@ -306,7 +302,6 @@ final class Helper
         }
 
         foreach ($taxonomies as $taxonomy_slug => $taxonomy) {
-
             $args = array(
                 'hide_empty' => 0,
                 'parent' => $get_current_term_id->term_id,
@@ -315,19 +310,16 @@ final class Helper
             $terms = get_terms('knb-categories', $args);
 
             if (!empty($terms)) {
-
                 $categories[] = '
                     <div class="category-listings columns-'.$columns.'">
                 ';
 
                 foreach ($terms as $term) {
-
                     $term = array_shift($terms);
 
                     if ($get_current_term === $term->parent
                         || $term->parent === $get_current_term_parent
                     ) {
-
                         if (3 === $columns) {
                             if ($count_categories % 3 === 0) {
                                 $categories[] = '<div class="category-column">';
@@ -492,7 +484,6 @@ final class Helper
         );
 
         if (is_tax('knb-categories')) {
-
             if (empty($id)) {
                 $id = self::getCurrentTermId();
             }
@@ -573,7 +564,6 @@ final class Helper
 
         foreach ($get_current_term_id as $key => $value) {
             $$key = $value;
-
         }
         return absint($term_id);
     }
@@ -586,7 +576,7 @@ final class Helper
      * @access public
      * @return string Returns the first letter of the $title.
      */
-    public static function getFallbackThumbnail($title)
+    public static function getFallbackThumbnail($title = '')
     {
         return substr($title, 0, 1);
     }
@@ -601,7 +591,7 @@ final class Helper
      * @access public
      * @return string $text Returns the excerpt text.
      */
-    public static function stringTrailing($text, $lenght)
+    public static function stringTrailing($text = '', $lenght = 15)
     {
         $lenght = absint($lenght);
 
@@ -657,6 +647,7 @@ final class Helper
         ) {
             echo $ordered_list;
         }
+        return;
     }
     /**
      * This method fetch the value of 'Table of Contents' metabox based on the
@@ -755,7 +746,6 @@ final class Helper
     {
         $formated_styles = '';
         $style = Options::getSyntaxHighlightingStyle();
-        $style = get_option('reference_knb_syntax_highlighting_style');
 
         $formated_styles = str_replace(' ', '-', $style);
 
@@ -772,14 +762,14 @@ final class Helper
      * @return string $option Returns 'enable' if the option is true and
      *                        returns 'disable' if the option is false.
      */
-    public static function isOptionTrue($option = '')
+    public static function isOptionTrue($key = '')
     {
-        if ((bool)$option == true) {
-            $option = 'enable';
-        } elseif ((bool)$option == false) {
-            $option = 'disable';
-        }
-        return $option;
+        $option = array(
+            true => 'enable',
+            false => 'disable',
+        );
+
+        return $option[$key];
     }
     /**
      * (Unfinished) returns an array of menu in the Table of Contens.

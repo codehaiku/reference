@@ -15,11 +15,11 @@ get_header(); ?>
 <div class="wrap">
 
     <?php if ( have_posts() ) : ?>
-        <?php Reference_breadcrumb(); ?>
+        <?php reference_breadcrumb(); ?>
 
         <header class="page-header">
             <div class="reference-header-image">
-                <?php Reference_Category_thumbnail(); ?>
+                <?php reference_category_thumbnail(); ?>
             </div>
 
             <div class="reference-header-info">
@@ -29,15 +29,15 @@ get_header(); ?>
 
         </header><!-- .page-header -->
 
-        <?php Reference_Search_form(); ?>
+        <?php reference_search_form(); ?>
     <?php endif; ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
 		<?php if ( have_posts() ) : ?>
-            <?php Reference_Child_categories(); ?>
-            <?php Reference_Knowledgebase_count(); ?>
+            <?php reference_child_categories(); ?>
+            <?php reference_knowledgebase_count(); ?>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
@@ -54,7 +54,7 @@ get_header(); ?>
 
 			<?php endwhile; ?>
 
-            <?php Reference_navigation(); ?>
+            <?php reference_navigation(); ?>
 
         <?php else : ?>
 

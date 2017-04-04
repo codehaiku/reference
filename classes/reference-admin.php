@@ -21,7 +21,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 
@@ -43,18 +43,18 @@ class Admin
      *
      * @since  1.0.0
      * @access private
-     * @var    string    $_reference_name    The ID of this plugin.
+     * @var    string    $reference_name    The ID of this plugin.
      */
-    private $_reference_name;
+    private $reference_name;
 
     /**
      * The version of this plugin.
      *
      * @since  1.0.0
      * @access private
-     * @var    string    $_reference_version    The current version of this plugin.
+     * @var    string    $reference_version    The current version of this plugin.
      */
-    private $_reference_version;
+    private $reference_version;
 
     /**
      * Initialize the class and set its properties.
@@ -70,18 +70,18 @@ class Admin
      * Attach the Reference Settings to the Settings API of WordPress.
      * Initialize the value for the class properties.
      *
-     * @param string $_reference_name    The ID of this plugin.
-     * @param int    $_reference_version The version of this plugin.
+     * @param string $reference_name    The ID of this plugin.
+     * @param int    $reference_version The version of this plugin.
      * @param string $loader             Initialize the class and set its properties.
      *
      * @since  1.0.0
      * @access public
      * @return void
      */
-    public function __construct($_reference_name, $_reference_version, $loader)
+    public function __construct($reference_name, $reference_version, $loader)
     {
-        $this->name = $_reference_name;
-        $this->version = $_reference_version;
+        $this->name = $reference_name;
+        $this->version = $reference_version;
         $this->loader = $loader;
 
         add_action(
@@ -99,6 +99,7 @@ class Admin
                 'referenceRegisterSettings'
             )
         );
+        return;
     }
     /**
      * Enqueue the reference-admin.js file to the WordPress Admin
@@ -116,6 +117,7 @@ class Admin
             $this->version,
             false
         );
+        return;
     }
     /**
      * Display 'Reference' link under 'Settings'
@@ -200,21 +202,21 @@ class Admin
             array(
                 'id' => 'reference_knb_slug',
                 'label' => esc_html__('Slug', 'reference'),
-                'callback' => 'Reference_Knb_Slug_form',
+                'callback' => 'reference_knb_slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
             ),
             array(
                 'id' => 'reference_knb_category_slug',
                 'label' => esc_html__('Category Slug', 'reference'),
-                'callback' => 'Reference_Knb_Category_Slug_form',
+                'callback' => 'reference_knb_category_slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
             ),
             array(
                 'id' => 'reference_knb_tag_slug',
                 'label' => esc_html__('Tag Slug', 'reference'),
-                'callback' => 'Reference_Knb_Tag_Slug_form',
+                'callback' => 'reference_knb_tag_slug_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-slug-section',
             ),
@@ -222,120 +224,119 @@ class Admin
             array(
                 'id' => 'reference_knb_singular',
                 'label' => esc_html__('Singular', 'reference'),
-                'callback' => 'Reference_Knb_Singular_form',
+                'callback' => 'reference_knb_singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_plural',
                 'label' => esc_html__('Plural', 'reference'),
-                'callback' => 'Reference_Knb_Plural_form',
+                'callback' => 'reference_knb_plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_category_singular',
                 'label' => esc_html__('Category Singular', 'reference'),
-                'callback' => 'Reference_Knb_Category_Singular_form',
+                'callback' => 'reference_knb_category_singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_category_plural',
                 'label' => esc_html__('Category Plural', 'reference'),
-                'callback' => 'Reference_Knb_Category_Plural_form',
+                'callback' => 'reference_knb_category_plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_tag_singular',
                 'label' => esc_html__('Tag Singular', 'reference'),
-                'callback' => 'Reference_Knb_Tag_Singular_form',
+                'callback' => 'reference_knb_tag_singular_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_tag_plural',
                 'label' => esc_html__('Tag Plural', 'reference'),
-                'callback' => 'Reference_Knb_Tag_Plural_form',
+                'callback' => 'reference_knb_tag_plural_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-archive-name-section',
             ),
             array(
                 'id' => 'reference_knb_archive_column',
                 'label' => esc_html__('Columns', 'reference'),
-                'callback' => 'Reference_Knb_Archive_Column_form',
+                'callback' => 'reference_knb_archive_column_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_syntax_highlighting',
                 'label' => esc_html__('Syntax Highlighting', 'reference'),
-                'callback' => 'Reference_Knb_Syntax_Highlighting_form',
+                'callback' => 'reference_knb_syntax_highlighting_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_syntax_highlighting_style',
                 'label' => esc_html__('Syntax Highlighting Style', 'reference'),
-                'callback' => 'Reference_Knb_Syntax_Highlighting_Style_form',
+                'callback' => 'reference_knb_syntax_highlighting_style_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_comment_feedback',
                 'label' => esc_html__('Comment Feedback', 'reference'),
-                'callback' => 'Reference_Knb_Comment_Feedback_form',
+                'callback' => 'reference_knb_comment_feedback_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_toc',
                 'label' => esc_html__('Table of Contents', 'reference'),
-                'callback' => 'Reference_Knb_Toc_form',
+                'callback' => 'reference_knb_toc_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_sticky_kit',
                 'label' => esc_html__('Sticky Table of Contents', 'reference'),
-                'callback' => 'Reference_Knb_Sticky_Kit_form',
+                'callback' => 'reference_knb_sticky_kit_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_breadcrumbs',
                 'label' => esc_html__('BreadCrumbs', 'reference'),
-                'callback' => 'Reference_Knb_Breadcrumbs_form',
+                'callback' => 'reference_knb_breadcrumbs_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_breadcrumbs_separator',
                 'label' => esc_html__('BreadCrumbs Separator', 'reference'),
-                'callback' => 'Reference_Knb_Breadcrumbs_Separator_form',
+                'callback' => 'reference_knb_breadcrumbs_separator_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_category_excerpt',
                 'label' => esc_html__('Category Excerpt', 'reference'),
-                'callback' => 'Reference_Knb_Category_Excerpt_form',
+                'callback' => 'reference_knb_category_excerpt_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
             array(
                 'id' => 'reference_knb_posts_per_page',
                 'label' => esc_html__('Posts per Page', 'reference'),
-                'callback' => 'Reference_Knb_Posts_Per_Page_form',
+                'callback' => 'reference_knb_posts_per_page_form',
                 'section' => 'reference-settings-section',
                 'group' => 'reference-content-option-section',
             ),
 
         );
 
-        foreach ( $fields as $field ) {
-
+        foreach ($fields as $field) {
             add_settings_field(
                 $field['id'],
                 $field['label'],
@@ -432,5 +433,6 @@ class Admin
         </div>
 
         <?php
+        return;
     }
 }

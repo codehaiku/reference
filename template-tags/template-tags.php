@@ -19,7 +19,7 @@
  * @since    1.0
  */
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 
@@ -29,7 +29,7 @@ if (! defined('ABSPATH') ) {
  * @since  1.0.0
  * @return void
  */
-function Reference_breadcrumb()
+function reference_breadcrumb()
 {
 
     $breadcrumb = new \DSC\Reference\Breadcrumbs();
@@ -54,18 +54,15 @@ function Reference_breadcrumb()
         'home_title'          => $reference_plural_option,
     );
 
-    if (empty($breadcrumb_option_meta) && (bool)$breadcrumbs_option === true) {
+    if (empty($breadcrumb_option_meta) && true === $breadcrumbs_option) {
         $breadcrumb_option_meta = 'enable';
     }
-
-    if ((bool)$breadcrumbs_option === true) {
-
-        if (Is_Option_enabled($breadcrumb_option_meta)) {
-
+    if (true === $breadcrumbs_option) {
+        if (reference_is_option_meta_enabled($breadcrumb_option_meta)) {
             echo $breadcrumb->render($args);
-
         }
     }
+    return;
 }
 /**
  * Displays the Reference category thumbnail.
@@ -73,11 +70,13 @@ function Reference_breadcrumb()
  * @since  1.0.0
  * @return void
  */
-function Reference_Category_thumbnail()
+function reference_category_thumbnail()
 {
      $archive_thumbnail = new \DSC\Reference\Helper;
 
      echo $archive_thumbnail->getCategoryThumbnail();
+
+     return;
 }
 /**
  * Displays the Reference search form.
@@ -85,9 +84,9 @@ function Reference_Category_thumbnail()
  * @since  1.0.0
  * @return void
  */
-function Reference_Search_form()
+function reference_search_form()
 {
-    include_once plugin_dir_path(__FILE__) . '../templates/search-form.php';
+    include plugin_dir_path(__FILE__) . '../templates/search-form.php';
 }
 /**
  * Displays the Reference category archive category lists.
@@ -95,11 +94,13 @@ function Reference_Search_form()
  * @since  1.0.0
  * @return void
  */
-function Reference_Child_categories()
+function reference_child_categories()
 {
     $child_category = new \DSC\Reference\Helper;
 
     echo $child_category->knowledgebaseCategoryChildList();
+
+    return;
 }
 /**
  * Displays the Reference archive category lists.
@@ -107,11 +108,13 @@ function Reference_Child_categories()
  * @since  1.0.0
  * @return void
  */
-function Reference_Archive_categories()
+function reference_archive_categories()
 {
     $child_category = new \DSC\Reference\Helper;
 
     echo $child_category->knowledgebaseCategoryList();
+
+    return;
 }
 /**
  * Displays the Reference knowledgebase count.
@@ -119,14 +122,20 @@ function Reference_Archive_categories()
  * @since  1.0.0
  * @return void
  */
-function Reference_Knowledgebase_count()
+function reference_knowledgebase_count()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
+
     $option = new \DSC\Reference\Options();
+
     $knowledgebase = $option->getKnbPlural();
+
     $terms_ids = $knowledgebase_count->getTermIds();
+
     $count = $knowledgebase_count->getPostCount();
-    $name = single_term_title("", false);
+
+    $name = single_term_title('', false);
+
     $output = '';
 
     if ($count <= 1) {
@@ -139,13 +148,15 @@ function Reference_Knowledgebase_count()
 
     $output = '<p class="reference-knowledgebase-count">' .
         sprintf(
-            esc_html__('%d %s found under "%s"', 'reference'),
+            esc_html__('%1$d %2$s found under "%3$s"', 'reference'),
             $count,
             $knowledgebase,
             $name
         ) .
     '</p>';
     echo $output;
+
+    return;
 }
 /**
  * Displays the Reference category navigation.
@@ -153,7 +164,7 @@ function Reference_Knowledgebase_count()
  * @since  1.0.0
  * @return void
  */
-function Reference_navigation()
+function reference_navigation()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
     $count = $knowledgebase_count->getPostCount();
@@ -170,13 +181,7 @@ function Reference_navigation()
         'end_size'           => 1,
         'mid_size'           => 2,
         'prev_next'          => true,
-        'prev_text'          => __('« Previous'),
-        'next_text'          => __('Next »'),
-        'type'               => 'plain',
         'add_args'           => false,
-        'add_fragment'       => '',
-        'before_page_number' => '',
-        'after_page_number'  => ''
     );
     ?>
 
@@ -185,6 +190,9 @@ function Reference_navigation()
         role="navigation">
             <?php echo paginate_links($args); ?>
     </nav>
+
+    <?php return; ?>
+
 <?php }
 /**
  * Displays the Reference comment feedback.
@@ -192,10 +200,9 @@ function Reference_navigation()
  * @since  1.0.0
  * @return void
  */
-function Reference_Display_feedback()
+function reference_display_comment_feedback()
 {
-    ?>
-    <?php
+
     $option = new \DSC\Reference\Options();
     $comment_feedback_option = $option->getCommentFeedback();
     $comment_feedback_meta = get_post_meta(
@@ -204,17 +211,14 @@ function Reference_Display_feedback()
         true
     );
 
-    if (empty($comment_feedback_meta)
-        && true === (bool)$comment_feedback_option
-    ) {
+    if (empty($comment_feedback_meta) && true === $comment_feedback_option) {
         $comment_feedback_meta = 'enable';
     }
-
     ?>
-    <?php if (true === (bool)$comment_feedback_option) { ?>
 
-        <?php if (Is_Option_enabled($comment_feedback_meta)) { ?>
+    <?php if (true === $comment_feedback_option) { ?>
 
+        <?php if (reference_is_option_meta_enabled($comment_feedback_meta)) { ?>
             <div
                 class="reference-feedback-container"
                 id="reference-feedback"
@@ -227,7 +231,7 @@ function Reference_Display_feedback()
                     ); ?>
                 </p>
                 <span class="feedback-response-link">
-                    <?php if (Is_IP_listed()) {?>
+                    <?php if (reference_is_ip_exist()) { ?>
                         <a href="" id="reference-confirm-feedback">
                             <?php esc_html_e('Yes', 'reference'); ?>
                         </a>
@@ -244,11 +248,11 @@ function Reference_Display_feedback()
                 </span>
                 <small class="feedback-results">
                     <span id="confirmed_amount">
-                        <?php Get_Reference_Feedback_Confirm_amount(); ?>
+                        <?php reference_upvote_comment_feedback_value(); ?>
                     </span>
                     <?php esc_html_e(' said "Yes" and ', 'reference'); ?>
                     <span id="declined_amount">
-                        <?php Get_Reference_Feedback_Decline_amount(); ?>
+                        <?php reference_downvote_comment_feedback_value(); ?>
                     </span>
                     <?php esc_html_e(' said "No"', 'reference'); ?>
                 </small>
@@ -262,95 +266,114 @@ function Reference_Display_feedback()
 
     <?php } ?>
 
+    <?php return; ?>
+
 <?php }
 /**
- * Displays the Reference confirmed feedback.
+ * Displays the number of Reference Upvote Comment Feedback.
  *
  * @since  1.0.0
  * @return void
  */
-function Get_Reference_Feedback_Confirm_amount()
+function reference_upvote_comment_feedback_value()
 {
-    $confirm_value_meta = get_post_meta(
+    $confirm_value_meta = absint(get_post_meta(
         get_the_ID(),
         '_knowledgebase_feedback_confirm_meta_key',
         true
-    );
+    ));
 
     if (empty($confirm_value_meta)) {
         $confirm_value_meta = esc_html__('No one', 'reference');
     }
+
     echo $confirm_value_meta;
+
+    return;
 }
 /**
- * Displays the Reference declined feedback.
+ * Displays the number of Reference Downvote Comment Feedback.
  *
  * @since  1.0.0
  * @return void
  */
-function Get_Reference_Feedback_Decline_amount()
+function reference_downvote_comment_feedback_value()
 {
-    $decline_value_meta = get_post_meta(
+    $decline_value_meta = absint(get_post_meta(
         get_the_ID(),
         '_knowledgebase_feedback_decline_meta_key',
         true
-    );
+    ));
 
     if (empty($decline_value_meta)) {
         $decline_value_meta = esc_html__('no one', 'reference');
     }
 
     echo $decline_value_meta;
+
+    return;
 }
 /**
  * Check if the visitors has voted by getting his or her IP address and
  * checking if it exist.
  *
  * @since  1.0.0
- * @return bolean true Returns true if IP address does not exist.
+ * @return boolean Returns true if IP address does not exist.
  */
-function Is_IP_listed()
+function reference_is_ip_exist()
 {
     $ip = new \DSC\Reference\Helper;
-    $the_ip = $ip->getIpAddress();
-    $ip_addresses = (array) get_post_meta(
+    $user_ip = $ip->getIpAddress();
+    $ip_addresses = get_post_meta(
         get_the_ID(),
         '_knowledgebase_feedback_ip_meta_key',
         true
     );
+    if (empty($ip_addresses)) {
+        $ip_addresses = array();
+    }
 
-    if (!in_array($the_ip, $ip_addresses)) {
+    if (! in_array($user_ip, $ip_addresses)) {
         return true;
     }
+
+    return;
 }
+
 /**
  * Checks if an option is enabled.
  *
- * @param string $option The value of the option.
+ * @param string $key The key of the option meta.
  *
  * @since  1.0.0
- * @return bolean true Returns true if option is enable.
+ * @return boolean Returns true if option is enable. Otherwise returns false
+ *                 if option is disabled.
  */
-function Is_Option_enabled($option = '')
+function reference_is_option_meta_enabled($key = '')
 {
-    if ($option === 'enable') {
-        return true;
-    } elseif ($option === 'disable') {
-        return false;
-    }
+    $option = array(
+        'enable' => true,
+        'disable' => false,
+    );
+
+    return $option[$key];
 }
 /**
  * Displays the Reference category lists in the reference shortcode.
  *
- * @param array  $categories    The listed categories.
- * @param int    $columns       The number of columns.
- * @param bolean $show_category Show or hide the category lists.
+ * @param array   $categories    Parent categories.
+ * @param int     $columns       The number of columns.
+ * @param string  $show_category Show or hide the category lists.
  *
  * @since  1.0.0
  * @return void
  */
-function Reference_Loop_category($categories, $columns, $show_category)
-{
+function reference_loop_category(
+    $categories = array(),
+    $columns = 3,
+    $show_category = 'true'
+) {
+
     $category = new \DSC\Reference\KnowledgebaseShortcodes;
 
     if ('true' === $show_category) {
@@ -360,18 +383,20 @@ function Reference_Loop_category($categories, $columns, $show_category)
             $show_category
         );
     }
+
+    return;
 }
 /**
  * Returns the Syntax Highlighting Style.
  *
  * @since  1.0.0
- * @return string $styles the Returns the Syntax Highlighting Style.
+ * @return string $styles Returns the Syntax Highlighting Style.
  */
-function Reference_Highlighting_style()
+function reference_get_syntax_highlighting_style()
 {
     $styles = new \DSC\Reference\Helper;
-    return $styles->getSyntaxHighlightingStyle();
 
+    return $styles->getSyntaxHighlightingStyle();
 }
 /**
  * Displays the Reference no search result section.
@@ -379,20 +404,19 @@ function Reference_Highlighting_style()
  * @param string $message The no search result message.
  *
  * @since  1.0.0
- * @return string $styles the Returns the Syntax Highlighting Style.
+ * @return void
  */
-function Reference_No_Search_result($message = '')
+function reference_no_search_result($message = '')
 {
-    ?>
-    <?php
+
     $helper = new \DSC\Reference\Helper;
     $options = new \DSC\Reference\Options;
     $knowledgebase = $options->getKnbSingular();
 
-    $wp_query = $helper->globalWpQuery();
-    $searched_items = $wp_query->found_posts;
+    $reference_query = $helper->globalWpQuery();
+    $searched_items = $reference_query->found_posts;
 
-    if (0 === $searched_items || 1 === $searched_items) {
+    if ($searched_items < 2) {
         $knowledgebase = $options->getKnbPlural();
     }
 
@@ -412,6 +436,9 @@ function Reference_No_Search_result($message = '')
     }
     ?>
     <div id="reference-message" class="notification">
-        <p><?php echo ($message); ?></p>
+        <p><?php echo $message; ?></p>
     </div>
+
+    <?php return; ?>
+
 <?php }

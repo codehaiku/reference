@@ -21,7 +21,7 @@
 
 namespace DSC\Reference;
 
-if (! defined('ABSPATH') ) {
+if (! defined('ABSPATH')) {
     return;
 }
 /**
@@ -70,18 +70,18 @@ final class Loader
      * the methods listed below.
      *
      * @since  1.0.0
-     * @access private
+     * @access public
      * @return void
      */
-    function __construct()
+    public function __construct()
     {
         $this->reference = 'reference';
         $this->version = '1.0.0';
 
-        $this->_loadDependencies();
-        $this->_setLocale();
-        $this->_setAdminHooks();
-        $this->_setPublicHooks();
+        $this->loadDependencies();
+        $this->setLocale();
+        $this->setAdminHooks();
+        $this->setPublicHooks();
     }
     /**
      * This method is used to load all the dependencies needed by the Reference
@@ -91,7 +91,7 @@ final class Loader
      * @access private
      * @return void
      */
-    private function _loadDependencies()
+    private function loadDependencies()
     {
         /**
          * This class that handles the arrangement of the actions and filters
@@ -164,9 +164,8 @@ final class Loader
      * @access private
      * @return void
      */
-    private function _setLocale()
+    private function setLocale()
     {
-
     }
     /**
      * This method is used to load all the actions and filters hooks in the
@@ -176,7 +175,7 @@ final class Loader
      * @access private
      * @return void
      */
-    private function _setAdminHooks()
+    private function setAdminHooks()
     {
         $post_type = new \DSC\Reference\PostType(
             $this->getName(),
@@ -202,7 +201,7 @@ final class Loader
      * @access private
      * @return void
      */
-    private function _setPublicHooks()
+    private function setPublicHooks()
     {
         $plugin_public = new \DSC\Reference\PublicPages(
             $this->getName(),
@@ -243,7 +242,6 @@ final class Loader
     public function getName()
     {
         return $this->reference;
-
     }
 
     /**
