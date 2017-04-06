@@ -47,19 +47,9 @@ get_header(); ?>
                         <?php /* Start the Loop */ ?>
                         <?php while ( have_posts() ) : the_post(); ?>
 
-                            <article
-                                id="post-<?php the_ID(); ?>"
-                                <?php post_class(); ?>
-                            >
+                            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> >
                                 <div class="entry-meta">
-                                    <a
-                                        href="
-                                        <?php echo esc_url(the_permalink()); ?>
-                                        "
-                                        title="
-                                        <?php echo esc_attr(the_title()); ?>
-                                        "
-                                    >
+                                    <a href="<?php echo esc_url(the_permalink()); ?>"title="<?php echo esc_attr(the_title()); ?>">
                                         <?php the_title(
                                             '<h1 class="entry-title">',
                                             '</h1>'
@@ -77,7 +67,7 @@ get_header(); ?>
 
             <?php else : ?>
 
-                        <?php get_template_part('knowledgebase', 'none'); ?>
+                <?php get_template_part('knowledgebase', 'none'); ?>
 
             <?php endif; ?>
 

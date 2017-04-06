@@ -22,6 +22,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_slug' setting
  *
@@ -29,24 +31,16 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_slug_form()
 {
+    $option = new DSC\Reference\Options();
+    $slug = $option->getKnbSlug();
+    ?>
 
-    echo '<input
-            name="reference_knb_slug"
-            id="reference_knb_slug"
-            type="text"
-            class="regular-text code"
-            maxlength="80"
-            value="' .
-                esc_attr(trim(get_option('reference_knb_slug'))) .
-            '"
-        >';
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to change the slug of your post
-            archive page.',
-                'reference'
-            ) .
-        ' </p>';
+    <input name="reference_knb_slug" id="reference_knb_slug" type="text" class="regular-text code" maxlength="80" value="<?php esc_attr_e($slug); ?>">
 
+    <p class="description">
+        <?php esc_html_e('This option allows you to change the slug of your post archive page.', 'reference'); ?>
+    </p>
+
+    <?php
     return;
 }

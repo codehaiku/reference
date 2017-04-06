@@ -22,6 +22,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_archive_column' setting
  *
@@ -29,54 +31,21 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_archive_column_form()
 {
-    echo '<select
-            name="reference_knb_archive_column"
-            class="reference_select"
-            id="reference_knb_archive_column"
-        >';
-        echo '<option
-                value="1" ' .
-                selected(
-                    absint(
-                        esc_attr(
-                            get_option('reference_knb_archive_column')
-                        )
-                    ),
-                    1
-                ) .
-            '>1</option>';
-        echo '<option
-                value="2" ' .
-                selected(
-                    absint(
-                        esc_attr(
-                            get_option('reference_knb_archive_column')
-                        )
-                    ),
-                    2
-                ) .
-                '>2</option>';
-        echo '<option
-                value="3" ' .
-                selected(
-                    absint(
-                        esc_attr(
-                            get_option('reference_knb_archive_column')
-                        )
-                    ),
-                    3
-                ) .
-                '>3</option>';
-    echo '</select>';
+    $option = new DSC\Reference\Options();
+    $column = $option->getArchiveColumn();
+    ?>
+    
+    <select name="reference_knb_archive_column" class="reference_select" id="reference_knb_archive_column">
+        <option value="1" <?php selected(esc_attr($column), 1); ?>>1</option>
+        <option value="2" <?php selected(esc_attr($column), 2); ?>>2</option>
+        <option value="3" <?php selected(esc_attr($column), 3); ?>>3</option>
+    </select>
 
-    esc_html_e(' Select number of columns.', 'reference');
+    <?php esc_html_e(' Select number of columns.', 'reference'); ?>
 
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to change the columns for
-                your articles in knowledgebase archive page.',
-                'reference'
-            ) .
-        '</p>';
+    <p class="description">
+        <?php esc_html_e('This option allows you to change the columns for your articles in knowledgebase archive page.', 'reference');?>
+    </p>
+    <?php
     return;
 }

@@ -57,33 +57,10 @@ $args = array(
 
     <header class="reference-header shortcode">
         <div class="reference-knowledgebase-search-field">
-            <form
-                role="search"
-                class="reference-knowledgebase-search-form"
-                action="<?php echo site_url('/'); ?>"
-                method="get"
-                id="searchform"
-            >
-                <input
-                    type="text"
-                    name="s"
-                    placeholder="
-                        <?php esc_attr_e('Search Knowledgebase', 'reference'); ?>
-                    "
-                />
-                <input
-                    type="hidden"
-                    name="post_type"
-                    value="knowledgebase"
-                />
-                <input
-                    class="button"
-                    type="submit"
-                    id="reference_knowledgebase_search_submit"
-                    value="
-                        <?php esc_attr_e('Search', 'reference'); ?>
-                    "
-                />
+            <form role="search" class="reference-knowledgebase-search-form" action="<?php echo site_url('/'); ?>" method="get" id="searchform" >
+                <input type="text" name="s" placeholder="<?php esc_attr_e('Search Knowledgebase', 'reference'); ?>" />
+                <input type="hidden" name="post_type" value="knowledgebase" />
+                <input class="button" type="submit" id="reference_knowledgebase_search_submit" value="<?php esc_attr_e('Search', 'reference'); ?>" />
             </form>
         </div>
     </header><!-- .page-header -->
@@ -99,12 +76,7 @@ $args = array(
 
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-                <a
-                    class="reference-knowledgebase-link"
-                    href="<?php echo esc_url(the_permalink()); ?>"
-                    title="<?php echo esc_attr(the_title()); ?>"
-                    target="_self">
-                </a>
+                <a class="reference-knowledgebase-link" href="<?php echo esc_url(the_permalink()); ?>" title="<?php echo esc_attr(the_title()); ?>" target="_self"></a>
 
                 <div class="reference-knowledgebase-wrap">
 
@@ -116,18 +88,7 @@ $args = array(
 
                                 <h5>
 
-                                    <a
-                                        href="
-                                            <?php echo esc_url(
-                                                the_permalink()
-                                            ); ?>
-                                        "
-                                        title="
-                                            <?php echo esc_attr(
-                                                the_title()
-                                            ); ?>
-                                        "
-                                    >
+                                    <a href="<?php echo esc_url(the_permalink()); ?>" title="<?php echo esc_attr(the_title()); ?>">
 
                                         <?php the_title();?>
 

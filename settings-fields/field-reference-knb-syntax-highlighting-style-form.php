@@ -21,6 +21,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_syntax_highlighting_style' setting
  *
@@ -28,39 +30,25 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_syntax_highlighting_style_form()
 {
-
     $styles = reference_get_syntax_highlighting_style();
+    $option = new DSC\Reference\Options();
+    $syntax_highlighting_style = $option->getSyntaxHighlightingStyle();
+    ?>
 
-    echo '<select
-            name="reference_knb_syntax_highlighting_style"
-            class="reference_select"
-            id="reference_knb_syntax_highlighting_style"
-        >';
-    foreach ($styles as $style) {
-        echo '<option
-                    value="' . $style . '" ' .
-            selected(
-                esc_attr(get_option('reference_knb_syntax_highlighting_style')),
-                $style
-            ) .
-        '>' .
-            ucfirst($style) .
-        '</option>';
-    }
-    echo '</select>';
+    <select name="reference_knb_syntax_highlighting_style" class="reference_select" id="reference_knb_syntax_highlighting_style">
+        <?php foreach ($styles as $style) { ?>
+            <option value="<?php esc_attr_e($style); ?>" <?php selected(esc_attr($syntax_highlighting_style), $style); ?>>
+                <?php esc_html_e(ucfirst($style)); ?>
+            </option>
+        <?php } ?>
+    </select>
 
-    esc_html_e(
-        ' Select the highlightning style for displayed codes.',
-        'reference'
-    );
+    <?php esc_html_e(' Select the highlightning style for displayed codes.', 'reference'); ?>
 
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to change the style for
-            displaying your codes your [reference_highlighter] shortcode.',
-                'reference'
-            ) .
-        ' </p>';
+    <p class="description">
+        <?php esc_html_e('This option allows you to change the style for displaying your codes your [reference_highlighter] shortcode.', 'reference'); ?>
+    </p>
 
+    <?php
     return;
 }

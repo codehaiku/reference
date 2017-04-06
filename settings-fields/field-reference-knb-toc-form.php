@@ -23,6 +23,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_toc' setting
  *
@@ -30,30 +32,19 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_toc_form()
 {
+    $option = new DSC\Reference\Options();
+    $toc = $option->getTableOfContent();
+    ?>
 
-    echo '<label for="reference_knb_toc">';
-        echo '<input
-                name="reference_knb_toc"
-                id="reference_knb_toc"
-                type="checkbox"
-                class="regular-text code"
-                value="1" ' .
-                checked(
-                    1,
-                    absint(esc_attr(get_option('reference_knb_toc'))),
-                    false
-                ) .
-            '>';
-        esc_html_e('Enable Table of Contents', 'reference');
-    echo '</label>';
+    <label for="reference_knb_toc">
+        <input name="reference_knb_toc" id="reference_knb_toc" type="checkbox" class="regular-text code" value="1" <?php echo checked(1, esc_attr($toc), false); ?>>
+        <?php esc_html_e('Enable Table of Contents', 'reference'); ?>
+    </label>
 
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to enable the Table of Contents
-            for your knowledgebase pages.',
-                'reference'
-            ) .
-        ' </p>';
+    <p class="description">
+        <?php esc_html_e('This option allows you to enable the Table of Contents for your knowledgebase pages.', 'reference'); ?>
+    </p>
 
+    <?php
     return;
 }

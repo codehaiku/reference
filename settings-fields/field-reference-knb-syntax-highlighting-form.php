@@ -22,6 +22,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_syntax_highlighting' setting
  *
@@ -29,36 +31,19 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_syntax_highlighting_form()
 {
+    $option = new DSC\Reference\Options();
+    $syntax_highlighting = $option->getSyntaxHighlighting();
+    ?>
 
-    echo '<label for="reference_knb_syntax_highlighting">';
-        echo '<input
-                name="reference_knb_syntax_highlighting"
-                id="reference_knb_syntax_highlighting"
-                type="checkbox"
-                class="regular-text code"
-                value="1" ' .
-                checked(
-                    1,
-                    absint(
-                        esc_attr(
-                            get_option(
-                                'reference_knb_syntax_highlighting'
-                            )
-                        )
-                    ),
-                    false
-                ) .
-            '>';
-        esc_html_e('Enable Syntax Highlighting', 'reference');
-    echo '</label>';
+    <label for="reference_knb_syntax_highlighting">
+        <input name="reference_knb_syntax_highlighting" id="reference_knb_syntax_highlighting" type="checkbox" class="regular-text code" value="1" <?php echo checked(1, esc_attr($syntax_highlighting), false); ?>>
+        <?php esc_html_e('Enable Syntax Highlighting', 'reference'); ?>
+    </label>
 
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to enable the syntax
-            highlightning for your displayed code snippets.',
-                'reference'
-            ) .
-        ' </p>';
+    <p class="description">
+        <?php esc_html_e('This option allows you to enable the syntax highlightning for your displayed code snippets.', 'reference'); ?>
+    </p>
 
+    <?php
     return;
 }

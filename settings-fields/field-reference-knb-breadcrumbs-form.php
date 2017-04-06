@@ -23,6 +23,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_breadcrumbs' setting
  *
@@ -30,30 +32,18 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_breadcrumbs_form()
 {
+    $option = new DSC\Reference\Options();
+    $breadcrumbs = $option->getBreadcrumbs();
+    ?>
+    
+    <label for="reference_knb_breadcrumbs">
+        <input name="reference_knb_breadcrumbs" id="reference_knb_breadcrumbs" type="checkbox" class="regular-text code" value="1" <?php echo checked( 1, esc_attr($breadcrumbs), false ); ?>>
+        <?php esc_html_e('Enable Breadcrumbs', 'reference'); ?>
+    </label>
 
-    echo '<label for="reference_knb_breadcrumbs">';
-        echo '<input
-                name="reference_knb_breadcrumbs"
-                id="reference_knb_breadcrumbs"
-                type="checkbox"
-                class="regular-text code"
-                value="1" ' .
-                checked(
-                    1,
-                    absint(esc_attr(get_option('reference_knb_breadcrumbs'))),
-                    false
-                ) .
-                '>';
-        esc_html_e('Enable Breadcrumbs', 'reference');
-    echo '</label>';
-
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to enable the BreadCrumbs for
-            your knowledgebase pages.',
-                'reference'
-            ) .
-        ' </p>';
-
+    <p class="description">
+        <?php esc_html_e('This option allows you to enable the BreadCrumbs for your knowledgebase pages.', 'reference'); ?>
+    </p>
+    <?php
     return;
 }

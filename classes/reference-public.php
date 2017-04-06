@@ -520,16 +520,11 @@ class PublicPages
      */
     public function setSearchTemplate($template)
     {
-        $wp_query = Helper::globalWpQuery();
+        $reference_query = Helper::globalWpQuery();
+        $get_post_type = get_query_var('post_type');
 
-        $post_types = get_query_var('post_type');
-
-        if (is_array($post_types)) {
-            foreach ($post_types as $post_type) {
-                if ($wp_query->is_search && $post_type == 'knowledgebase') {
-                    return locate_template('knowledgebase-search.php');
-                }
-            }
+        if ($reference_query->is_search && 'knowledgebase' === $get_post_type) {
+            return locate_template('knowledgebase-search.php');
         }
 
         return $template;
@@ -572,18 +567,22 @@ class PublicPages
     /**
      * This method checks if an option is enabled.
      *
-     * @param string $option The name of the option to be check.
+     * @param string $key The name of the option to be check.
      *
      * @since  1.0.0
      * @access public
      * @return boolean true Returns true if an option is enabled.
      */
-    public function isOptionTrue($option = '')
+    public function isOptionTrue($key = '')
     {
-        if (!empty($option)) {
-            if ((bool)get_option($option) === true) {
-                return true;
-            }
+        $get_option = get_option($key);
+        $option = array(
+            '' => false,
+            '1' => true,
+        );
+
+        if (!empty($key)) {
+            return $option[$get_option];
         }
         return;
     }

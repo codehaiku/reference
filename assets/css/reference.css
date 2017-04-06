@@ -317,7 +317,7 @@ article.knowledgebase .link-more {
     color: #000;
 }
 
-.reference-menu-container ol li.menu-item-has-children > a {
+.reference-menu-container ol li.current-menu-item > a {
     font-weight: bold;
 }
 

@@ -22,6 +22,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_sticky_kit' setting
  *
@@ -29,30 +31,19 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_sticky_kit_form()
 {
+    $option = new DSC\Reference\Options();
+    $sticky_kit = $option->getStickyKit();
+    ?>
 
-    echo '<label for="reference_knb_sticky_kit">';
-        echo '<input
-                name="reference_knb_sticky_kit"
-                id="reference_knb_sticky_kit"
-                type="checkbox"
-                class="regular-text code"
-                value="1" ' .
-                checked(
-                    1,
-                    absint(esc_attr(get_option('reference_knb_sticky_kit'))),
-                    false
-                ) .
-            '>';
-        esc_html_e('Enable Sticky Table of Contents', 'reference');
-    echo '</label>';
+    <label for="reference_knb_sticky_kit">
+        <input name="reference_knb_sticky_kit" id="reference_knb_sticky_kit" type="checkbox" class="regular-text code" value="1" <?php echo checked(1, esc_attr($sticky_kit), false); ?>>
+        <?php esc_html_e('Enable Sticky Table of Contents', 'reference'); ?>
+    </label>
 
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to enable sticky Table of
-            Contents for your single knowledgebase pages.',
-                'reference'
-            ) .
-        ' </p>';
+    <p class="description">
+        <?php esc_html_e('This option allows you to enable sticky Table of Contents for your single knowledgebase pages.', 'reference'); ?>
+    </p>
 
+    <?php
     return;
 }

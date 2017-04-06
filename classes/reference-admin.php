@@ -362,16 +362,27 @@ class Admin
      * @return void
      */
     public function archiveSlugCallback()
-    {
-        echo esc_html_e(
-            '
-                All settings related to the slug of the
-                knowledgebase archive pages. You need to
-                update or save the “permalink” settings
-                if you had change this option.
-            ',
-            'reference'
-        );
+    { ?>
+        <p>
+            <?php
+            esc_html_e(
+                'All settings related to the slug of the knowledgebase
+                archive pages.',
+                'reference'
+            );
+            ?>
+        </p>
+        <p>
+            <?php
+            esc_html_e(
+                'You need to update or save the “permalink” settings if you
+                had change this option.',
+                'reference'
+            );
+            ?>
+        </p>
+
+        <?php
         return;
     }
     /**
@@ -382,14 +393,18 @@ class Admin
      * @return void
      */
     public function archiveNameCallback()
-    {
-        echo esc_html_e(
-            '
-                All settings related to the
-                name of the knowledgebase archive pages.
-            ',
-            'reference'
-        );
+    { ?>
+        <p>
+            <?php
+            esc_html_e(
+                'All settings related to the name of the knowledgebase archive
+                pages.',
+                'reference'
+            );
+            ?>
+        </p>
+
+        <?php
         return;
     }
     /**
@@ -400,14 +415,17 @@ class Admin
      * @return void
      */
     public function contentOptiontCallback()
-    {
-        echo esc_html_e(
-            '
-                All settings related to the
-                content of knowledgebase pages.
-            ',
-            'reference'
-        );
+    { ?>
+        <p>
+            <?php
+            esc_html_e(
+                'All settings related to the content of knowledgebase pages.',
+                'reference'
+            );
+            ?>
+        </p>
+
+        <?php
         return;
     }
     /**

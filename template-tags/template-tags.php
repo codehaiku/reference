@@ -167,22 +167,28 @@ function reference_knowledgebase_count()
 function reference_navigation()
 {
     $knowledgebase_count = new \DSC\Reference\Helper;
+    $enable_tax_query = true;
     $count = $knowledgebase_count->getPostCount();
 
+    if (is_post_type_archive('knowledgebase')) {
+        $count = $knowledgebase_count->getPostCount('', false);
+    }
+
     $args = array(
-        'base'               => str_replace(
+        'base'      => str_replace(
             $count,
             '%#%',
             esc_url(get_pagenum_link($count))
         ),
-        'format'             => '?paged=%#%',
-        'current'            => max(1, get_query_var('paged')),
-        'show_all'           => false,
-        'end_size'           => 1,
-        'mid_size'           => 2,
-        'prev_next'          => true,
-        'add_args'           => false,
+        'format'    => '?paged=%#%',
+        'current'   => max(1, get_query_var('paged')),
+        'show_all'  => false,
+        'end_size'  => 1,
+        'mid_size'  => 2,
+        'prev_next' => true,
+        'add_args'  => false,
     );
+
     ?>
 
     <nav
@@ -415,6 +421,8 @@ function reference_no_search_result($message = '')
 
     $reference_query = $helper->globalWpQuery();
     $searched_items = $reference_query->found_posts;
+    $term_title = single_term_title(" in ", false);
+
 
     if ($searched_items < 2) {
         $knowledgebase = $options->getKnbPlural();
@@ -423,14 +431,16 @@ function reference_no_search_result($message = '')
     if (empty($message)) {
         if (0 === $searched_items) {
             $message = sprintf(
-                esc_html('There are no %s found.', 'reference'),
-                $knowledgebase
+                esc_html('There are no %s found%s.', 'reference'),
+                $knowledgebase,
+                $term_title
             );
         } else {
             $message = sprintf(
-                esc_html('There are %d %s found.', 'reference'),
+                esc_html('There are %d %s found%s.', 'reference'),
                 $searched_items,
-                $knowledgebase
+                $knowledgebase,
+                $term_title
             );
         }
     }

@@ -122,6 +122,9 @@ final class Helper
         $count_categories = 0;
         $taxonomy = 'knb-categories';
 
+        $openings = '<div class="category-column">';
+        $closings = '<div class="category-listing allowance"></div></div>';
+
         $categories_list = array();
 
         $terms = get_terms(
@@ -144,14 +147,14 @@ final class Helper
                 $term = array_shift($terms);
 
                 if (0 === $term->parent) {
-                    if (3 === $columns) {
-                        if ($count_categories % 3 === 0) {
-                            $categories_list[] = '<div class="category-column">';
-                        }
-                    }
                     if (2 === $columns) {
                         if ($count_categories % 2 === 0) {
-                            $categories_list[] = '<div class="category-column">';
+                            $categories_list[] = $openings;
+                        }
+                    }
+                    if (3 === $columns) {
+                        if ($count_categories % 3 === 0) {
+                            $categories_list[] = $openings;
                         }
                     }
                     $image_id = get_term_meta(
@@ -225,22 +228,14 @@ final class Helper
 
                     $count_categories++;
 
-                    if (3 === $columns) {
-                        if ($count_categories % 3 === 0) {
-                            $categories_list[] = '
-                                    <div class="category-listing allowance">
-                                    </div>
-                                </div>
-                            ';
-                        }
-                    }
                     if (2 === $columns) {
                         if ($count_categories % 2 === 0) {
-                            $categories_list[] = '
-                                    <div class="category-listing allowance">
-                                    </div>
-                                </div>
-                            ';
+                            $categories_list[] = $closings;
+                        }
+                    }
+                    if (3 === $columns) {
+                        if ($count_categories % 3 === 0) {
+                            $categories_list[] = $closings;
                         }
                     }
                 }
@@ -281,6 +276,9 @@ final class Helper
         $count_categories = 0;
         $taxonomies = self::getTaxonomies();
 
+        $openings = '<div class="category-column">';
+        $closings = '<div class="category-listing allowance"></div></div>';
+
         if (empty($excerpt)) {
             $excerpt = 15;
         }
@@ -304,6 +302,7 @@ final class Helper
         foreach ($taxonomies as $taxonomy_slug => $taxonomy) {
             $args = array(
                 'hide_empty' => 0,
+                'include' => 0,
                 'parent' => $get_current_term_id->term_id,
             );
 
@@ -320,15 +319,14 @@ final class Helper
                     if ($get_current_term === $term->parent
                         || $term->parent === $get_current_term_parent
                     ) {
-                        if (3 === $columns) {
-                            if ($count_categories % 3 === 0) {
-                                $categories[] = '<div class="category-column">';
-                            }
-                        }
-
                         if (2 === $columns) {
                             if ($count_categories % 2 === 0) {
-                                $categories[] = '<div class="category-column">';
+                                $categories[] = $openings;
+                            }
+                        }
+                        if (3 === $columns) {
+                            if ($count_categories % 3 === 0) {
+                                $categories[] = $openings;
                             }
                         }
 
@@ -406,15 +404,6 @@ final class Helper
 
                         $count_categories++;
 
-                        if (3 === $columns) {
-                            if ($count_categories % 3 === 0) {
-                                $categories[] = '
-                                        <div class="category-listing allowance">
-                                        </div>
-                                    </div>
-                                ';
-                            }
-                        }
                         if (2 === $columns) {
                             if ($count_categories % 2 === 0) {
                                 $categories[] = '
@@ -424,13 +413,14 @@ final class Helper
                                 ';
                             }
                         }
+                        if (3 === $columns) {
+                            if ($count_categories % 3 === 0) {
+                                $categories[] = $closings;
+                            }
+                        }
                     }
                 }
-                $categories[] = '
-                        <div class="category-listing allowance"></div>
-                        <div class="category-listing allowance"></div>
-                    </div>
-                ';
+                $categories[] = $closings;
             }
             if ($count_categories % $columns) {
                   $categories[] = '</div>';
@@ -467,35 +457,40 @@ final class Helper
      * Knowledgebase archive.
      *
      * @param integer $id The category term_id.
+     * @param boolean $enable_tax_query Enable or disable $tax_query.
      *
      * @since  1.0.0
      * @access public
      * @return integer Returns the number of post.
      */
-    public static function getPostCount($id = '')
+    public static function getPostCount($id = '', $enable_tax_query = true)
     {
-        $tax_query = array(
-        'relation' => 'AND',
-            array(
-                'taxonomy' => 'knb-categories',
-                'field' => 'id',
-                'terms' => $id
-            )
-        );
+        $tax_query = '';
 
-        if (is_tax('knb-categories')) {
-            if (empty($id)) {
-                $id = self::getCurrentTermId();
-            }
-
+        if (true === $enable_tax_query) {
             $tax_query = array(
             'relation' => 'AND',
                 array(
                     'taxonomy' => 'knb-categories',
                     'field' => 'id',
-                    'terms' => array($id)
+                    'terms' => $id
                 )
             );
+
+            if (is_tax('knb-categories')) {
+                if (empty($id)) {
+                    $id = self::getCurrentTermId();
+                }
+
+                $tax_query = array(
+                'relation' => 'AND',
+                    array(
+                        'taxonomy' => 'knb-categories',
+                        'field' => 'id',
+                        'terms' => array($id)
+                    )
+                );
+            }
         }
 
         $args = array(
@@ -686,7 +681,7 @@ final class Helper
             $ip = getHostByName(getHostName());
         }
 
-        if ('Linux' == PHP_OS) {
+        if ('Linux' === PHP_OS) {
             $ip = array();
             $command = "/sbin/ifconfig";
             $pattern = '/inet addr:?([^ ]+)/';

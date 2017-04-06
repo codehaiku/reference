@@ -243,20 +243,20 @@ final class PostType
             'show_in_menu'       => true,
             'query_var'          => true,
             'rewrite'            => array(
-                                        'slug' => $reference_slug_option
-                                    ),
+                'slug' => $reference_slug_option
+            ),
             'capability_type'    => 'post',
             'has_archive'        => true,
             'hierarchical'       => false,
             'menu_position'      => null,
             'supports'           => array(
-                                        'title',
-                                        'editor',
-                                        'author',
-                                        'thumbnail',
-                                        'excerpt',
-                                        'comments'
-                                    )
+                'title',
+                'editor',
+                'author',
+                'thumbnail',
+                'excerpt',
+                'comments'
+            )
         );
 
         register_post_type('knowledgebase', $post_type_args);

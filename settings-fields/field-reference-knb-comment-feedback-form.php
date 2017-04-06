@@ -22,6 +22,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_comment_feedback' setting
  *
@@ -29,30 +31,19 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_comment_feedback_form()
 {
+    $option = new DSC\Reference\Options();
+    $comment_feedback = $option->getCommentFeedback();
+    ?>
 
-    echo '<label for="reference_knb_comment_feedback">';
-        echo '<input
-                name="reference_knb_comment_feedback"
-                id="reference_knb_comment_feedback"
-                type="checkbox"
-                class="regular-text code"
-                value="1" ' .
-                checked(
-                    1,
-                    absint(esc_attr(get_option('reference_knb_comment_feedback'))),
-                    false
-                ) .
-            '>';
-        esc_html_e('Enable Comment Feedback', 'reference');
-    echo '</label>';
+    <label for="reference_knb_comment_feedback">
+        <input name="reference_knb_comment_feedback" id="reference_knb_comment_feedback" type="checkbox" class="regular-text code" value="1" <?php echo checked(1, esc_attr($comment_feedback), false); ?>>
+        <?php esc_html_e('Enable Comment Feedback', 'reference'); ?>
+    </label>
 
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to enable the comment feedbacks
-            for your post pages.',
-                'reference'
-            ) .
-        ' </p>';
+    <p class="description">
+        <?php esc_html_e('This option allows you to enable the comment feedbacks for your post pages.', 'reference'); ?>
+    </p>
 
+    <?php
     return;
 }

@@ -172,6 +172,9 @@ final class KnowledgebaseShortcodes
         $excerpt = Options::getCategoryExcerpt();
         $count_categories = 0;
 
+        $openings = '<div class="category-column">';
+        $closings = '<div class="category-listing allowance"></div></div>';
+
         $categories_list = array();
 
         $get_term_categories = get_terms(
@@ -234,12 +237,12 @@ final class KnowledgebaseShortcodes
                 ) {
                     if (3 === $columns) {
                         if ($count_categories % 3 === 0) {
-                            $categories_list[] = '<div class="category-column">';
+                            $categories_list[] = $openings;
                         }
                     }
                     if (2 === $columns) {
                         if ($count_categories % 2 === 0) {
-                            $categories_list[] = '<div class="category-column">';
+                            $categories_list[] = $openings;
                         }
                     }
 
@@ -315,14 +318,12 @@ final class KnowledgebaseShortcodes
 
                     if (3 === $columns) {
                         if ($count_categories % 3 === 0) {
-                            $categories_list[] = '<div class="category-listing
-                                                        allowance"></div></div>';
+                            $categories_list[] = $closings;
                         }
                     }
                     if (2 === $columns) {
                         if ($count_categories % 2 === 0) {
-                            $categories_list[] = '<div class="category-listing
-                                                        allowance"></div></div>';
+                            $categories_list[] = $closings;
                         }
                     }
                 }

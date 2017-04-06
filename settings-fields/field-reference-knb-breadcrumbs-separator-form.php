@@ -22,6 +22,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_breadcrumbs_separator' setting
  *
@@ -29,27 +31,14 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_breadcrumbs_separator_form()
 {
+    $option = new DSC\Reference\Options();
+    $breadcrumbs_separator = $option->getBreadcrumbsSeparator();
+    ?>
 
-    echo '<input
-            name="reference_knb_breadcrumbs_separator"
-            id="reference_knb_breadcrumbs_separator"
-            type="text"
-            class="regular-text code"
-            maxlength="80"
-            value="' .
-                esc_attr(
-                    get_option(
-                        'reference_knb_breadcrumbs_separator'
-                    )
-                ) .
-            '"
-        >';
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to change the separator for your
-            knowledgebase category and single knowledgebase page.',
-                'reference'
-            ) .
-        ' </p>';
+    <input name="reference_knb_breadcrumbs_separator" id="reference_knb_breadcrumbs_separator" type="text" class="regular-text code" maxlength="80" value="<?php esc_attr_e($breadcrumbs_separator); ?>">
+    <p class="description">
+        <?php esc_html_e('This option allows you to change the separator for your knowledgebase category and single knowledgebase page.', 'reference'); ?>
+    </p>
+    <?php
     return;
 }

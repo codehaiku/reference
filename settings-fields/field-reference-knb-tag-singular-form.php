@@ -23,6 +23,8 @@
 if (! defined('ABSPATH')) {
     return;
 }
+include_once plugin_dir_path(dirname(__FILE__)) .
+             'classes/reference-options.php';
 /**
  * Callback function for 'reference_knb_tag_singular' setting
  *
@@ -30,24 +32,16 @@ if (! defined('ABSPATH')) {
  */
 function reference_knb_tag_singular_form()
 {
+    $option = new DSC\Reference\Options();
+    $tag_singular = $option->getTagSingular();
+    ?>
 
-    echo '<input
-            name="reference_knb_tag_singular"
-            id="reference_knb_tag_singular"
-            type="text"
-            class="regular-text code"
-            maxlength="80"
-            value="' .
-                esc_attr(get_option('reference_knb_tag_singular')) .
-            '"
-        >';
-    echo '<p class="description">' .
-            esc_html__(
-                'This option allows you to change the singular name of
-            your knowledgebase tag archive page.',
-                'reference'
-            ) .
-        ' </p>';
+    <input name="reference_knb_tag_singular" id="reference_knb_tag_singular" type="text" class="regular-text code" maxlength="80" value="<?php esc_attr_e($tag_singular); ?>">
 
+    <p class="description">
+        <?php esc_html_e('This option allows you to change the singular name of your knowledgebase tag archive page.', 'reference'); ?>
+    </p>
+
+    <?php
     return;
 }
