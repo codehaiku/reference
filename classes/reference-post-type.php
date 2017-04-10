@@ -80,7 +80,7 @@ final class PostType
      * @access public
      * @return void
      */
-    public function __construct($name, $version, $loader)
+    public function __construct($name= '', $version = '', $loader = '')
     {
 
         $this->loader = $loader;

@@ -112,13 +112,15 @@ class Options
      * @return string Returns the sanitized slug.
      */
     public static function sanitizedSlug($constant) {
+        $sanitize_constant = sanitize_title(
+            self::getOption($constant)
+        );
 
         $slug = filter_var(
-            self::getOption(
-                $constant
-            ),
+            $sanitize_constant,
             FILTER_SANITIZE_URL
         );
+
         return $slug;
     }
     /**

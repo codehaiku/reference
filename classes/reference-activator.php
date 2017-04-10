@@ -49,8 +49,10 @@ class Activator
      */
     public function activate()
     {
+        $post_type = new \DSC\Reference\PostType();
         add_image_size('reference-knowledgebase-thumbnail', 550, 550, true);
 
+        $post_type->registerPostTypeAndTaxonomies();
         flush_rewrite_rules();
         return;
     }

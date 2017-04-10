@@ -148,7 +148,7 @@ input#reference_knowledgebase_search_submit {
     border: none;
 }
 .category-listings.columns-2 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3),
-.category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) {
+.category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(4) {
     width: 100%;
     border-right: none;
     padding-right: 0;

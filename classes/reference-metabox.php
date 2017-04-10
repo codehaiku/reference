@@ -117,60 +117,31 @@ final class Metabox
             'knowledgebase_toc_menu_nonce'
         );
 
-        $value = get_post_meta(
-            $post->ID,
-            '_knowledgebase_toc_menu_meta_key',
-            true
-        );
+        $value = get_post_meta($post->ID, '_knowledgebase_toc_menu_meta_key', true);
 
         ?>
         <label class="screen-reader-text" for="knowledgebase_toc_menu">
-            <?php esc_html_e(
-                'Select menu for knowledgebase',
-                'reference'
-            ); ?>
+            <?php esc_html_e('Select menu for knowledgebase', 'reference'); ?>
         </label>
 
-        <select
-            name="knowledgebase_toc_menu"
-            id="knowledgebase_toc_menu"
-            class="postbox"
-        >
+        <select name="knowledgebase_toc_menu" id="knowledgebase_toc_menu" class="postbox">
 
             <option value="">
-                <?php esc_html_e(
-                    '— None —',
-                    'reference'
-                ); ?>
+                <?php esc_html_e('— None —', 'reference'); ?>
             </option>
 
             <?php foreach ($reference_menus as $reference_menu) : ?>
-                <option
-                    value="
-                        <?php
-                            esc_attr_e(
-                                $reference_menu->name
-                            );
-                        ?>
-                   "
-                    <?php selected(
-                        $value,
-                        $reference_menu->name
-                    ); ?>
+                <option value="<?php esc_attr_e($reference_menu->name); ?>"
+                    <?php selected(esc_attr($value), $reference_menu->name); ?>
                 >
-                    <?php esc_html_e(
-                        $reference_menu->name
-                    ); ?>
+                    <?php esc_html_e($reference_menu->name); ?>
                 </option>
             <?php endforeach; ?>
 
         </select>
 
         <p class="howto">
-            <?php esc_html_e(
-                'Select menu for knowledgebase',
-                'reference'
-            ); ?>
+            <?php esc_html_e('Select menu for knowledgebase', 'reference'); ?>
         </p>
 
         <?php
@@ -209,30 +180,12 @@ final class Metabox
         <select name="knowledgebase_comment_feedback"
         id="knowledgebase_comment_feedback" class="postbox">
 
-            <option
-                value="enable"
-                <?php selected(
-                    $value,
-                    'enable'
-                ); ?>
-            >
-                <?php esc_html_e(
-                    'Enable',
-                    'reference'
-                ); ?>
+            <option value="enable" <?php selected($value,'enable'); ?>>
+                <?php esc_html_e('Enable', 'reference'); ?>
             </option>
 
-            <option
-                value="disable"
-                <?php selected(
-                    $value,
-                    'disable'
-                ); ?>
-            >
-                <?php esc_html_e(
-                    'Disable',
-                    'reference'
-                ); ?>
+            <option value="disable" <?php selected($value, 'disable'); ?>>
+                <?php esc_html_e('Disable', 'reference'); ?>
             </option>
 
         </select>

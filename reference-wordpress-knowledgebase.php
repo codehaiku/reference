@@ -30,19 +30,6 @@ define('REFERENCE_DIR_PATH', trailingslashit(plugin_dir_path(__FILE__)));
 
 define('REFERENCE_PATH', plugin_dir_path(__FILE__));
 
-register_activation_hook(__FILE__, 'Run_activator');
-
-/**
- * This functions runs the Activator class.
- *
- * @since  1.0.0
- * @return void
- */
-function Run_activator()
-{
-    $plugin = new \DSC\Reference\Activator();
-    $plugin->activate();
-}
 /**
  * The code that runs during plugin activation.
  */
@@ -59,6 +46,20 @@ require_once plugin_dir_path(__FILE__) . 'classes/reference-loader.php';
 
 require_once plugin_dir_path(__FILE__) . 'template-tags/template-tags.php';
 
+/**
+* This functions runs the Activator class.
+*
+* @since  1.0.0
+* @return void
+*/
+register_activation_hook(__FILE__, 'run_activator');
+
+function run_activator()
+{
+    $plugin = new \DSC\Reference\Activator();
+    $plugin->activate();
+    return;
+}
 /**
  * This functions executes the plugin
  */
