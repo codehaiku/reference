@@ -159,7 +159,7 @@ class Admin
         add_settings_section(
             'reference-archive-slug-section',
             esc_html__(
-                'Knowledgebase Archive Slug',
+                'Archive Slug (Advance)',
                 'reference'
             ),
             array(
@@ -173,7 +173,7 @@ class Admin
         add_settings_section(
             'reference-archive-name-section',
             esc_html__(
-                'Knowledgebase Archive Name',
+                'Archive Name (Advance)',
                 'reference'
             ),
             array(
@@ -187,7 +187,7 @@ class Admin
         add_settings_section(
             'reference-content-option-section',
             esc_html__(
-                'Knowledgebase Content Option',
+                'Knowledgebase Content Setting',
                 'reference'
             ),
             array(

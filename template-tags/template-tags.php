@@ -46,7 +46,7 @@ function reference_breadcrumb()
     );
 
     $args = array(
-        'post_type'           => 'knowledgebase',
+        'post_type'           => 'dsc-knowledgebase',
         'taxonomy'            => 'knb-categories',
         'separator_icon'      => ' ' . $breadcrumbs_separator_option . ' ',
         'breadcrumbs_id'      => 'breadcrumbs-wrap',
@@ -141,7 +141,7 @@ function reference_knowledgebase_count()
     if ($count <= 1) {
         $knowledgebase = $option->getKnbSingular();
     }
-    if (is_post_type_archive('knowledgebase')) {
+    if (is_post_type_archive('dsc-knowledgebase')) {
         $name = $knowledgebase;
         $count = $knowledgebase_count->getPostCount($terms_ids);
     }
@@ -170,7 +170,7 @@ function reference_navigation()
     $enable_tax_query = true;
     $count = $knowledgebase_count->getPostCount();
 
-    if (is_post_type_archive('knowledgebase')) {
+    if (is_post_type_archive('dsc-knowledgebase')) {
         $count = $knowledgebase_count->getPostCount('', false);
     }
 

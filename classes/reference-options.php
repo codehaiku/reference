@@ -386,7 +386,7 @@ class Options
     public static function getSyntaxHighlightingStyle()
     {
         $constant = self::REFERENCE_KNB_SYNTAX_HIGHLIGHTING_STYLE;
-        $string = self::sanitizedBool($constant);
+        $string = self::sanitizedString($constant);
 
         self::setOption($constant);
 

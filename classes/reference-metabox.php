@@ -71,7 +71,7 @@ final class Metabox
      */
     public function referenceAddCustomBox()
     {
-        $post_type = 'knowledgebase';
+        $post_type = 'dsc-knowledgebase';
 
         add_meta_box(
             'knowledgebase_menu_field',

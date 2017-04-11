@@ -108,8 +108,8 @@ class PublicPages
         $theme = wp_get_theme(); // gets the current theme
 
         if (self::isKnowledgebase(
-            'knowledgebase',
-            'knowledgebase',
+            'dsc-knowledgebase',
+            'dsc-knowledgebase',
             'knb-categories',
             'reference_loop'
         )
@@ -214,7 +214,7 @@ class PublicPages
             false
         );
 
-        if (self::isKnowledgebase($singular = 'knowledgebase')) {
+        if (self::isKnowledgebase($singular = 'dsc-knowledgebase')) {
             wp_enqueue_script(
                 'reference-sticky-kit',
                 plugin_dir_url(dirname(__FILE__)) . 'assets/js/sticky-kit.js',
@@ -475,7 +475,7 @@ class PublicPages
      */
     public function setPostClassCallback($classes)
     {
-        if (is_singular('knowledgebase')) {
+        if (is_singular('dsc-knowledgebase')) {
             $classes[] = 'single-knowledgebase';
         }
         return $classes;
@@ -496,13 +496,13 @@ class PublicPages
         if (!is_admin() && $query->is_main_query()) {
             if ($query->is_search) {
                 if (self::isKnowledgebase(
-                    'knowledgebase',
-                    'knowledgebase',
+                    'dsc-knowledgebase',
+                    'dsc-knowledgebase',
                     'knb-categories',
                     ''
                 )
                 ) {
-                    $query->set('post_type', array( 'knowledgebase'));
+                    $query->set('post_type', array( 'dsc-knowledgebase'));
                 }
             }
         }
@@ -523,7 +523,7 @@ class PublicPages
         $reference_query = Helper::globalWpQuery();
         $get_post_type = get_query_var('post_type');
 
-        if ($reference_query->is_search && 'knowledgebase' === $get_post_type) {
+        if ($reference_query->is_search && 'dsc-knowledgebase' === $get_post_type) {
             return locate_template('knowledgebase-search.php');
         }
 

@@ -79,9 +79,9 @@ final class KnowledgebaseShortcodes
             array(
                 'categories' => '',
                 'posts_per_page' => 10,
-            'columns' => 3,
-            'enable_search' => 'yes',
-            'show_category' => 'yes',
+                'columns' => 3,
+                'enable_search' => 'yes',
+                'show_category' => 'yes',
             ),
             $atts,
             'reference_loop'

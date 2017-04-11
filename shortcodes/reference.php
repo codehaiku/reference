@@ -37,7 +37,7 @@ if (! in_array($columns, $allowed_columns, true) ) {
 $categories = explode(", ", $categories);
 
 $args = array(
-    'post_type' => 'knowledgebase',
+    'post_type' => 'dsc-knowledgebase',
     'posts_per_page' => $posts_per_page,
     'order' => 'desc',
     'tax_query' => array(

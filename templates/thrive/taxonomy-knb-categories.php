@@ -15,6 +15,8 @@ get_header(); ?>
 
                 <div class="reference-main-wrapper">
 
+                    <?php reference_breadcrumb(); ?>
+
         			<?php if ( have_posts() ) : ?>
         				<?php
         					$archive_allowed_tags = array(
@@ -27,8 +29,6 @@ get_header(); ?>
         					    )
         					);
         				?>
-
-                        <?php reference_breadcrumb(); ?>
 
         				<header class="page-header thrive-card no-mg-top">
                             <div class="reference-header-image">

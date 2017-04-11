@@ -259,7 +259,7 @@ final class PostType
             )
         );
 
-        register_post_type('knowledgebase', $post_type_args);
+        register_post_type('dsc-knowledgebase', $post_type_args);
 
         $category_labels = array(
             'name' => _x(
@@ -321,9 +321,7 @@ final class PostType
 
         register_taxonomy(
             'knb-categories',
-            array(
-                'knowledgebase'
-            ),
+            array('dsc-knowledgebase'),
             $category_args
         );
 
@@ -402,7 +400,7 @@ final class PostType
 
         register_taxonomy(
             'knb-tags',
-            'knowledgebase',
+            array('dsc-knowledgebase'),
             $tag_args
         );
     }

@@ -57,7 +57,7 @@ class Breadcrumbs
         $option_knb_plural = Options::getKnbPlural();
 
         $defaults  = array(
-        'post_type'           => 'knowledgebase',
+        'post_type'           => 'dsc-knowledgebase',
         'taxonomy'            => 'knb-categories',
         'separator_icon'      => ' ' . $option_separator . ' ',
         'breadcrumbs_id'      => 'breadcrumbs-wrap',
@@ -92,7 +92,7 @@ class Breadcrumbs
         esc_html($args['home_title']) .
         '</a></span>';
 
-        if (! is_post_type_archive('knowledgebase')) {
+        if (! is_post_type_archive('dsc-knowledgebase')) {
             $html .= $separator;
         }
 

@@ -494,7 +494,7 @@ final class Helper
         }
 
         $args = array(
-            'post_type'     => 'knowledgebase',
+            'post_type'     => 'dsc-knowledgebase',
             'post_status'   => 'publish',
             'posts_per_page' => -1,
             'tax_query' => $tax_query

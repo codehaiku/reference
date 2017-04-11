@@ -13,9 +13,9 @@ get_header(); ?>
 
                 <div class="reference-main-wrapper">
 
-        			<?php if ( have_posts() ) : ?>
+                    <?php reference_breadcrumb(); ?>
 
-                        <?php reference_breadcrumb(); ?>
+                    <?php if ( have_posts() ) : ?>
 
         				<header class="search-page-header mg-bottom-35">
 
