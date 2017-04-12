@@ -55,15 +55,9 @@ $args = array(
 
 <?php if ($knowledgebase->have_posts() ) : ?>
 
-    <header class="reference-header shortcode">
-        <div class="reference-knowledgebase-search-field">
-            <form role="search" class="reference-knowledgebase-search-form" action="<?php echo site_url('/'); ?>" method="get" id="searchform" >
-                <input type="text" name="s" placeholder="<?php esc_attr_e('Search Knowledgebase', 'reference'); ?>" />
-                <input type="hidden" name="post_type" value="knowledgebase" />
-                <input class="button" type="submit" id="reference_knowledgebase_search_submit" value="<?php esc_attr_e('Search', 'reference'); ?>" />
-            </form>
-        </div>
-    </header><!-- .page-header -->
+    <?php if ('yes' === $enable_search) { ?>
+        <?php reference_search_form(); ?>
+    <?php } ?>
 
     <div class="reference-knowledgebase shortcode
     columns-<?php esc_attr_e($columns); ?>">

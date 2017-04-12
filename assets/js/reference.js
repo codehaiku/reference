@@ -52,6 +52,10 @@ jQuery(document).ready( function($) {
         $( current_breadcrumb ).insertAfter( "#breadcrumbs-wrap > a:last-child" );
 
     }
+    /**
+     * Category Column
+     **/
+    $( '.category-column' ).last().addClass( 'last' );
 
     /**
      * Sticky Table of Content

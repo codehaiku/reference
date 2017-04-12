@@ -74,7 +74,7 @@ final class Metabox
         $post_type = 'dsc-knowledgebase';
 
         add_meta_box(
-            'knowledgebase_menu_field',
+            'reference_knowledgebase_menu_metabox',
             esc_html__('Table of Content Menu', 'reference'),
             array( $this, 'referenceToCMenuMetabox'),
             $post_type,
@@ -82,7 +82,7 @@ final class Metabox
             'low'
         );
         add_meta_box(
-            'knowledgebase_feedback_field',
+            'reference_comment_feedback_metabox',
             esc_html__('Comment Feedback', 'reference'),
             array( $this, 'referenceCommentFeedbackMetabox'),
             $post_type,
@@ -90,7 +90,7 @@ final class Metabox
             'low'
         );
         add_meta_box(
-            'knowledgebase_breadcrumbs_field',
+            'reference_breadcrumbs_metabox',
             esc_html__('Breadcrumbs', 'reference'),
             array( $this, 'referenceBreadcrumbsMetabox'),
             $post_type,
@@ -114,10 +114,10 @@ final class Metabox
         // Make sure the form request comes from WordPress
         wp_nonce_field(
             basename(__FILE__),
-            'knowledgebase_toc_menu_nonce'
+            'reference_knowledgebase_menu_nonce'
         );
 
-        $value = get_post_meta($post->ID, '_knowledgebase_toc_menu_meta_key', true);
+        $value = get_post_meta($post->ID, '_reference_knowledgebase_menu_meta_key', true);
 
         ?>
         <label class="screen-reader-text" for="knowledgebase_toc_menu">
@@ -144,7 +144,7 @@ final class Metabox
             <?php esc_html_e('Select menu for knowledgebase', 'reference'); ?>
         </p>
 
-        <?php
+    <?php
     }
     /**
      * This method displays the Reference Comment Feedback Metabox.
@@ -162,14 +162,14 @@ final class Metabox
         $comment_feedback_option = Options::getCommentFeedback();
         $value = get_post_meta(
             $post->ID,
-            '_knowledgebase_comment_feedback_meta_key',
+            '_reference_knowledgebase_comment_feedback_meta_key',
             true
         );
 
         // Make sure the form request comes from WordPress
         wp_nonce_field(
             basename(__FILE__),
-            'knowledgebase_comment_feedback_nonce'
+            'reference_knowledgebase_comment_feedback_nonce'
         );
 
         if (empty($value)) {
@@ -215,14 +215,14 @@ final class Metabox
         $breadcrumbs_option = Options::getBreadcrumbs();
         $value = get_post_meta(
             $post->ID,
-            '_knowledgebase_breadcrumbs_meta_key',
+            '_reference_knowledgebase_breadcrumbs_meta_key',
             true
         );
 
         // Make sure the form request comes from WordPress
         wp_nonce_field(
             basename(__FILE__),
-            'knowledgebase_breadcrumbs_nonce'
+            'reference_knowledgebase_breadcrumbs_nonce'
         );
 
         if (empty($value)) {
@@ -230,42 +230,20 @@ final class Metabox
         }
 
         ?>
-        <select name="knowledgebase_breadcrumbs"
-        id="knowledgebase_breadcrumbs" class="postbox">
+        <select name="knowledgebase_breadcrumbs" id="knowledgebase_breadcrumbs" class="postbox">
 
-            <option
-                value="enable"
-                <?php selected(
-                    $value,
-                    'enable'
-                ); ?>
-            >
-                <?php esc_html_e(
-                    'Enable',
-                    'reference'
-                ); ?>
+            <option value="enable" <?php selected($value, 'enable'); ?>>
+                <?php esc_html_e('Enable', 'reference'); ?>
             </option>
 
-            <option
-                value="disable"
-                <?php selected(
-                    $value,
-                    'disable'
-                ); ?>
-            >
-                <?php esc_html_e(
-                    'Disable',
-                    'reference'
-                ); ?>
+            <option value="disable" <?php selected($value, 'disable'); ?>>
+                <?php esc_html_e('Disable', 'reference'); ?>
             </option>
 
         </select>
 
         <p class="howto">
-            <?php esc_html_e(
-                'Enable or disable Breadcrumbs',
-                'reference'
-            ); ?>
+            <?php esc_html_e('Enable or disable Breadcrumbs', 'reference'); ?>
         </p>
 
         <?php
@@ -283,7 +261,7 @@ final class Metabox
     {
         $sanitized_knowledgebase_toc_menu_nonce = filter_input(
             INPUT_POST,
-            'knowledgebase_toc_menu_nonce',
+            'reference_knowledgebase_menu_nonce',
             FILTER_SANITIZE_STRING
         );
         $sanitized_knowledgebase_toc_menu = filter_input(
@@ -297,7 +275,7 @@ final class Metabox
 
         $sanitized_knowledgebase_comment_feedback_nonce = filter_input(
             INPUT_POST,
-            'knowledgebase_comment_feedback_nonce',
+            'reference_knowledgebase_comment_feedback_nonce',
             FILTER_SANITIZE_STRING
         );
         $sanitized_knowledgebase_comment_feedback = filter_input(
@@ -311,7 +289,7 @@ final class Metabox
 
         $sanitized_knowledgebase_breadcrumbs_nonce = filter_input(
             INPUT_POST,
-            'knowledgebase_breadcrumbs_nonce',
+            'reference_knowledgebase_breadcrumbs_nonce',
             FILTER_SANITIZE_STRING
         );
         $sanitized_knowledgebase_breadcrumbs = filter_input(
@@ -330,7 +308,7 @@ final class Metabox
         if (array_key_exists('knowledgebase_toc_menu', $_POST)) {
             update_post_meta(
                 $post_id,
-                '_knowledgebase_toc_menu_meta_key',
+                '_reference_knowledgebase_menu_meta_key',
                 $sanitized_knowledgebase_toc_menu
             );
         }
@@ -341,7 +319,7 @@ final class Metabox
         if (array_key_exists('knowledgebase_comment_feedback', $_POST)) {
             update_post_meta(
                 $post_id,
-                '_knowledgebase_comment_feedback_meta_key',
+                '_reference_knowledgebase_comment_feedback_meta_key',
                 $sanitized_knowledgebase_comment_feedback
             );
         }
@@ -352,7 +330,7 @@ final class Metabox
         if (array_key_exists('knowledgebase_breadcrumbs', $_POST)) {
             update_post_meta(
                 $post_id,
-                '_knowledgebase_breadcrumbs_meta_key',
+                '_reference_knowledgebase_breadcrumbs_meta_key',
                 $sanitized_knowledgebase_breadcrumbs
             );
         }

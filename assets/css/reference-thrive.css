@@ -94,7 +94,6 @@ article.knowledgebase h1.entry-title {
  */
 #content.site-content #content-left-col #primary.content-area .reference-main-wrapper article.hentry {
     box-shadow: none;
-    margin: 0 -15px;
 }
 .single-knowledgebase #content.site-content #content-left-col #primary.content-area .reference-main-wrapper article.hentry {
     margin: 0;

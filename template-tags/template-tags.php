@@ -41,7 +41,7 @@ function reference_breadcrumb()
 
     $breadcrumb_option_meta = get_post_meta(
         get_the_ID(),
-        '_knowledgebase_breadcrumbs_meta_key',
+        '_reference_knowledgebase_breadcrumbs_meta_key',
         true
     );
 
@@ -143,7 +143,7 @@ function reference_knowledgebase_count()
     }
     if (is_post_type_archive('dsc-knowledgebase')) {
         $name = $knowledgebase;
-        $count = $knowledgebase_count->getPostCount($terms_ids);
+        $count = $knowledgebase_count->getPostCount($terms_ids, false);
     }
 
     $output = '<p class="reference-knowledgebase-count">' .
@@ -213,7 +213,7 @@ function reference_display_comment_feedback()
     $comment_feedback_option = $option->getCommentFeedback();
     $comment_feedback_meta = get_post_meta(
         get_the_ID(),
-        '_knowledgebase_comment_feedback_meta_key',
+        '_reference_knowledgebase_comment_feedback_meta_key',
         true
     );
 
@@ -377,12 +377,12 @@ function reference_is_option_meta_enabled($key = '')
 function reference_loop_category(
     $categories = array(),
     $columns = 3,
-    $show_category = 'true'
+    $show_category = 'yes'
 ) {
 
     $category = new \DSC\Reference\KnowledgebaseShortcodes;
 
-    if ('true' === $show_category) {
+    if ('yes' === $show_category) {
         echo $category->referenceShortcodeCategoryList(
             $categories,
             $columns,
@@ -392,6 +392,7 @@ function reference_loop_category(
 
     return;
 }
+
 /**
  * Returns the Syntax Highlighting Style.
  *

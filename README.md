@@ -142,9 +142,10 @@ All settings related to the content of Knowledgebase pages.
 	 - **Default Value:** `55`
  10. **Posts per Page** setting:
 	 - This option allows you to change the maximum knowledgebase to show in a page.
-> **Note:** If this setting is set to 0 it would get the "Blog pages show at most" value in the "Settings" > "Readings" page.
 
 	 - **Default Value:** `10`
+
+> **Note:** If this setting is set to 0 it would get the "Blog pages show at most" value in the "Settings" > "Readings" page.
 
 ----------
 
@@ -221,52 +222,180 @@ For the **Used Template Tags**, refer to the '**Template Tags**' section.
 
 ----------
 
- 1. **[reference_loop]** shortcode
-	 - This shortcode is used to display Knowledgebase articles and child categories based from the topics (category) that  were specified in the shortcode parameter and the Knowledgebase search in a page or post.
+**[reference_loop]** shortcode:
 
-	 - **Shortcode Parameters:**
-		 - **categories**
-			 - Used this parameter to specify the categories of the Knowledgebase you wanted to display.
-		 - **posts_per_page**
-			 - Used this parameter to limit the number of 'Knowledgebase' (articles) to be display.
-		 - **columns**
-			 - Used this parameter to define the columns you want to display the child categories (child topics).
-			 - **Max columns:** `3`
-		 - **enable_search**
-			 - Used this parameter to enable or disable the display of the 'Reference Search Field.'
-		 -  **show_category**
-			 - Used this parameter to enable or disable the display of child categories (child topics).
-	 - **Used Template Tags:**
-		 - **reference_loop_category()**
+This shortcode is used to display Knowledgebase articles and child categories based from the topics (category) that  were specified in the shortcode parameter and the Knowledgebase search in a page or post.
 
-	 - **Shortcode Usage:**
-		 - `[reference_loop categories="WordPress, BuddyPress" posts_per_page="10" columns="3" enable_search="true" show_category ="true"]`
+ - **Shortcode Parameters:**
 
- - **[reference_highlighter]** shortcode
-	 - This shortcode is used to encapsulate a 'Code' and detects the used language automatically to highlight the code syntax based on the used language.
-	 - **Shortcode Usage:**
-		 -  `[reference_highlighter]<?php echo 'hello'; ?>[/reference_highlighter]`
+	 - **categories**
+Used this parameter to specify the categories of the Knowledgebase you wanted to display.
+
+	 - **posts_per_page**
+Used this parameter to limit the number of 'Knowledgebase' (articles) to be display.
+		 - **Default:** `10`
+
+	 - **columns**
+Used this parameter to define the columns you want to display the child categories (child topics).
+		 - **Max columns:** `3`
+		 - **Default:** `3`
+
+	 - **enable_search**
+Used this parameter to enable or disable the display of the 'Reference Search Field.'
+		 - **Default:** `yes`
+
+	 -  **show_category**
+Used this parameter to enable or disable the display of child categories (child topics).
+		 - **Default:** `yes`
+
+
+ - **Used Template Tags:**
+	 - **reference_loop_category()**
+
+ - **Shortcode Usage:**
+	 - `[reference_loop categories="WordPress, BuddyPress" posts_per_page="10" columns="3" enable_search="true" show_category ="true"]`
+
+
+----------
+
+**[reference_highlighter]** shortcode:
+
+This shortcode is used to encapsulate a 'Code' and detects the used language automatically to highlight the code syntax based on the used language.
+
+**Shortcode Usage:**
+`[reference_highlighter]<?php echo 'hello'; ?>[/reference_highlighter]`
 
 Template Tags
 -------------
 ----------
 
-- **reference_breadcrumb()**
-- **reference_archive_categories()**
-- **reference_knowledgebase_count()**
-- **reference_navigation()**
-- **reference_display_comment_feedback()**
-- **reference_category_thumbnail()**
-- **reference_search_form()**
-- **reference_child_categories()**
-- **reference_no_search_result()**
-- **reference_loop_category()**
+**reference_breadcrumb()**
+
+Displays the reference breadcrumb for Knowledgebase pages.
+
+> **Was used in:**  
+
+> - **Knowledgebase Archive**
+> - **Knowledgebase Category Archive**
+> - **Single Knowledgebase**
+> - **Knowledgebase Search**
+
+--------
+
+**reference_archive_categories()**
+
+Displays the Knowledgebase child categories for the Knowledgebase archive page.
+
+> **Was used in:**
+
+> - **Knowledgebase Archive**
+
+--------
+
+**reference_knowledgebase_count()**
+
+Displays the number of Knowledgebase in a 'Category Archive' page. Otherwise, display the total number of Knowledgebase in the 'Knowledgebase Archive' page.
+
+> **Was used in:**
+
+> - **Knowledgebase Archive**
+> - **Knowledgebase Category Archive**
+> - **Knowledgebase Search**
+
+--------
+
+**reference_navigation()**
+Displays the pagination.
+
+> **Was used in:**
+
+> - **Knowledgebase Archive**
+> - **Knowledgebase Category Archive**
+> - **Knowledgebase Search**
+
+--------
+
+**reference_display_comment_feedback()**
+Displays the Comment Feedback.
+
+> **Was used in:**
+
+> - **Single Knowledgebase**
+
+--------
+
+**reference_category_thumbnail()**
+Display the category thumbnail. This is used in the content header section.
+
+> **Was used in:**
+
+ > - **Knowledgebase Archive**
+> - **Knowledgebase Category Archive**
+
+ --------
+
+**reference_search_form()**
+
+Display the Reference search form that allows you to search Knowledgebase.
+
+> **Was used in:**
+
+ > - **Knowledgebase Archive**
+> - **Single Knowledgebase**
+> - **Knowledgebase Category Archive**
+> - **Knowledgebase Search**
+> - **Reference Loop Shortcode**
+
+**reference_child_categories()**
+
+Display the child category of a category in a the 'Knowledgebase Category Archive' page.
+
+> **Was used in:**
+
+> - **Knowledgebase Category Archive**
+
+--------
+**reference_no_search_result()**
+
+Display the number of Knowledgebase result in a search. Otherwise display a message that there were no Knowledgebase found.
+
+> **Was used in:**
+
+> - **Knowledgebase Search**
+
+--------
+
+**reference_loop_category()**
+
+Display the child category of the defined categories in the Reference loop shortcode parameter.
+
+
+**Parameters:**
+
+ - **$categories**
+	 - (array) The name of the categories to include
+ - **$columns**
+	 - (int) The number of columns
+ - **$show_category**
+	 - (string) Show or hide the category lists.
+
+> **Was used in:**
+
+> - **Reference Loop Shortcode**
 
 Actions
 -------------
 ----------
+These actions are used in the Single Knowledgebase page
 
-- **do_action('reference_has_table_of_content_before')**
-- **do_action('reference_single_content_before')**
-- **do_action('reference_single_content_after')**
-- **do_action('reference_has_table_of_content_after')**
+ - **do_action('reference_has_table_of_content_before')**
+	 - The said action opens the container for the Reference table of contents and allows you to hook before the Reference table of contents.
+
+ - **do_action('reference_single_content_before')**
+	 - 	The said action opens the container for the content area and allows you to hook after the container of content area.
+
+ - **do_action('reference_single_content_after')**
+	 - 	The said action closes the container for the content area and allows you to hook after the container of content area.
+
+ - **do_action('reference_has_table_of_content_after')**
+	 - The said action closes the container for the Reference table of contents and allows you to hook after the Reference table of contents.

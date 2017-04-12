@@ -420,13 +420,7 @@ final class PostType
             <label for="categories-image-id">
                 <?php esc_html_e('Image', 'reference'); ?>
             </label>
-            <input
-                type="hidden"
-                id="categories-image-id"
-                name="categories-image-id"
-                class="custom_media_url"
-                value=""
-            >
+            <input type="hidden" id="categories-image-id" name="categories-image-id" class="custom_media_url" value="">
             <div id="categories-image-wrapper"></div>
 
             <p>

@@ -296,7 +296,7 @@ final class Helper
         $categories = array();
 
         if (!$taxonomies) {
-               return;
+           return;
         }
 
         foreach ($taxonomies as $taxonomy_slug => $taxonomy) {
@@ -657,7 +657,7 @@ final class Helper
     {
         $table_of_content_setting = get_post_meta(
             get_the_ID(),
-            '_knowledgebase_toc_menu_meta_key',
+            '_reference_knowledgebase_menu_meta_key',
             true
         );
 

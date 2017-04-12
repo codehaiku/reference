@@ -114,9 +114,7 @@ final class KnowledgebaseShortcodes
             'reference_highlighter'
         );
 
-        return '<pre class="reference-highlighter">
-                    <code>' . $content . '</code>
-                </pre>';
+        return '<pre class="reference-highlighter"><code>' . $content . '</code></pre>';
     }
     /**
      * This method sets the template for the reference_loop shortcode.
@@ -157,7 +155,7 @@ final class KnowledgebaseShortcodes
      * @return string $categories_list Returns the mark-up for the category
      *                                 lists.
      */
-    public static function referenceShortcodeCategoryList($categories, $columns)
+    public static function referenceShortcodeCategoryList($categories = array(), $columns = 3)
     {
         $post = Helper::globalPost();
 

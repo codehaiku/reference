@@ -15,29 +15,29 @@ get_header(); ?>
 
                     <?php reference_breadcrumb(); ?>
 
+                    <header class="search-page-header mg-bottom-35">
+
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <h5 class="dark_secondary_icon">
+                                    <?php _e('Search Results', 'thrive'); ?>
+                                </h5>
+                            </div>
+                        </div>
+
+                        <h1 class="page-title">
+                            <?php echo get_search_query(); ?>
+                        </h1>
+
+                        <div id="search-page-search-form">
+                           <?php reference_search_form(); ?>
+                        </div>
+
+                    </header><!-- .page-header -->
+
+                    <?php reference_no_search_result(); ?>
+
                     <?php if ( have_posts() ) : ?>
-
-        				<header class="search-page-header mg-bottom-35">
-
-        					<div class="clearfix">
-        						<div class="pull-left">
-        							<h5 class="dark_secondary_icon">
-        								<?php _e('Search Results', 'thrive'); ?>
-        							</h5>
-        						</div>
-        					</div>
-
-        					<h1 class="page-title">
-        						<?php echo get_search_query(); ?>
-        					</h1>
-
-        					<div id="search-page-search-form">
-        	                   <?php reference_search_form(); ?>
-        					</div>
-
-        				</header><!-- .page-header -->
-
-                        <?php reference_no_search_result(); ?>
 
                         <?php /* Start the Loop */ ?>
         				<?php while ( have_posts() ) : the_post(); ?>
@@ -56,32 +56,6 @@ get_header(); ?>
         				<?php endwhile; ?>
 
         				<?php reference_navigation(); ?>
-
-        			<?php else : ?>
-
-                        <?php reference_breadcrumb(); ?>
-
-                        <header class="search-page-header mg-bottom-35">
-
-        					<div class="clearfix">
-        						<div class="pull-left">
-        							<h5 class="dark_secondary_icon">
-        								<?php _e('Search Results', 'thrive'); ?>
-        							</h5>
-        						</div>
-        					</div>
-
-        					<h1 class="page-title">
-        						<?php echo get_search_query(); ?>
-        					</h1>
-
-        					<div id="search-page-search-form">
-        	                   <?php reference_search_form(); ?>
-        					</div>
-
-        				</header><!-- .page-header -->
-
-                        <?php reference_no_search_result(); ?>
 
         			<?php endif; ?>
 
