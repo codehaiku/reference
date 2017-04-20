@@ -100,7 +100,7 @@ class Options
      */
     public static function setOption($constant) {
         if (self::isOptionEmpty(self::getOption($constant))) {
-            update_option($constant, self::REFERENCE_DEFAULTS[$constant]);
+            // update_option($constant, self::REFERENCE_DEFAULTS[$constant]);
         }
         return;
     }
@@ -205,7 +205,7 @@ class Options
      * @return boolean Returns true if empty. Otherwise, false if not.
      */
     public static function isOptionEmpty($value) {
-        if (!empty($value)) {
+        if (0 !== strlen($value)) {
             return false;
         }
         return true;

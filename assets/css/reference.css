@@ -106,6 +106,9 @@ input#reference_knowledgebase_search_submit {
 .category-column:not(:last-child):nth-last-of-type(3) + .category-column {
     border-top: 1px solid #dfdfdf;
 }
+.category-column.last {
+    margin-bottom: 45px;
+}
 .category-column.last,
 .category-column:last-child,
 .category-column:not(:last-child):nth-last-of-type(3),
@@ -167,6 +170,8 @@ input#reference_knowledgebase_search_submit {
     width: 33.33%;
     display: table-cell;
 }
+.category-listings.columns-3 .category-column.last .category-listing:first-child:nth-last-child(3),
+.category-listings.columns-3 .category-column.last .category-listing:first-child:nth-last-child(3)~.category-listing,
 .category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4),
 .category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4) + .category-listing {
     width: 50%;
@@ -177,6 +182,7 @@ input#reference_knowledgebase_search_submit {
 .category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4) + .category-listing .reference-cat-image {
     margin-right: 0;
 }
+.category-listings.columns-3 .category-column.last .category-listing:first-child:nth-last-child(3)~.allowance,
 .category-listings > .category-listing.allowance,
 .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(3) ~ .allowance,
 .category-listings.columns-3 .category-column:first-child:last-of-type .category-listing:first-child:nth-last-child(4) ~ .allowance,
@@ -203,14 +209,14 @@ input#reference_knowledgebase_search_submit {
 /**
  * Category Archive knowledgebase
  */
-article.knowledgebase {
+article.dsc-knowledgebase {
     padding: 35px 0;
     border-bottom: 1px solid #969696;
 }
-article.knowledgebase:last-of-type {
+article.dsc-knowledgebase:last-of-type {
     border-bottom-width: 0;
 }
-article.knowledgebase .link-more {
+article.dsc-knowledgebase .link-more {
     margin-bottom: 0;
 }
 

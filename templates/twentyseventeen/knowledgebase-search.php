@@ -13,6 +13,7 @@
 get_header(); ?>
 
 <div class="wrap">
+    <?php reference_breadcrumb(); ?>
 
 	<header class="page-header">
 		<?php if ( have_posts() ) : ?>
@@ -26,7 +27,8 @@ get_header(); ?>
 		<main id="main" class="site-main" role="main">
 
 		<?php if ( have_posts() ) : ?>
-            <?php reference_breadcrumb(); ?>
+            <?php reference_search_form(); ?>
+            <?php reference_no_search_result(); ?>
 
             <?php /* Start the Loop */ ?>
 
@@ -48,9 +50,6 @@ get_header(); ?>
 
         <?php else : ?>
 
-            <?php reference_breadcrumb(); ?>
-
-			<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'twentyseventeen' ); ?></p>
             <div id="search-page-search-form">
                <?php reference_search_form(); ?>
             </div>

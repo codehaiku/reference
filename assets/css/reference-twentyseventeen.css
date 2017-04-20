@@ -1,61 +1,61 @@
 /**
  * archive category
  */
-.archive.knowledgebase:not(.tax-knb-categories) .page-header .page-title {
+.archive.dsc-knowledgebase:not(.tax-knb-categories) .page-header .page-title {
     display: none;
 }
-body.archive.tax-knb-categories.knowledgebase .page-header {
+body.archive.tax-knb-categories.dsc-knowledgebase .page-header {
     width: 100%;
     float: none;
 }
-body.archive.knowledgebase #primary article.knowledgebase {
+body.archive.dsc-knowledgebase #primary article.dsc-knowledgebase {
     width: 100%;
 }
 
-body.knowledgebase .pagination {
+body.dsc-knowledgebase .pagination {
     border-top-width: 0;
 }
 
-.single-knowledgebase .entry-content ol, ul {
+.single-dsc-knowledgebase .entry-content ol, ul {
     padding-left: 15px;
 }
-.single-knowledgebase .reference-menu-container ol li.menu-item-has-children a {
+.single-dsc-knowledgebase .reference-menu-container ol li.menu-item-has-children a {
     font-size: 12px;
 }
-.single-knowledgebase .reference-menu-container ol li a {
+.single-dsc-knowledgebase .reference-menu-container ol li a {
     font-size: 10px;
 }
-.single-knowledgebase #breadcrumbs-wrap {
+.single-dsc-knowledgebase #breadcrumbs-wrap {
     margin-bottom: 25px;
 }
-.single-knowledgebase .reference-has-table-of-content {
+.single-dsc-knowledgebase .reference-has-table-of-content {
     position: static!important;
 }
-.single-knowledgebase .reference-has-table-of-content .reference-menu-container {
+.single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-container {
     position: absolute;
     top: 100px;
     left: 25px;
     min-width: 300px;
     max-width: 300px;
 }
-.single-knowledgebase .reference-menu-container.reference_nav_is_stuck {
+.single-dsc-knowledgebase .reference-menu-container.reference_nav_is_stuck {
     bottom: 0;
 }
-.single-knowledgebase .reference-menu-container li ol.sub-menu,
-    .single-knowledgebase .reference-menu-container li ol.sub-menu li ol,
-        .single-knowledgebase .reference-menu-container li ol.sub-menu li ol li ol,
-            .single-knowledgebase .reference-menu-container li ol.sub-menu li ol li ol li ol,
-                .single-knowledgebase .reference-menu-container li ol.sub-menu li ol li ol li ol li ol {
+.single-dsc-knowledgebase .reference-menu-container li ol.sub-menu,
+    .single-dsc-knowledgebase .reference-menu-container li ol.sub-menu li ol,
+        .single-dsc-knowledgebase .reference-menu-container li ol.sub-menu li ol li ol,
+            .single-dsc-knowledgebase .reference-menu-container li ol.sub-menu li ol li ol li ol,
+                .single-dsc-knowledgebase .reference-menu-container li ol.sub-menu li ol li ol li ol li ol {
                     padding-left: 0px;
                 }
-.single-knowledgebase .reference-menu-container ol > li:before {
+.single-dsc-knowledgebase .reference-menu-container ol > li:before {
     display: none;
 }
-.single-knowledgebase .reference-single-content {
+.single-dsc-knowledgebase .reference-single-content {
     width: 100%;
     padding-right: 0;
 }
-.knowledgebase header.page-header {
+.dsc-knowledgebase header.page-header {
     min-width: 100%;
 }
 /**
@@ -108,41 +108,44 @@ body.knowledgebase .pagination {
     text-align: center;
 }
 @media screen and (min-width: 48em) {
-    .has-sidebar.single-knowledgebase:not(.error404) #primary {
+    .has-sidebar.single-dsc-knowledgebase:not(.error404) #primary {
         width: 75%;
         padding-right: 15px;
     }
-    .has-sidebar.single-knowledgebase #secondary {
+    .has-sidebar.single-dsc-knowledgebase #secondary {
         width: 25%;
     }
-    .has-sidebar.archive.knowledgebase.tax-knb-categories:not(.error404) .knowledgebase-count,
-    .has-sidebar.archive.knowledgebase.tax-knb-categories:not(.error404) article.knowledgebase {
+    .has-sidebar.archive.dsc-knowledgebase.tax-knb-categories:not(.error404) .knowledgebase-count,
+    .has-sidebar.archive.dsc-knowledgebase.tax-knb-categories:not(.error404) article.dsc-knowledgebase {
         width: 58%;
+    }
+    .archive.dsc-knowledgebase:not(.page-one-column):not(.has-sidebar) #primary article {
+        width: 100%;
     }
 }
 @media(max-width: 1555px) {
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-container {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-container {
         -webkit-transition: left 0.5s ease-in-out;
            -moz-transition: left 0.5s ease-in-out;
                 transition: left 0.5s ease-in-out;
         left: -240px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-container:hover {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-container:hover {
         left: 25px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:before {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:before {
         right: -26px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:after {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:after {
         right: -20px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before,
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before,
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
         content: '';
         display: inline-block;
         position: absolute;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before {
         width: 25px;
         height: 25px;
         background: #1c1c1c;
@@ -151,7 +154,7 @@ body.knowledgebase .pagination {
         right: -10px;
         top: 25px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
         width: 15px;
         height: 2.5px;
         background: #ffffff;
@@ -160,7 +163,7 @@ body.knowledgebase .pagination {
     }
 }
 @media(max-width: 768px) {
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-container {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-container {
         left: -280px;
     }
 }

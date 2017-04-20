@@ -150,7 +150,7 @@ final class ActionHooks
         $setting = false;
 
         if (! empty($table_of_content_setting)
-            && true === (bool) $table_of_content_option
+            && true === $table_of_content_option
             && is_nav_menu($table_of_content_setting)
         ) {
             $setting = true;

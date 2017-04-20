@@ -20,13 +20,13 @@
 .category-listings .reference-cat-image {
     margin-right: 0;
 }
-.knowledgebase.archive .archive-type {
+.dsc-knowledgebase.archive .archive-type {
     display: none;
 }
 /**
  * Knowledgebase Category Header
  */
-.knowledgebase.archive.tax-knb-categories .page-header {
+.dsc-knowledgebase.archive.tax-knb-categories .page-header {
     padding: 0;
     box-shadow: none;
     border: none;
@@ -42,26 +42,26 @@
 .reference-header-info {
     width: 84%;
 }
-.knowledgebase .page-header .letter-thumbnail,
-.knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
+.dsc-knowledgebase .page-header .letter-thumbnail,
+.dsc-knowledgebase .page-header .attachment-reference-knowledgebase-thumbnail {
     position: relative;
     width: 100px;
     max-width: 100%;
 }
 .reference-header-image a,
-.knowledgebase .page-header .letter-thumbnail {
+.dsc-knowledgebase .page-header .letter-thumbnail {
     width: 100%;
     display: inline-block;
 }
-.knowledgebase .page-header .letter-thumbnail {
+.dsc-knowledgebase .page-header .letter-thumbnail {
     height: 100px;
     line-height: 90px;
 }
-.knowledgebase .page-header .archive-title,
-.knowledgebase .page-header p {
+.dsc-knowledgebase .page-header .archive-title,
+.dsc-knowledgebase .page-header p {
     width: 100%;
 }
-article.knowledgebase h1.entry-title {
+article.dsc-knowledgebase h1.entry-title {
     margin-top: 0;
 }
 /**
@@ -95,7 +95,7 @@ article.knowledgebase h1.entry-title {
 #content.site-content #content-left-col #primary.content-area .reference-main-wrapper article.hentry {
     box-shadow: none;
 }
-.single-knowledgebase #content.site-content #content-left-col #primary.content-area .reference-main-wrapper article.hentry {
+.single-dsc-knowledgebase #content.site-content #content-left-col #primary.content-area .reference-main-wrapper article.hentry {
     margin: 0;
     padding-top: 0;
 }
@@ -181,41 +181,41 @@ article.knowledgebase h1.entry-title {
         width: 100%;
         padding-right: 0;
     }
-    .single-knowledgebase .reference-has-table-of-content {
+    .single-dsc-knowledgebase .reference-has-table-of-content {
         position: static!important;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-container {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-container {
         position: absolute;
         top: 85px;
         left: 25px;
         min-width: 300px;
         max-width: 300px;
     }
-    .single-knowledgebase .reference-menu-container.reference_nav_is_stuck {
+    .single-dsc-knowledgebase .reference-menu-container.reference_nav_is_stuck {
         bottom: 0;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-container {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-container {
         -webkit-transition: left 0.5s ease-in-out;
            -moz-transition: left 0.5s ease-in-out;
                 transition: left 0.5s ease-in-out;
         left: -285px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-container:hover {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-container:hover {
         left: 25px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:before {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:before {
         right: -26px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:after {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap.is_stuck:after {
         right: -20px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before,
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before,
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
         content: '';
         display: inline-block;
         position: absolute;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap:before {
         width: 25px;
         height: 25px;
         background: #1c1c1c;
@@ -224,7 +224,7 @@ article.knowledgebase h1.entry-title {
         right: -10px;
         top: 25px;
     }
-    .single-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
+    .single-dsc-knowledgebase .reference-has-table-of-content .reference-menu-wrap:after {
         width: 15px;
         height: 2.5px;
         background: #ffffff;
@@ -242,11 +242,11 @@ article.knowledgebase h1.entry-title {
         width: 70%;
         padding-left: 10px;
     }
-    .knowledgebase .page-header .letter-thumbnail {
+    .dsc-knowledgebase .page-header .letter-thumbnail {
         height: 70px;
         line-height: 70px;
     }
-    .knowledgebase.archive .page-header {
+    .dsc-knowledgebase.archive .page-header {
         padding-left: 37%;
     }
     .category-listings {
