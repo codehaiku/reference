@@ -440,8 +440,8 @@ class PublicPages
     {
         $posts_per_page_option = Options::getPostsPerPage();
 
-        if ($query->is_main_query()) {
-            $query->set('posts_per_page', absint($posts_per_page_option));
+        if (!is_admin() && $query->is_main_query()) {
+            $query->set('posts_per_page', $posts_per_page_option);
         }
         return;
     }

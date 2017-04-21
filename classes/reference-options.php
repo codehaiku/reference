@@ -82,428 +82,313 @@ class Options
     /**
      * Set the default of the Reference Settings.
      *
-     * @param string $constant The constant key to get the value of an option.
+     * @param string $option_key The option key to get the value of an option.
      *
-     * @return void
+     * @return string $option_value The value of the option. Otherwise return
+     *                              default value.
      */
-    public static function getOption($constant) {
-        $option = get_option($constant);
+    public static function getOption($option_key, $is_checkbox = false) {
+        $option_value = '';
 
-        return $option;
-    }
-    /**
-     * Set the default of the Reference Settings if empty.
-     *
-     * @param string $constant The constant key to update the value of an option.
-     *
-     * @return void
-     */
-    public static function setOption($constant) {
-        if (self::isOptionEmpty(self::getOption($constant))) {
-            // update_option($constant, self::REFERENCE_DEFAULTS[$constant]);
+        if (!empty(get_option($option_key)) || true === $is_checkbox) {
+            $option_value = get_option($option_key);
         }
-        return;
+
+        if (empty(get_option($option_key)) && false === get_option($option_key)) {
+            $option_value = self::REFERENCE_DEFAULTS[$option_key];
+        }
+
+        return $option_value;
     }
     /**
-     * Sanitized the value of $constant to be a valid URL.
+     * Sanitized the value of $option_value to be a valid URL.
      *
-     * @param string $constant The constant value to be sanitized.
+     * @param string $option_value The slug value to be sanitized.
      *
-     * @return string Returns the sanitized slug.
+     * @return string $slug Returns the sanitized slug.
      */
-    public static function sanitizedSlug($constant) {
-        $sanitize_constant = sanitize_title(
-            self::getOption($constant)
+    public static function sanitizedSlug($option_value) {
+        $sanitize_slug = sanitize_title(
+            $option_value
         );
 
         $slug = filter_var(
-            $sanitize_constant,
+            $sanitize_slug,
             FILTER_SANITIZE_URL
         );
 
         return $slug;
     }
     /**
-     * Sanitized the value of $constant.
+     * Sanitized the value of $option_value.
      *
-     * @param string $constant The constant value to be sanitized.
+     * @param string $option_value The option value to be sanitized.
      *
-     * @return string Returns the sanitized value.
+     * @return string $sanitized_string Returns the sanitized value.
      */
-    public static function sanitizedString($constant) {
+    public static function sanitizedString($option_value) {
 
-        $string = self::sanitizedSpecialChars(
+        $sanitized_string = self::sanitizedSpecialChars(
             filter_var(
-                self::getOption(
-                    $constant
-                ),
+                $option_value,
                 FILTER_SANITIZE_STRING
             )
         );
 
-        return $string;
+        return $sanitized_string;
     }
     /**
-     * Sanitized the value of $constant and gets the absolute integer value.
+     * Sanitized the value of $option_value and gets the absolute integer value.
      *
-     * @param int $constant The constant value to be sanitized.
+     * @param int $option_value The option value to be sanitized.
      *
-     * @return string Returns the sanitized absolute integer.
+     * @return int $sanitized_integer Returns the sanitized absolute integer.
      */
-    public static function sanitizedInt($constant) {
+    public static function sanitizedInt($option_value) {
 
-        $integer = absint(
+        $sanitized_integer = absint(
             self::sanitizedSpecialChars(
                 filter_var(
-                    self::getOption(
-                        $constant
-                    ),
+                    $option_value,
                     FILTER_SANITIZE_NUMBER_INT
                 )
             )
         );
 
-        return $integer;
+        return $sanitized_integer;
     }
 
     /**
      * Sanitized the value of $constant.
      *
-     * @param string $constant The constant value to be sanitized.
+     * @param string $option_value The option value to be sanitized.
      *
-     * @return string Returns the sanitized string.
+     * @return string $sanitized_input Returns the sanitized string.
      */
-    public static function sanitizedSpecialChars($constant) {
-        $input = filter_var(
-            $constant,
+    public static function sanitizedSpecialChars($option_value) {
+        $sanitized_input = filter_var(
+            $option_value,
             FILTER_SANITIZE_SPECIAL_CHARS
         );
-        return $input;
+        return $sanitized_input;
     }
     /**
-     * Sanitized $constant to be absolute integer and returns boolean value.
+     * Sanitized $option_value to be absolute integer and returns boolean value.
      *
-     * @param int $constant The constant value to be sanitized.
+     * @param int $option_value The option value to be sanitized.
      *
      * @return boolean Returns true if is equal to 1. Otherwise, false if equals
      *              to 0.
      */
-    public static function sanitizedBool($constant) {
+    public static function sanitizedBool($option_value) {
         $bool = self::sanitizedInt(
-            $constant
+            $option_value
         );
+
         if (1 === $bool) {
             return true;
         }
         return false;
     }
-    /**
-     * Checks if $value is empty.
-     *
-     * @param mixed $value The value to be check.
-     *
-     * @return boolean Returns true if empty. Otherwise, false if not.
-     */
-    public static function isOptionEmpty($value) {
-        if (0 !== strlen($value)) {
-            return false;
-        }
-        return true;
-    }
 
     /**
      * Get the Knowledgebase Slug Option and sanitized the slug.
      *
-     * @return string $slug Returns sanitized slug.
+     * @return string Returns sanitized slug.
      */
     public static function getKnbSlug()
     {
-        $constant = self::REFERENCE_KNB_SLUG;
-        $slug = self::sanitizedSlug($constant);
-
-        self::setOption($constant);
-
-        return $slug;
+        return self::sanitizedSlug(self::getOption(self::REFERENCE_KNB_SLUG));
     }
     /**
      * Get the Knowledgebase Category Slug Option and sanitized the slug.
      *
-     * @return string $slug Returns sanitized slug.
+     * @return string Returns sanitized slug.
      */
     public static function getCategorySlug()
     {
-        $constant = self::REFERENCE_KNB_CATEGORY_SLUG;
-        $slug = self::sanitizedSlug($constant);
-
-        self::setOption($constant);
-
-        return $slug;
+        return self::sanitizedSlug(self::getOption(self::REFERENCE_KNB_CATEGORY_SLUG));
     }
     /**
      * Get the Knowledgebase Tag Slug Option and sanitized the slug. If setting
      * is empty set default.
      *
-     * @return string $slug Returns sanitized slug.
+     * @return string Returns sanitized slug.
      */
     public static function getTagSlug()
     {
-        $constant = self::REFERENCE_KNB_TAG_SLUG;
-        $slug = self::sanitizedSlug($constant);
-
-        self::setOption($constant);
-
-        return $slug;
+        return self::sanitizedSlug(self::getOption(self::REFERENCE_KNB_TAG_SLUG));
     }
 
     /**
      * Get the Knowledgebase Singular Option and sanitized the value. If setting
      * is empty set default.
      *
-     * @return string $string Returns sanitized value.
+     * @return string Returns sanitized value.
      */
     public static function getKnbSingular()
     {
-        $constant = self::REFERENCE_KNB_SINGULAR;
-        $string = self::sanitizedString($constant);
-
-        self::setOption($constant);
-
-        return $string;
+        return self::sanitizedString(self::getOption(self::REFERENCE_KNB_SINGULAR));
     }
     /**
      * Get the Knowledgebase Plural Option and sanitized the value. If setting
      * is empty set default.
      *
-     * @return string $string Returns sanitized value.
+     * @return string Returns sanitized value.
      */
     public static function getKnbPlural()
     {
-        $constant = self::REFERENCE_KNB_PLURAL;
-        $string = self::sanitizedString($constant);
-
-        self::setOption($constant);
-
-        return $string;
+        return self::sanitizedString(self::getOption(self::REFERENCE_KNB_PLURAL));
     }
     /**
      * Get the Knowledgebase Category Singular Option and sanitized the value.
      * If setting is empty set default.
      *
-     * @return string $string Returns sanitized value.
+     * @return string Returns sanitized value.
      */
     public static function getCategorySingular()
     {
-        $constant = self::REFERENCE_KNB_CATEGORY_SINGULAR;
-        $string = self::sanitizedString($constant);
-
-        self::setOption($constant);
-
-        return $string;
+        return self::sanitizedString(self::getOption(self::REFERENCE_KNB_CATEGORY_SINGULAR));
     }
     /**
      * Get the Knowledgebase Category Plural Option and sanitized the value. If
      * setting is empty set default.
      *
-     * @return string $string Returns sanitized value.
+     * @return string Returns sanitized value.
      */
     public static function getCategoryPlural()
     {
-        $constant = self::REFERENCE_KNB_CATEGORY_PLURAL;
-        $string = self::sanitizedString($constant);
-
-        self::setOption($constant);
-
-        return $string;
+        return self::sanitizedString(self::getOption(self::REFERENCE_KNB_CATEGORY_PLURAL));
     }
     /**
      * Get the Knowledgebase Tag Singular Option and sanitized the value. If setting
      * is empty set default.
      *
-     * @return string $string Returns sanitized value.
+     * @return string Returns sanitized value.
      */
     public static function getTagSingular()
     {
-        $constant = self::REFERENCE_KNB_TAG_SINGULAR;
-        $string = self::sanitizedString($constant);
-
-        self::setOption($constant);
-
-        return $string;
+        return self::sanitizedString(self::getOption(self::REFERENCE_KNB_TAG_SINGULAR));
     }
     /**
      * Get the Knowledgebase Tag Plural Option and sanitized the value. If setting
      * is empty set default.
      *
-     * @return string $string Returns sanitized value.
+     * @return string Returns sanitized value.
      */
     public static function getTagPlural()
     {
-        $constant = self::REFERENCE_KNB_TAG_PLURAL;
-        $string = self::sanitizedString($constant);
-
-        self::setOption($constant);
-
-        return $string;
+        return self::sanitizedString(self::getOption(self::REFERENCE_KNB_TAG_PLURAL));
     }
 
     /**
      * Get the Archive Columns Option and convert to absolute integer. If setting
      * is empty set default.
      *
-     * @return integer $int Returns sanitizedInt absolute integer.
+     * @return integer Returns sanitizedInt absolute integer.
      */
     public static function getArchiveColumn()
     {
-        $constant = self::REFERENCE_KNB_ARCHIVE_COLUMN;
-        $int = self::sanitizedInt($constant);
-
-        self::setOption($constant);
-
-        return $int;
+        return self::sanitizedInt(self::getOption(self::REFERENCE_KNB_ARCHIVE_COLUMN));
     }
     /**
      * Checks if 'Syntax Highlighting' setting is enabled. If setting
      * is empty set default.
      *
-     * @return boolean $bool Returns true if 'Syntax Highlighting' setting is
-     *                       enabled.
+     * @return boolean Returns true if 'Syntax Highlighting' setting is
+     *                 enabled.
      */
     public static function getSyntaxHighlighting()
     {
-        $constant = self::REFERENCE_KNB_SYNTAX_HIGHLIGHTING;
-        $bool = self::sanitizedBool($constant);
-
-        self::setOption($constant);
-
-        return $bool;
+        return self::sanitizedBool(self::getOption(self::REFERENCE_KNB_SYNTAX_HIGHLIGHTING, true));
     }
     /**
      * Get the Syntax Highlighting Style Option and sanitized the value. If setting
      * is empty set default.
      *
-     * @return string $string Returns sanitized value.
+     * @return string Returns sanitized value.
      */
     public static function getSyntaxHighlightingStyle()
     {
-        $constant = self::REFERENCE_KNB_SYNTAX_HIGHLIGHTING_STYLE;
-        $string = self::sanitizedString($constant);
-
-        self::setOption($constant);
-
-        return $string;
+        return self::sanitizedString(self::getOption(self::REFERENCE_KNB_SYNTAX_HIGHLIGHTING_STYLE));
     }
     /**
      * Checks if 'Comment Feedback' setting is enabled. If setting
      * is empty set default.
      *
-     * @return boolean $bool Returns true if 'Comment Feedback' setting is
-     *                       enabled.
+     * @return boolean Returns true if 'Comment Feedback' setting is
+     *                 enabled.
      */
     public static function getCommentFeedback()
     {
-        $constant = self::REFERENCE_KNB_COMMENT_FEEDBACK;
-        $bool = self::sanitizedBool($constant);
-
-        self::setOption($constant);
-
-        return $bool;
+        return self::sanitizedBool(self::getOption(self::REFERENCE_KNB_COMMENT_FEEDBACK, true));
     }
     /**
      * Checks if the 'Table of Contents' setting is enabled. If setting
      * is empty set default.
      *
-     * @return boolean $bool Returns true if 'Table of Contents' setting is
-     *                       enabled.
+     * @return boolean Returns true if 'Table of Contents' setting is
+     *                 enabled.
      */
     public static function getTableOfContent()
     {
-        $constant = self::REFERENCE_KNB_TOC;
-        $bool = self::sanitizedBool($constant);
-
-        self::setOption($constant);
-
-        return $bool;
+        return self::sanitizedBool(self::getOption(self::REFERENCE_KNB_TOC, true));
     }
     /**
      * Checks if the 'Breadcrumbs' setting is enabled. If setting
      * is empty set default.
      *
-     * @return boolean $bool Returns true if 'Breadcrumbs' setting is enabled.
+     * @return boolean Returns true if 'Breadcrumbs' setting is enabled.
      */
     public static function getBreadcrumbs()
     {
-        $constant = self::REFERENCE_KNB_BREADCRUMBS;
-        $bool = self::sanitizedBool($constant);
-
-        self::setOption($constant);
-
-        return $bool;
+        return self::sanitizedBool(self::getOption(self::REFERENCE_KNB_BREADCRUMBS, true));
     }
     /**
      * Checks if the 'Sticky Kit' setting is enabled. If setting
      * is empty set default.
      *
-     * @return boolean $bool Returns true if the 'Sticky Kit' setting is enabled.
+     * @return boolean Returns true if the 'Sticky Kit' setting is enabled.
      */
     public static function getStickyKit()
     {
-        $constant = self::REFERENCE_KNB_STICKY_KIT;
-        $bool = self::sanitizedBool($constant);
-
-        self::setOption($constant);
-
-        return $bool;
+        return self::sanitizedBool(self::getOption(self::REFERENCE_KNB_STICKY_KIT, true));
     }
     /**
      * Get the Breadcrumbs Separator Option and sanitized the value. If setting
      * is empty set default.
      *
-     * @return string $string Returns sanitized value.
+     * @return string Returns sanitized value.
      */
     public static function getBreadcrumbsSeparator()
     {
-        $constant = self::REFERENCE_KNB_BREADCRUMBS_SEPARATOR;
-        $string = self::sanitizedString($constant);
-
-        self::setOption($constant);
-
-        return $string;
+        return self::sanitizedString(self::getOption(self::REFERENCE_KNB_BREADCRUMBS_SEPARATOR));
     }
     /**
      * Get the Category Excerpt Option and convert to absolute integer. If setting
      * is empty set default.
      *
-     * @return integer $int Returns sanitized absolute integer.
+     * @return integer Returns sanitized absolute integer.
      */
     public static function getCategoryExcerpt()
     {
-        $constant = self::REFERENCE_KNB_CATEGORY_EXCERPT;
-        $int = self::sanitizedInt($constant);
-
-        self::setOption($constant);
-
-        return $int;
+        return self::sanitizedInt(self::getOption(self::REFERENCE_KNB_CATEGORY_EXCERPT));
     }
     /**
      * Get the Post per Page Option and convert to absolute integer. If setting
      * is empty set default.
      *
-     * @return integer $int Returns sanitized absolute integer.
+     * @return integer $posts_per_page Returns sanitized absolute integer.
      */
     public static function getPostsPerPage()
     {
-        $constant = self::REFERENCE_KNB_POSTS_PER_PAGE;
         $blog_posts_per_page = self::sanitizedInt('posts_per_page');
-        $int = self::sanitizedInt($constant);
-        if (0 === $int) {
-            $int = $blog_posts_per_page;
-            update_option($constant, $int);
+        $posts_per_page = self::sanitizedInt(self::getOption(self::REFERENCE_KNB_POSTS_PER_PAGE));
+
+        if (0 === $posts_per_page) {
+            $posts_per_page = $blog_posts_per_page;
         }
 
-        if (0 !== $int) {
-            self::setOption($constant);
-        }
-
-        return $int;
+        return absint($posts_per_page);
     }
 }

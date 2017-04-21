@@ -517,27 +517,36 @@ final class Helper
     public static function getCategoryThumbnail()
     {
         $get_current_term_id = self::getCurrentTermId();
-        $term_title = single_term_title("", false);
-        $term_link = get_term_link($get_current_term_id);
-        $image_id = get_term_meta(
-            $get_current_term_id,
-            'categories-image-id',
-            true
-        );
-        $thumbnail = wp_get_attachment_image(
-            $image_id,
-            'reference-knowledgebase-thumbnail'
-        );
-        $thumbnail_letter = self::getFallbackThumbnail($term_title);
-        $displayed_thumbnail = '<a href="' . esc_url($term_link) .'" title="' .
-                                esc_attr($term_title) . '">'.
-                                $thumbnail . '</a>';
+        $option_knb_plural = Options::getKnbPlural();
+        $displayed_thumbnail = '<a href="' . esc_url(get_post_type_archive_link('dsc-knowledgebase')) .
+                               '" title="' . esc_attr($option_knb_plural) .
+                               '"><span class="letter-thumbnail">'.
+                               self::getFallbackThumbnail($option_knb_plural) .
+                               '</span></a>';
 
-        if (empty($thumbnail)) {
-            $displayed_thumbnail = '<a href="' . esc_url($term_link) .
-                                   '" title="' . esc_attr($term_title) .
-                                   '"><span class="letter-thumbnail">'.
-                                   $thumbnail_letter . '</span></a>';
+        if (!empty($get_current_term_id)) {
+            $term_title = single_term_title("", false);
+            $term_link = get_term_link($get_current_term_id);
+            $image_id = get_term_meta(
+                $get_current_term_id,
+                'categories-image-id',
+                true
+            );
+            $thumbnail = wp_get_attachment_image(
+                $image_id,
+                'reference-knowledgebase-thumbnail'
+            );
+            $thumbnail_letter = self::getFallbackThumbnail($term_title);
+            $displayed_thumbnail = '<a href="' . esc_url($term_link) .'" title="' .
+                                    esc_attr($term_title) . '">'.
+                                    $thumbnail . '</a>';
+
+            if (empty($thumbnail)) {
+                $displayed_thumbnail = '<a href="' . esc_url($term_link) .
+                                       '" title="' . esc_attr($term_title) .
+                                       '"><span class="letter-thumbnail">'.
+                                       $thumbnail_letter . '</span></a>';
+            }
         }
 
         return $displayed_thumbnail;
@@ -553,7 +562,10 @@ final class Helper
     {
         $term_id = '';
         $taxonomy = 'knb-categories';
-        $get_current_term = get_queried_object()->term_id;
+        $get_current_term = '';
+        if (!empty(get_queried_object()->term_id)) {
+            $get_current_term = get_queried_object()->term_id;
+        }
 
         $get_current_term_id = get_term($get_current_term, $taxonomy);
 

@@ -172,6 +172,8 @@ input#reference_knowledgebase_search_submit {
 }
 .category-listings.columns-3 .category-column.last .category-listing:first-child:nth-last-child(3),
 .category-listings.columns-3 .category-column.last .category-listing:first-child:nth-last-child(3)~.category-listing,
+.category-listings.columns-3 .category-column.last:first-child:last-of-type .category-listing:first-child:nth-last-child(4),
+.category-listings.columns-3 .category-column.last:first-child:last-of-type .category-listing:first-child:nth-last-child(4)~.category-listing:not(.allowance),
 .category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4),
 .category-listings.columns-3 .category-column:first-child:nth-last-child(1) .category-listing:first-child:nth-last-child(4) + .category-listing {
     width: 50%;

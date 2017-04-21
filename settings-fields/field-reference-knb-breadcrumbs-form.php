@@ -35,7 +35,7 @@ function reference_knb_breadcrumbs_form()
     $option = new DSC\Reference\Options();
     $breadcrumbs = $option->getBreadcrumbs();
     ?>
-    
+
     <label for="reference_knb_breadcrumbs">
         <input name="reference_knb_breadcrumbs" id="reference_knb_breadcrumbs" type="checkbox" class="regular-text code" value="1" <?php echo checked( 1, esc_attr($breadcrumbs), false ); ?>>
         <?php esc_html_e('Enable Breadcrumbs', 'reference'); ?>

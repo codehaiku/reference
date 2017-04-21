@@ -26,17 +26,6 @@ get_header(); ?>
                     <?php reference_breadcrumb(); ?>
 
                     <?php if ( have_posts() ) : ?>
-                        <?php
-                            $archive_allowed_tags = array(
-                                'a' => array(
-                                    'href' => array(),
-                                    'title' => array()
-                                ),
-                                'span' => array(
-                                    'class' => array()
-                                )
-                            );
-                        ?>
 
                         <?php reference_search_form(); ?>
 
