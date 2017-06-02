@@ -7,7 +7,6 @@
     box-shadow: 0 1.5px 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .reference-main-wrapper {
-    float: left;
     width: 100%;
 }
 .shortcode .reference-knowledgebase-search-field,
@@ -103,7 +102,6 @@ article.dsc-knowledgebase h1.entry-title {
     margin-top: 35px;
 }
 .reference-has-table-of-content .reference-menu-container {
-    float: left;
 }
 .reference-has-table-of-content .reference-single-content {
     float: right;
@@ -124,22 +122,23 @@ article.dsc-knowledgebase h1.entry-title {
  * Reference Search
  */
 .reference-knowledgebase-search-field {
-    padding: 15px 15px 25px;
+    padding: 0;
     margin-bottom: 15px;
-    background: #fafafa;
-    border: 1px solid #eceff1;
-    border-radius: 6px;
 }
 .reference-knowledgebase-search-field input[type=text] {
     margin-bottom: 0;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 0 15px;
+    box-shadow: inset 0px 0px 5px 0px #efefef;
+    font-size: 13px;
+    font-weight: bold;
 }
 /**
  * Reference Table of Contents
  */
 .reference-has-table-of-content {
     width: 100%;
-    padding-top: 15px;
-    float: left;
 }
 #content.site-content #content-left-col #primary.content-area .reference-main-wrapper .reference-has-table-of-content article {
     padding: 0;
@@ -259,3 +258,38 @@ article.dsc-knowledgebase h1.entry-title {
         margin-bottom: 0;
     }
 }
+@media (min-width: 992px) {
+    .reference-has-table-of-content .reference-menu-container {
+        width: 100%;
+    }
+}
+
+.reference-has-table-of-content .reference-menu-container, .reference-has-table-of-content .reference-single-content {
+    padding-right: 0;
+}
+
+.archive .reference-header-info .archive-type { display: none; }
+.archive .reference-header-info .archive-title {font-size: 18px; font-weight: bold;}
+.archive .reference-main-wrapper .page-header { padding: 0; border-bottom: 0;}
+.archive .reference-main-wrapper .page-header p {color: #757575;}
+.reference-main-wrapper #breadcrumbs-wrap {
+    margin: -15px -15px 15px -15px;
+    background: #F5F5F5;
+    padding: 15px;
+    color: #757575;
+    font-weight: bold;
+}
+
+.archive .reference-main-wrapper .letter-thumbnail { padding: 0; }
+.letter-thumbnail, .knowledgebase .page-header .letter-thumbnail {
+    font-size: 42px;
+    text-align: center;
+    background: #607D8B;
+    font-weight: bold;
+    border: 0 none;
+    color: #CFD8DC;
+}
+
+.reference-cat-info a { color: #212121; }
+
+#breadcrumbs-wrap a { color: #212121; }
