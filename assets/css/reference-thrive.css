@@ -72,13 +72,11 @@ article.dsc-knowledgebase h1.entry-title {
 /**
  * Archive knowledgebase count
  */
-#reference-message,
-.reference-knowledgebase-count {
-    padding: 10px 15px;
-    background: #fafafa;
-    border: 1px solid #eceff1;
-    border-radius: 6px;
+#reference-message, .reference-knowledgebase-count {
+    font-weight: bold;
+    margin-bottom: 10px;
 }
+
 #reference-message p {
     margin-bottom: 0;
 }
@@ -284,12 +282,71 @@ article.dsc-knowledgebase h1.entry-title {
 .letter-thumbnail, .knowledgebase .page-header .letter-thumbnail {
     font-size: 42px;
     text-align: center;
-    background: #607D8B;
+    background: #673AB7;
     font-weight: bold;
     border: 0 none;
-    color: #CFD8DC;
+    color: #fff;
 }
 
 .reference-cat-info a { color: #212121; }
 
 #breadcrumbs-wrap a { color: #212121; }
+
+.category-column.last,
+.category-listings { margin-bottom: 10px; }
+
+.category-listings .category-listing {
+    padding: 15px 0;
+}
+
+.category-column,
+.category-listings.columns-3 .category-listing:nth-child(3n),
+.category-listings.columns-3 .category-listing:nth-child(3n-5) { border: 0 none; }
+.archive article.dsc-knowledgebase { padding: 0px; }
+.archive article.dsc-knowledgebase h1.entry-title{
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#content.site-content #content-left-col #primary.content-area article.hentry {
+    padding: 15px 0!important;
+}
+
+article.dsc-knowledgebase {
+    padding: 35px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.reference-navigation.navigation .page-numbers {
+    display: inline-block;
+    background: #ffffff;
+    padding: 5px 15px;
+    color: #616161;
+    border-radius: 4PX;
+    box-shadow: 0px 1px 1px 0px #afafaf;
+    border: 1px solid #eee;
+} 
+
+.reference-navigation.navigation .page-numbers:hover,
+.reference-navigation.navigation .page-numbers.current {
+    background: #424242;
+    border-color: #424242;
+    color: #fff;
+}
+.reference-navigation.navigation:empty {
+    display: none;
+}
+
+.category-listings {
+    border-bottom: 1px solid #eee;
+}
+
+.archive article.dsc-knowledgebase {
+    border-bottom: 1px solid #eee;
+    border-radius: 0!important;
+}
+
+.reference-main-wrapper article.dsc-knowledgebase:last-child {
+    border-bottom: 0 none;
+}
