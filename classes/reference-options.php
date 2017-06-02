@@ -57,14 +57,14 @@ class Options
     const REFERENCE_KNB_CATEGORY_EXCERPT = 'reference_knb_category_excerpt';
     const REFERENCE_KNB_POSTS_PER_PAGE = 'reference_knb_posts_per_page';
 
-    const REFERENCE_DEFAULTS = array(
+    private static $referenceDefaults = array(
         self::REFERENCE_KNB_SLUG => 'dsc-knowledgebase',
         self::REFERENCE_KNB_CATEGORY_SLUG => 'dsc-knb-categories',
         self::REFERENCE_KNB_TAG_SLUG => 'dsc-knb-tags',
         self::REFERENCE_KNB_SINGULAR => 'Knowledgebase',
         self::REFERENCE_KNB_PLURAL => 'Knowledgebase',
         self::REFERENCE_KNB_CATEGORY_SINGULAR => 'Knowledgebase Category',
-        self::REFERENCE_KNB_CATEGORY_PLURAL => 'Knowledgebase Categories',
+        self::REFERENCE_KNB_CATEGORY_PLURAL => 'Knowledgebase',
         self::REFERENCE_KNB_TAG_SINGULAR => 'Knowledgebase Tag',
         self::REFERENCE_KNB_TAG_PLURAL => 'Knowledgebase Tags',
         self::REFERENCE_KNB_ARCHIVE_COLUMN => '3',
@@ -88,17 +88,20 @@ class Options
      *                              default value.
      */
     public static function getOption($option_key, $is_checkbox = false) {
-        $option_value = '';
 
-        if (!empty(get_option($option_key)) || true === $is_checkbox) {
+        $option_value = '';
+        $option = get_option($option_key);
+        
+        if (!empty($option) || true === $is_checkbox) {
             $option_value = get_option($option_key);
         }
 
-        if (empty(get_option($option_key)) && false === get_option($option_key)) {
-            $option_value = self::REFERENCE_DEFAULTS[$option_key];
+        if (empty($option) && false === $option) {
+            $option_value = self::$referenceDefaults[$option_key];
         }
 
         return $option_value;
+
     }
     /**
      * Sanitized the value of $option_value to be a valid URL.
