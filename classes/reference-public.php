@@ -571,20 +571,17 @@ class PublicPages
      *
      * @since  1.0.0
      * @access public
-     * @return boolean true Returns true if an option is enabled.
+     * @return boolean Returns true if an option is enabled, otherwise false.
      */
     public function isOptionTrue($key = '')
     {
-        $get_option = get_option($key);
-        $option = array(
-            '' => false,
-            '1' => true,
-        );
+        $option = get_option($key);
 
-        if (!empty($key)) {
-            return $option[$get_option];
+        if ( ! empty( $option) ) {
+            return true;
         }
-        return;
+        
+        return false;
     }
     /**
      * This method retrieves page title for Reference category archive.
