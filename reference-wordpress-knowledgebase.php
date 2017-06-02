@@ -26,42 +26,38 @@
 if (! defined('ABSPATH')) {
     return;
 }
+
 define('REFERENCE_DIR_PATH', trailingslashit(plugin_dir_path(__FILE__)));
 
 define('REFERENCE_PATH', plugin_dir_path(__FILE__));
 
-/**
- * The code that runs during plugin activation.
- */
+// Require the plugin activation class.
 require_once plugin_dir_path(__FILE__) . 'classes/reference-activator.php';
 
-/**
- * The helper class.
- */
+// Require the helper class.
 require_once plugin_dir_path(__FILE__) . 'classes/reference-helper.php';
 
-
+// Require the loader class.
 require_once plugin_dir_path(__FILE__) . 'classes/reference-loader.php';
 
-
+// The template tags.
 require_once plugin_dir_path(__FILE__) . 'template-tags/template-tags.php';
 
-/**
-* This functions runs the Activator class.
-*
-* @since  1.0.0
-* @return void
-*/
-register_activation_hook(__FILE__, 'run_activator');
+// Register the activation hook.
+register_activation_hook(__FILE__, 'reference_activate');
 
-function run_activator()
+/**
+ * Clear permalink on plugin activate.
+ * 
+ * @return void
+ */
+function reference_activate()
 {
     $plugin = new \DSC\Reference\Activator();
     $plugin->activate();
     return;
 }
-/**
- * This functions executes the plugin
- */
+
+// Bootstrap the plugin.
 $plugin = new \DSC\Reference\Loader();
 $plugin->runner();
