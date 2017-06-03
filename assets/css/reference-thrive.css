@@ -105,10 +105,10 @@ article.dsc-knowledgebase h1.entry-title {
     float: right;
 }
 .reference-menu-container ol.sub-menu li > ol.sub-menu {
-    padding-left: 0;
+    /*padding-left: 0;*/
 }
 .reference-menu-container ol.sub-menu li > ol.sub-menu li:before {
-    display: none;
+    /*display: none;*/
 }
 /**
  * Reference Breadcrumbs
@@ -326,7 +326,7 @@ article.dsc-knowledgebase {
     border-radius: 4PX;
     box-shadow: 0px 1px 1px 0px #afafaf;
     border: 1px solid #eee;
-} 
+}
 
 .reference-navigation.navigation .page-numbers:hover,
 .reference-navigation.navigation .page-numbers.current {

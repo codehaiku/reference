@@ -646,7 +646,17 @@ final class Helper
             )
         );
 
-        $ordered_list = str_replace("<ul", "<ol", $menu);
+        $unordered_list_tag = array(
+            '<ul',
+            '</ul'
+        );
+
+        $ordered_list_tag = array(
+            '<ol',
+            '</ol'
+        );
+
+        $ordered_list = str_replace( $unordered_list_tag, $ordered_list_tag, $menu );
 
         if (!empty($menu)
             && !empty($reference_menu)
