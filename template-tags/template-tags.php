@@ -128,7 +128,7 @@ function reference_knowledgebase_count()
 
     $option = new \DSC\Reference\Options();
 
-    $knowledgebase = $option->getKnbPlural();
+    $label = $option->getKnbPlural();
 
     $terms_ids = $knowledgebase_count->getTermIds();
 
@@ -138,19 +138,20 @@ function reference_knowledgebase_count()
 
     $output = '';
 
-    if ($count <= 1) {
-        $knowledgebase = $option->getKnbSingular();
-    }
-    if (is_post_type_archive('dsc-knowledgebase')) {
-        $name = $knowledgebase;
+    if ( is_post_type_archive('dsc-knowledgebase') ) {
+        $name = $label;
         $count = $knowledgebase_count->getPostCount($terms_ids, false);
+    }
+
+    if ($count <= 1) {
+        $label = $option->getKnbSingular();
     }
 
     $output = '<p class="reference-knowledgebase-count">' .
         sprintf(
-            esc_html__('%1$d %2$s found under "%3$s"', 'reference'),
+            _n('One %2$s found under "%3$s"', 'There are %1$d %2$s found under "%3$s"', $count, 'reference'),
             $count,
-            $knowledgebase,
+            $label,
             $name
         ) .
     '</p>';
@@ -230,12 +231,12 @@ function reference_display_comment_feedback()
                 id="reference-feedback"
                 data-value="<?php echo get_the_ID(); ?>"
             >
-                <p lass="feedback-header">
+                <h3 class="feedback-header">
                     <?php esc_html_e(
                         'Was this article helpful?',
                         'reference'
                     ); ?>
-                </p>
+                </h3>
                 <span class="feedback-response-link">
                     <?php if (reference_is_ip_exist()) { ?>
                         <a href="" id="reference-confirm-feedback">
