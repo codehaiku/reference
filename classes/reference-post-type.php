@@ -247,7 +247,7 @@ final class PostType
             ),
             'capability_type'    => 'post',
             'has_archive'        => true,
-            'hierarchical'       => false,
+            'hierarchical'       => true,
             'menu_position'      => null,
             'supports'           => array(
                 'title',
@@ -255,7 +255,8 @@ final class PostType
                 'author',
                 'thumbnail',
                 'excerpt',
-                'comments'
+                'comments',
+                'page-attributes'
             )
         );
 
