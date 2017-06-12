@@ -73,7 +73,7 @@ article.dsc-knowledgebase h1.entry-title {
  * Archive knowledgebase count
  */
 #reference-message, .reference-knowledgebase-count {
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 10px;
 }
 
@@ -130,7 +130,7 @@ article.dsc-knowledgebase h1.entry-title {
     padding: 0 15px;
     box-shadow: inset 0px 0px 5px 0px #efefef;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 700;
 }
 /**
  * Reference Table of Contents
@@ -155,9 +155,14 @@ article.dsc-knowledgebase h1.entry-title {
  * Reference Feedback
  */
 .reference-feedback-container {
-    margin: 15px 0;
-    background: #fafafa;
-    border-color: #eceff1;
+    margin: -5px 0 0 0;
+    background: #fff;
+    box-shadow: 0 1.5px 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.12);
+    background: #F5F5F5;
+    border-color: transparent;
+    border-top: 1px solid #eee;
+    border-radius: 0 0 4px 4px;
+    color: #757575;
 }
 /**
  * Reference Comment
@@ -267,15 +272,16 @@ article.dsc-knowledgebase h1.entry-title {
 }
 
 .archive .reference-header-info .archive-type { display: none; }
-.archive .reference-header-info .archive-title {font-size: 18px; font-weight: bold;}
+.archive .reference-header-info .archive-title {font-size: 18px; font-weight: 700;}
 .archive .reference-main-wrapper .page-header { padding: 0; border-bottom: 0;}
 .archive .reference-main-wrapper .page-header p {color: #757575;}
+
 .reference-main-wrapper #breadcrumbs-wrap {
     margin: -15px -15px 15px -15px;
     background: #F5F5F5;
     padding: 15px;
     color: #757575;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .archive .reference-main-wrapper .letter-thumbnail { padding: 0; }
@@ -283,7 +289,7 @@ article.dsc-knowledgebase h1.entry-title {
     font-size: 42px;
     text-align: center;
     background: #673AB7;
-    font-weight: bold;
+    font-weight: 700;
     border: 0 none;
     color: #fff;
 }
@@ -306,10 +312,11 @@ article.dsc-knowledgebase h1.entry-title {
 .archive article.dsc-knowledgebase h1.entry-title{
     margin-top: 0;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
-#content.site-content #content-left-col #primary.content-area article.hentry {
+.post-type-archive-dsc-knowledgebase #content.site-content #content-left-col #primary.content-area article.hentry,
+.tax-knb-categories #content.site-content #content-left-col #primary.content-area article.hentry {
     padding: 15px 0!important;
 }
 
@@ -338,15 +345,29 @@ article.dsc-knowledgebase {
     display: none;
 }
 
-.category-listings {
-    border-bottom: 1px solid #eee;
-}
 
 .archive article.dsc-knowledgebase {
-    border-bottom: 1px solid #eee;
     border-radius: 0!important;
 }
+
 
 .reference-main-wrapper article.dsc-knowledgebase:last-child {
     border-bottom: 0 none;
 }
+
+#reference-latest-articles .entry-content p,
+.reference-cat-info .description { color: #757575; }
+
+.reference-single #breadcrumbs-wrap {
+    margin: -15px -15px 15px -15px;
+    background: #f5f5f5;
+    padding: 15px;
+    padding: 15px;
+    color: #757575;
+    font-weight: 700;
+}
+
+.feedback-header { font-size: 18px; color: #212121;}
+
+.category-column:not(:last-child):nth-last-of-type(3) + .category-column,
+.category-listings.columns-2 .category-listing:nth-child(odd) { border: 0 none; }
