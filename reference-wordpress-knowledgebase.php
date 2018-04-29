@@ -4,7 +4,7 @@
  * Plugin URI:  https://wordpress.org/plugins/reference-wordpress-knowledgebase/
  * Description: A lightweight knowledgebase plugin for your WordPress
  *              website. Works with any theme.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Dunhakdis
  * Author URI:  https://profiles.wordpress.org/dunhakdis/
  * Text Domain: reference
@@ -48,7 +48,7 @@ register_activation_hook(__FILE__, 'reference_activate');
 
 /**
  * Clear permalink on plugin activate.
- * 
+ *
  * @return void
  */
 function reference_activate()
