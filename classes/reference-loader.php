@@ -142,6 +142,11 @@ final class Loader
         include_once plugin_dir_path(dirname(__FILE__)) .
                      'classes/reference-shortcodes.php';
         /**
+         * This class handles the registration of the Reference Widgets.
+         */
+        include_once plugin_dir_path(dirname(__FILE__)) .
+                     'classes/reference-widgets.php';
+        /**
          * This class handles the Reference hooks.
          */
         include_once plugin_dir_path(dirname(__FILE__)) .
@@ -156,6 +161,8 @@ final class Loader
         new Metabox();
 
         new KnowledgebaseShortcodes();
+
+        new KnowledgebaseWidgets();
     }
     /**
      * This method is used to load the localization file of the Reference plugin.
