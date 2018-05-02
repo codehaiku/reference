@@ -91,7 +91,7 @@ final class MostUpvotedArticles extends WP_Widget {
             ?>
 
             <ul class="reference-most-upvoted-articles-container">
-                <?php if ( ! empty ( $articles ) ) : ?>
+                <?php if ( ! empty ( $most_upvoted_articles ) ) : ?>
                     <?php
                     foreach( $most_upvoted_articles as $article ) { ?>
                         <?php
@@ -109,7 +109,7 @@ final class MostUpvotedArticles extends WP_Widget {
                         ?>
 
                         <li class="reference-most-upvoted-articles">
-                            <a href="<?php echo esc_url( get_post_permalink( $post_id ) ); ?>" class="most-upvoted-articles-link">
+                            <a href="<?php echo esc_url( get_post_permalink( $post_id ) ); ?>" title="<?php echo esc_attr( $post_title ); ?>" class="most-upvoted-articles-link">
                                 <span class="most-upvoted-article-title">
                                     <?php echo esc_html( $post_title ); ?>
                                 </span>
