@@ -4,7 +4,7 @@ Donate link:https://www.paypal.me/dunhakdis/25
 Tags: project, task, task discussion, collaboration
 Requires at least: 4.2.0
 Tested up to: 4.8.0
-Stable tag: 1.4.10
+Stable tag: 1.0.2
 
 A Simple and Lightweight Knowledgebase Plugin for WordPress. You can use Reference plugin to add tutorials and knowledgebase to your website. 
 
