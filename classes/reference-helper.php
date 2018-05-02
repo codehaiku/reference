@@ -501,7 +501,7 @@ final class Helper
         );
 
         $query = new WP_Query($args);
-      
+
         return absint($query->post_count);
     }
     /**

@@ -454,3 +454,49 @@ function reference_no_search_result($message = '')
     <?php return; ?>
 
 <?php }
+
+/**
+* Rearrange the array base on the parameter given.
+*
+* @since 1.0.1
+*
+* @return array Rearranged array.
+*/
+function reference_array_sort_by_column( &$arr, $col, $dir = SORT_ASC ) {
+    $sort_col = array();
+
+    foreach ($arr as $key=> $row) {
+        $sort_col[$key] = $row[$col];
+    }
+
+    return array_multisort($sort_col, $dir, $arr);
+}
+
+/**
+* Display to value of a variable and contain it with a pre tag.
+*
+* @since 1.0.1
+*
+* @return array void.
+*/
+function reference_pre( $content, $display_type = '' )
+{
+    if ( ! empty( $content ) ) {
+        if ( empty( $display_type ) ) {
+            $display_type = 'print_r';
+        }
+        echo '<pre>';
+            if ( 'echo' === $display_type ) {
+                echo $content;
+            }
+            if ( 'print_r' === $display_type ) {
+                print_r( $content );
+            }
+            if ( 'var_dump' === $display_type ) {
+                var_dump( $content );
+            }
+        echo '</pre>';
+    }
+
+    return;
+}
