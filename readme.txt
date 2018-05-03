@@ -4,9 +4,9 @@ Donate link:https://www.paypal.me/dunhakdis/25
 Tags: project, task, task discussion, collaboration
 Requires at least: 4.2.0
 Tested up to: 4.8.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
-A Simple and Lightweight Knowledgebase Plugin for WordPress. You can use Reference plugin to add tutorials and knowledgebase to your website. 
+A Simple and Lightweight Knowledgebase Plugin for WordPress. You can use Reference plugin to add tutorials and knowledgebase to your website.
 
 == Description ==
 
@@ -16,9 +16,9 @@ Reference is a WordPress Knowledgebase plugin that helps you manage your Knowled
 
 The 'Breadcrumb' feature gives your users a secondary navigation menu that helps your readers scan through your documentation and to view more content at a faster rate.
 
-This plugin uses the 'WordPress Menu System' in giving you convenience in creating 'Table of Contents' for your knowledgebase. 
+This plugin uses the 'WordPress Menu System' in giving you convenience in creating 'Table of Contents' for your knowledgebase.
 
-The 'Comment Feedback' feature allows you to gather votes from your users and gives you the information about the usefulness of your knowledgebase article - readers can 'downvote' and 'upvote' each item (checked via IP). 
+The 'Comment Feedback' feature allows you to gather votes from your users and gives you the information about the usefulness of your knowledgebase article - readers can 'downvote' and 'upvote' each item (checked via IP).
 
 There are also useful feature such as allowing you to display your 'Topics' in three columns, two columns or one column layout.
 
@@ -34,7 +34,7 @@ Reference adheres to the WordPress standard Templating System to make it accessi
 <li>taxonomy-knb-categories.php - <em>The categories template file</em> </li>
 </ul>
 
-After you have copied the said files in the list above, you can open each file with your favorite code editor and start modifying the markup to make sure your theme is compatible. 
+After you have copied the said files in the list above, you can open each file with your favorite code editor and start modifying the markup to make sure your theme is compatible.
 
 You may also use the existing <a href="https://github.com/codehaiku/reference/#user-content-templates" title="Reference Template Tags">template tags</a> to make your work faster and easier.
 
