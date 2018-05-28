@@ -13,7 +13,7 @@ The Reference plugin, uses the 'WordPress Menu System' in giving you convenience
 
 Also, it has a 'Comment Feedback' feature that allows you to gather votes from your users, that gives you information if your articles are useful to your users or not. It also allows you to display your 'Topics' in three columns, two columns or one columns.
 
-<strong>Current Version: 1.0.0</strong>
+<strong>Current Version: 1.0.3</strong>
 
 Features
 ------------

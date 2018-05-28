@@ -100,7 +100,7 @@ final class RelatedArticles extends WP_Widget {
             ?>
 
             <ul class="reference-related-articles-container">
-                <?php if ( ! empty ( $articles ) ) : ?>
+                <?php if ( ! empty ( $related_articles ) ) : ?>
                     <?php
                     foreach( $related_articles as $article ) { ?>
                         <?php
@@ -111,7 +111,7 @@ final class RelatedArticles extends WP_Widget {
                         ?>
 
                         <li class="reference-related-articles">
-                            <a href="<?php echo esc_url( get_post_permalink( $post_id ) ); ?>" class="related-articles-link">
+                            <a href="<?php echo esc_url( get_post_permalink( $post_id ) ); ?>" title="<?php echo esc_attr( $post_title ); ?>" class="related-articles-link">
                                 <span class="related-article-title">
                                     <?php echo esc_html( $post_title ); ?>
                                 </span>

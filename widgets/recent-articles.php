@@ -93,7 +93,7 @@ final class RecentArticles extends WP_Widget {
                         ?>
 
                         <li class="reference-recent-article">
-                            <a href="<?php echo esc_url( get_post_permalink( $post_id ) ); ?>" class="recent-article-link">
+                            <a href="<?php echo esc_url( get_post_permalink( $post_id ) ); ?>" title="<?php echo esc_attr( $post_title ); ?>" class="recent-article-link">
                                 <span class="recent-article-title">
                                     <?php echo esc_html( $post_title ); ?>
                                 </span>
